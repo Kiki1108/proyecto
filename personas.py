@@ -2,4 +2,9 @@
 
 class Persona():
     def __init__(self) -> None:
-        self.__id = 
+        self.__comunidad = None
+        self.__id = None
+        self.__nombre = None
+        self.__
+
+        
