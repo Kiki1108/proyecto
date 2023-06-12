@@ -5,20 +5,19 @@ from personas import Persona
 
 
 def main():
-    # Set parametros:
-    dias_simulacion = 45 # int
-    poblacion = 100000 # int, cantidad de personas simuladas
-    prom_contac_estrechos = 8 # int
-    inf = 10 # int, porcentaje de infectividad de gente que no es contacto estrecho
-    inf_estrecho = 90 # int, porcentaje de infectividad a contactos estrechos
-    dias_promedio = 10 #int, dias promedio en que se vuelve inmune o muere 
-    mortalidad = 10 #int, porcentaje de mortalidad
+    # Realizar la enfermedad
+    infeccion_probable = 5        # int, procentaje de infección para no contacto estrecho
+    infeccion_estrecho = 90       # int, porcentaje de infección para contactos estrechos
+    promedio_pasos = 10           # int, número de pasos para ser declarado vivo o muerta
+    mortalidad = 10               # int, procentaje de mortalidad para el enfermo
 
-    #generacion de clases
-    enfermedad = Enfermedad(inf=inf, inf_estrecho=inf_estrecho)
-    comunidad = Comunidad(poblacion=poblacion, prom_contac_estrechos=prom_contac_estrechos)
-    personas = Persona()
-    simulacion = Simulacion(dias= dias_simulacion)
+    enfermedad = Enfermedad(infeccion_probable, infeccion_estrecho,
+                            promedio_pasos, mortalidad)
+    
+    # Realizar la comunidad
+
+    comunidad = Comunidad(enfermedad=enfermedad)
+
 
 
 if __name__ == "__main__":
