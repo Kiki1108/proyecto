@@ -8,6 +8,14 @@ class Persona():
         self.__estado = "S"             # str ("S":suceptible, "E":enfermo, "I":Inmune, "M":Muerto)
 
 
+    def get_id(self):
+        return self.__id
+    
+
+    def get_nombre(self):
+        return self.__nombre
+    
+
     def get_estado(self):
         return self.__estado
     
@@ -15,7 +23,3 @@ class Persona():
     def set_estado(self, estado):
         if estado in ["S", "E", "I", "M"]:
             self.__estado = estado
-        else:
-            print("ESTADO INVÁLIDO")
-            quit()
-        

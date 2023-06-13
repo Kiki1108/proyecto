@@ -51,17 +51,58 @@ class Comunidad():
         self.__ciudadanos = ciudadanos
     
 
-    def set_infetados(self, infectados, is_nuevos):
-        if is_nuevos:
-            self.__infectados = self.__infectados + infectados
-        else:
-            self.__infectados = infectados
+    def set_muertos(self, muertos):
+        self.__muertos = muertos
+
+
+    def set_enfermos(self, enfermos):
+        self.__enfermos = enfermos
+
+
+    def set_infectados(self, infectados):
+        self.__infectados = infectados
+
+
+    def contagiar_contacto_estrecho(self, persona):
+        for ciudadano in self.__ciudadanos:
+            for palabra in ciudadano.get_nombre():
+                if palabra in persona.get_nombre():
+                    if ciudadano.get_estado() == "S":
+                        return ciudadano.get_id()
+                    elif ciudadano.get_estado() in ["E", "I"]:
+                        return None
+                    
+    
+    def contagiar_random(self):
+        while True:
+            id = random.randint(0, self.__num_ciudadanos)
+            for ciudadano in self.__ciudadanos:
+                if ciudadano.get_id() == id:
+                    if ciudadano.get_estado() == "S":
+                        return id
+                    elif ciudadano.get_estado() in ["E", "I"]:
+                        return None
+
+
+    def is_contacto_estrecho(self):
+        random_number = random.randint(0, 100)
+        if random_number <= self.__prob_conexion_fisica:
+            return True
+        return False
+
+
+    def cantidad_conexiones(self):
+        while True:
+            conexiones = random.gauss(self.__prom_conexion_fisica, self.__prom_conexion_fisica/2)
+            if conexiones >= 0:
+                break
+        return int(conexiones)
 
 
     def hacer_poblacion(self):
         lista = []
 
-        for i in range(self.__num_ciudadanos + 1):
+        for i in range(self.__num_ciudadanos):
             id = i
             nombre = dic["nombres"][random.randint(0, len(dic["nombres"])-1)]
             apellido1 = dic["apellidos"][random.randint(0, len(dic["apellidos"])-1)]
@@ -75,10 +116,3 @@ class Comunidad():
         return lista
 
 
-# usado para probar los parámetros y si funciona la creación de las personas
-"""
-e = Enfermedad(10, 90, 10, 10)
-c = Comunidad(100000, e)
-a = c.get_ciudadanos()
-#print(a)
-"""

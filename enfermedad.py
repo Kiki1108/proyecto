@@ -1,4 +1,4 @@
-
+import random
 
 class Enfermedad():
     def __init__(self, infeccion_probable, infeccion_estrecho, promedio_pasos, mortalidad):
@@ -22,3 +22,34 @@ class Enfermedad():
 
     def get_mortalidad(self):
         return self.__mortalidad
+    
+
+    def siguie_enfermo(self):
+        while True:
+            a = random.gauss(self.__promedio_pasos, self.__promedio_pasos/2)
+            if a >= 0:
+                if int(a) == 0:
+                    return False
+                else:
+                    return True
+    
+
+    def is_muerto(self):
+        a = random.randint(0, 100)
+        if a <= self.__mortalidad:
+            return True
+        return False
+
+
+    def is_contacto_estrecho_contagiado(self):
+        a = random.randint(0, 100)
+        if a <= self.__infeccion_estrecho:
+            return True
+        return False
+
+
+    def is_contagiado(self):
+        a = random.randint(0, 100)
+        if a <= self.__infeccion_probable:
+            return True
+        return False

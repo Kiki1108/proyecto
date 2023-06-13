@@ -1,4 +1,17 @@
 
+# preuba meteodos de listas
+"""
+lista1 = ["Hola", "Mundo", "UWU"]
+lista2 = ["Chao", "Gente", "Mundo"]
+
+for elemento in lista1:
+    if elemento in lista2:
+        print("Si")
+        break
+    else:
+        print("NO")
+"""
+
 
 #prueba con el random para conseguir la distribución normal
 """
