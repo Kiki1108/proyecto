@@ -4,7 +4,7 @@ from comunidad import Comunidad
 from personas import Persona
 
 
-def main():
+class main():
     # Realizar la enfermedad
     infeccion_probable = 5      # int, procentaje de infeccion para no contacto estrecho
     infeccion_estrecho = 90     # int, porcentaje de infeccion para contactos estrechos
@@ -21,4 +21,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main = main()
