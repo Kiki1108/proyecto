@@ -30,7 +30,7 @@ class Comunidad():
         # [class Persona], las personas de la comunidad
         self.__ciudadanos = []
         # [class Persona], las personas de la comunidad agrupadas en familias
-        self.__familias = []
+        self.__familias = {}
         # int, indica el número de muertos totales
         self.__muertos = 0
 
