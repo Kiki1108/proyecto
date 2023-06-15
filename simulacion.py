@@ -36,7 +36,8 @@ class Simulacion():
     def siguen_enfermos(self):
         for ciudadano in self.__comunidad.get_ciudadanos():
             if ciudadano.get_estado() == "E":
-                if not self.__enfermedad.siguie_enfermo():
+                ciudadano.restar_contador()
+                if ciudadano.get_contador() == 0:
                     if self.__enfermedad.is_muerto():
                         ciudadano.set_estado("M")
                     else:
@@ -59,6 +60,8 @@ class Simulacion():
             for ciudadano in self.__comunidad.get_ciudadanos():
                 if ciudadano.get_id()[3:8] == _id:
                     ciudadano.set_estado("E")
+                    ciudadano.set_contador(self.__enfermedad.establecer_contador())
+                    break
 
 
     def leer_datos(self):
@@ -113,6 +116,7 @@ class Simulacion():
                 id = random.randint(0, cantidad_poblacion)
                 if ciudadanos[id].get_estado() == "S":
                     ciudadanos[id].set_estado("E")
+                    ciudadanos[id].set_contador(self.__enfermedad.establecer_contador())
                     break
                 else:
                     id = None
