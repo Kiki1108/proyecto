@@ -149,12 +149,11 @@ class Comunidad():
 
 
     def hacer_familias(self):
-        familias = []
-        agregar = False
+        agregar = True
         for persona in self.__ciudadanos:
             aux = []
-            for i in range(0, len(familias) - 1):
-                if persona in familias[i]:
+            for i in self.__familias:
+                if persona in self.__familias[i]:
                     agregar = False
                     break
                 else:
@@ -162,9 +161,10 @@ class Comunidad():
 
             if agregar:
                 for compara in self.__ciudadanos:
-                    apellidos = persona.get_nombre()[1:2]
-                    comparacion = compara.get_nombre()[1:2]
+                    apellidos = persona.get_nombre()[1:3]
+                    comparacion = compara.get_nombre()[1:3]
                     for i in range(0,1):
-                        if apellidos[i] in comparacion:
+                        if comparacion[i] in apellidos:
                             aux.append(compara)
-            familias.append(aux)
+
+                self.__familias[persona.get_id()[0:3]] = aux
