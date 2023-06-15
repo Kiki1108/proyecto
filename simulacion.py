@@ -1,25 +1,28 @@
 import random
-
 from enfermedad import Enfermedad
 from comunidad import Comunidad
 from personas import Persona
 
 class Simulacion():
     def __init__(self, dias, comunidad, enfermedad):
-        self.__dias = dias                  # int, días a durar la simulacion
-        self.__comunidad = comunidad        # class comunidad
-        self.__enfermedad = enfermedad      # class enfermedad
-        self.__contador = 0                 # int, número de pasos (dias)
+        # int, días a durar la simulacion
+        self.__dias = dias
+        # class comunidad
+        self.__comunidad = comunidad
+        # class enfermedad
+        self.__enfermedad = enfermedad
+        # int, número de pasos (dias)
+        self.__contador = 0
 
 
     def simular(self):
         self.generar_caso_0()
         self.imprimir_inicial()
 
+        #será mejor un for?
         while self.__dias != self.__contador:
             if self.__contador != 0:
                 self.pasar_el_dia()
-
             self.__contador = self.__contador + 1
             self.imprimir_datos()
 
@@ -28,17 +31,17 @@ class Simulacion():
         self.siguen_enfermos()
         self.contagiar()
         self.leer_datos()
-        
-                   
+
+
     def siguen_enfermos(self):
         for ciudadano in self.__comunidad.get_ciudadanos():
             if ciudadano.get_estado() == "E":
-                if not self.__enfermedad.siguie_enfermo():
+                ciudadano.restar_contador()
+                if ciudadano.get_contador() == 0:
                     if self.__enfermedad.is_muerto():
                         ciudadano.set_estado("M")
                     else:
                         ciudadano.set_estado("I")
-                    
 
 
     def contagiar(self):
@@ -53,10 +56,12 @@ class Simulacion():
                     else:
                         if self.__enfermedad.is_contagiado():
                             lista_nuevos_enfermos.append(self.__comunidad.contagiar_random())
-        for id in lista_nuevos_enfermos:
+        for _id in lista_nuevos_enfermos:
             for ciudadano in self.__comunidad.get_ciudadanos():
-                if ciudadano.get_id() == id:
+                if ciudadano.get_id()[3:8] == _id:
                     ciudadano.set_estado("E")
+                    ciudadano.set_contador(self.__enfermedad.establecer_contador())
+                    break
 
 
     def leer_datos(self):
@@ -105,12 +110,13 @@ class Simulacion():
         cantidad_casos_0 = self.__comunidad.get_infectados()
         cantidad_poblacion = self.__comunidad.get_num_ciudadanos()
         ciudadanos = self.__comunidad.get_ciudadanos()
-        
-        for i in range(cantidad_casos_0):
+
+        for _ in range(cantidad_casos_0):
             while True:
                 id = random.randint(0, cantidad_poblacion)
                 if ciudadanos[id].get_estado() == "S":
                     ciudadanos[id].set_estado("E")
+                    ciudadanos[id].set_contador(self.__enfermedad.establecer_contador())
                     break
                 else:
                     id = None
