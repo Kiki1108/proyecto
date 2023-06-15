@@ -1,14 +1,17 @@
 import random
 
+# Esta clase representa la enfermedad que estara en la simulacion
 class Enfermedad():
     def __init__(self, infeccion_probable, infeccion_estrecho, promedio_pasos, mortalidad):
-        # int, procentaje de infección para no contacto estrecho
+        """
+        infeccion_probable -> int, procentaje de infección para contactos no estrecho
+        infeccion_estrecho -> int, porcentaje de infección para contactos estrechos
+        promedio_pasos -> int, número de pasos para ser declarado sano o muerto
+        mortalidad -> int, procentaje de mortalidad para el enfermo
+        """
         self.__infeccion_probable = infeccion_probable
-        # int, porcentaje de infección para contactos estrechos
         self.__infeccion_estrecho = infeccion_estrecho
-        # int, número de pasos para ser declarado sano o muerto
         self.__promedio_pasos = promedio_pasos
-        # int, procentaje de mortalidad para el enfermo
         self.__mortalidad = mortalidad
 
 

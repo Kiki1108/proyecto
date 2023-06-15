@@ -9,25 +9,30 @@ with open("nombres_apellidos.json") as archivo:
 
 
 class Comunidad():
+    """
+    Esta clase representa la comunidad
+    """
     def __init__(self, num_ciudadanos, enfermedad, infectados, prom, prob):
-        # int, cantidad todal de la población de la comunidad
+        """
+        Se le entregan las siguientes variables para que funcione:
+            num_ciudadanos -> int, cantidad todal de la población de la comunidad
+            enfermedad -> class Enfermedad, enfermedad en la población
+            infectados -> int, indica el número de infectados actuales o totales
+            prom -> int, indica el media de conecciones físicas que tiene una persona
+            prob -> int, indica la prob que el contacto físico sea un contacto estrecho
+        """
         self.__num_ciudadanos = num_ciudadanos
-        # class Enfermedad
         self.__enfermedad = enfermedad
+        self.__infectados = infectados
+        self.__enfermos = infectados
+        self.__prom_conexion_fisica = prom
+        self.__prob_conexion_fisica = prob
         # [class Persona], las personas de la comunidad
         self.__ciudadanos = []
         # [class Persona], las personas de la comunidad agrupadas en familias
         self.__familias = []
-        # int, número de infectados totales
-        self.__infectados = infectados
-        # int, indica el número de infectados actuales
-        self.__enfermos = infectados
         # int, indica el número de muertos totales
         self.__muertos = 0
-        # int, indica el prom de conecciones físicas que tiene una persona
-        self.__prom_conexion_fisica = prom
-        # int, indica la prob que el contacto físico sea un contacto estrecho
-        self.__prob_conexion_fisica = prob
 
         self.hacer_poblacion()
         self.hacer_familias()
@@ -163,6 +168,3 @@ class Comunidad():
                         if apellidos[i] in comparacion:
                             aux.append(compara)
             familias.append(aux)
-
-
-
