@@ -31,14 +31,11 @@ class Enfermedad():
         return self.__mortalidad
 
 
-    def siguie_enfermo(self):
+    def establecer_contador(self):
         while True:
-            a = random.gauss(self.__promedio_pasos, self.__promedio_pasos/2)
-            if a >= 0:
-                if int(a) <= 1:
-                    return False
-                else:
-                    return True
+            a = int(random.gauss(self.__promedio_pasos, self.__promedio_pasos/2))
+            if a > 0:
+                return a
 
 
     def is_muerto(self):
