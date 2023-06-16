@@ -39,7 +39,7 @@ class Enfermedad():
 
 
     def is_muerto(self):
-        a = random.randint(0, 100)
+        a = random.randint(1, 100)
         if a <= self.__mortalidad:
             return True
         return False

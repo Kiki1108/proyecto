@@ -1,7 +1,9 @@
 import random
-from enfermedad import Enfermedad
-from comunidad import Comunidad
-from personas import Persona
+import matplotlib.pyplot as plt
+import numpy as np
+import statsmodels.api as sm
+
+from time import sleep
 
 class Simulacion():
     def __init__(self, dias, comunidad, enfermedad):
@@ -13,18 +15,44 @@ class Simulacion():
         self.__enfermedad = enfermedad
         # int, número de pasos (dias)
         self.__contador = 0
+        #
+        self.escritura = ""
 
+        # uwu
+        self.__infectados_array = [self.__comunidad.get_infectados()]
+        self.__enfermos_array = [self.__comunidad.get_infectados()]
+        self.__muertos_array = [0]
+        self.__suceptibles_array = [self.__comunidad.get_num_ciudadanos()]
+
+
+    def get_dias(self):
+        return self.__dias
+    
+
+    def get_contador(self):
+        return self.__contador
+    
+
+    def avanzar_contador(self):
+        self.__contador = self.__contador + 1
+    
 
     def simular(self):
         self.generar_caso_0()
         self.imprimir_inicial()
+        sleep(1)
 
-        #será mejor un for?
+        # será mejor un for?
         while self.__dias != self.__contador:
             if self.__contador != 0:
                 self.pasar_el_dia()
             self.__contador = self.__contador + 1
             self.imprimir_datos()
+            #if not self.__contador % 10 and self.__contador != self.__dias:
+            #    self.mostrar_grafico()
+        self.mostrar_grafico()
+        self.mostrar_dis()
+        
 
 
     def pasar_el_dia(self):
@@ -32,6 +60,30 @@ class Simulacion():
         self.contagiar()
         self.leer_datos()
 
+
+    def mostrar_dis(self):
+        data_points = np.array(self.__enfermos_array)
+        sm.qqplot(data_points, line='s')
+        plt.show()
+
+
+    def mostrar_grafico(self):
+        x = []
+        for i in range(self.__contador):
+            x.append(i+1)
+        plt.plot(x,self.__enfermos_array)
+        plt.plot(x,self.__infectados_array)
+        plt.plot(x,self.__muertos_array)
+        plt.plot(x,self.__suceptibles_array)
+        plt.grid()              # rejilla
+        plt.xlabel('Días')
+        plt.ylabel('Población')
+        if self.__dias == self.__contador:
+            plt.title(f"Gráfico Modelo SIR Final de la sumlación ({self.__dias} días)")
+        else:
+            plt.title(f"Gráfico Modelo SIR día {self.__contador}")
+        plt.show()
+        
 
     def siguen_enfermos(self):
         for ciudadano in self.__comunidad.get_ciudadanos():
@@ -53,9 +105,11 @@ class Simulacion():
                     if self.__comunidad.is_contacto_estrecho():
                         if self.__enfermedad.is_contacto_estrecho_contagiado():
                             lista_nuevos_enfermos.append(self.__comunidad.contagiar_contacto_estrecho(ciudadano))
+                            pass
                     else:
                         if self.__enfermedad.is_contagiado():
                             lista_nuevos_enfermos.append(self.__comunidad.contagiar_random())
+                            pass
         for _id in lista_nuevos_enfermos:
             for ciudadano in self.__comunidad.get_ciudadanos():
                 if ciudadano.get_id()[3:8] == _id:
@@ -76,25 +130,31 @@ class Simulacion():
                 case "I": inmunes += 1
                 case "S": suceptibles += 1
         self.__comunidad.set_muertos(muertos)
+        self.__muertos_array.append(muertos)
         self.__comunidad.set_enfermos(enfermos)
+        self.__enfermos_array.append(enfermos)
         self.__comunidad.set_infectados(muertos+enfermos+inmunes)
+        self.__infectados_array.append(muertos+enfermos+inmunes)
+        self.__suceptibles_array.append(suceptibles)
 
         # leer los datos de la poblacion (o actualizarlos)
         # contagiados nuevos, enfermos actuales, muertos
-        pass
 
 
     def imprimir_inicial(self):
-        print("#"*50)
-        print(f"Dias que dura la simulacion: {self.__dias}")
-        print(f"Cantida de población: {self.__comunidad.get_num_ciudadanos()}")
-        print(f"Infectividad por contacto: {self.__enfermedad.get_infectividad()}%")
-        print(f"Infectividad por contacto estrecho: {self.__enfermedad.get_infectividad_estrecho()}%")
-        print(f"Promedio de conexiones por persona por día: {self.__comunidad.get_conexion_fisica()}")
-        print(f"Probabilidad que la conexion sea contacto estrecho: {self.__comunidad.get_prob_contacto_estrecho()}%")
-        print(f"Promedio de días para pasar la enfermedad: {self.__enfermedad.get_prom_pasos()}")
-        print(f"Mortalidad: {self.__enfermedad.get_mortalidad()}%")
-        print("#"*50,"\n")
+        a = f"""
+######################################################
+Dias que dura la simulacion: {self.__dias}
+Cantida de población: {self.__comunidad.get_num_ciudadanos()}
+Infectividad por contacto: {self.__enfermedad.get_infectividad()}%
+Infectividad por contacto estrecho: {self.__enfermedad.get_infectividad_estrecho()}%
+Promedio de conexiones por persona por día: {self.__comunidad.get_conexion_fisica()}
+Probabilidad que la conexion sea contacto estrecho: {self.__comunidad.get_prob_contacto_estrecho()}%
+Promedio de días para pasar la enfermedad: {self.__enfermedad.get_prom_pasos()}
+Mortalidad: {self.__enfermedad.get_mortalidad()}%
+######################################################
+        """
+        print(a)
 
 
     def imprimir_datos(self):

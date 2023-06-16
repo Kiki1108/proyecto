@@ -1,6 +1,6 @@
 import json
 import random
-from enfermedad import Enfermedad
+
 from personas import Persona
 
 
@@ -22,7 +22,6 @@ class Comunidad():
             prob -> int, indica la prob que el contacto físico sea un contacto estrecho
         """
         self.__num_ciudadanos = num_ciudadanos
-        self.__enfermedad = enfermedad
         self.__infectados = infectados
         self.__enfermos = infectados
         self.__prom_conexion_fisica = prom
@@ -34,7 +33,7 @@ class Comunidad():
         # int, indica el número de muertos totales
         self.__muertos = 0
 
-        self.hacer_poblacion()
+        self.hacer_poblacion(enfermedad)
         self.hacer_familias()
 
 
@@ -131,7 +130,7 @@ class Comunidad():
         return _id
 
 
-    def hacer_poblacion(self):
+    def hacer_poblacion(self, enfermedad):
         lista = []
 
         for i in range(self.__num_ciudadanos):
@@ -139,7 +138,6 @@ class Comunidad():
             indice_apellido = random.randint(0, len(dic["apellidos"]) - 1)
             apellido1 = dic["apellidos"][indice_apellido]
             apellido2 = dic["apellidos"][random.randint(0, len(dic["apellidos"])-1)]
-            enfermedad = self.__enfermedad
             estado = "S"    # valor incial en suceptible
             _id = self.generar_id(i, indice_apellido)
             persona = Persona(_id, [nombre, apellido1, apellido2], enfermedad, estado)

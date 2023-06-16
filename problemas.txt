@@ -1,3 +1,12 @@
 1. Implementar una API
+    1.1. Puede ser GTK para el Filechooser y así hacer el apartado 2.
+    1.2. Se puede usar GTK para administrar la visualización de todo
 2. Detectar de forma automática el archivo json
 3. Decidir si en simulacion.py usar la funcion siguie_enfermo o directamente en la funcion contagiar
+
+
+
+
+###
+saber la distribucion de la gráfica.
+qqplot qqnorm qnorm

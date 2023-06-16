@@ -1,3 +1,34 @@
+import numpy as np
+import statsmodels.api as sm
+import pylab as py
+  
+# np.random generates different random numbers
+# whenever the code is executed
+# Note: When you execute the same code 
+# the graph look different than shown below.
+  
+# Random data points generated
+data_points = np.random.normal(0, 1, 100)
+  
+sm.qqplot(data_points, line ='45')
+py.show()
+# Prueba de gráficos
+"""
+import matplotlib.pyplot as plt
+import numpy as np
+
+x = [1,2,3,4,5,6,7,8,9,10]
+y1 = [10,2,5,6,7,2,99,10,1,0]
+
+plt.plot(x,y1)
+plt.grid()              # rejilla
+plt.xlabel('Días')
+plt.ylabel('Población')
+plt.title('Uwu')
+print(type(plt))
+plt.show()
+"""
+
 
 # preuba meteodos de listas
 """
