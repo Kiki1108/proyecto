@@ -10,7 +10,7 @@ class Simulacion():
     def __init__(self, dias, comunidad, enfermedad):
         """
         Inicializa los valores de la clase Simulacion
-        
+
         Atributos:
             dias [int]: Número de días que dura la simulación
             comunidad [Comunidad]: Comunidad en la simulación
@@ -32,15 +32,15 @@ class Simulacion():
 
     def get_dias(self):
         return self.__dias
-    
+
 
     def get_contador(self):
         return self.__contador
-    
+
 
     def avanzar_contador(self):
         self.__contador = self.__contador + 1
-    
+
 
     def simular(self):
         """
@@ -61,7 +61,7 @@ class Simulacion():
             #    self.mostrar_grafico()
         self.mostrar_grafico()
         self.mostrar_dis()
-        
+
 
 
     def pasar_el_dia(self):
@@ -95,7 +95,7 @@ class Simulacion():
         else:
             plt.title(f"Gráfico Modelo SIR día {self.__contador}")
         plt.show()
-        
+
 
     def siguen_enfermos(self):
         """
@@ -116,25 +116,16 @@ class Simulacion():
         """
         Método de contagio en la comunidad
         """
-        lista_nuevos_enfermos = []
         for ciudadano in self.__comunidad.get_ciudadanos():
-            # Demuestra el contagio generado en la comunidad
             if ciudadano.get_estado() == "E":
                 conexiones = self.__comunidad.cantidad_conexiones()
-                for _ in range(conexiones):    # _ Representa cada conexion que tiene la persona
+                for conexion in range(conexiones):
                     if self.__comunidad.is_contacto_estrecho():
                         if self.__enfermedad.is_contacto_estrecho_contagiado():
-                            lista_nuevos_enfermos.append(self.__comunidad.contagiar_contacto_estrecho(ciudadano))
+                            self.__comunidad.contagiar_contacto_estrecho(ciudadano)
                     else:
                         if self.__enfermedad.is_contagiado():
-                            lista_nuevos_enfermos.append(self.__comunidad.contagiar_random())
-        for _id in lista_nuevos_enfermos:
-            for ciudadano in self.__comunidad.get_ciudadanos():
-                # Consigue todos los nuevos enfermos y cambia su estado
-                if ciudadano.get_id()[3:8] == _id:
-                    ciudadano.set_estado("E")
-                    ciudadano.set_contador(self.__enfermedad.establecer_contador())
-                    break
+                            self.__comunidad.contagiar_random()
 
 
     def leer_datos(self):
