@@ -12,7 +12,7 @@ class Comunidad():
     def __init__(self, num_ciudadanos, enfermedad, infectados, prom, prob):
         """
         Inicializa los valores de la clase Comunidad
-        
+
         Atributos:
             num_ciudadanos [int]: Número de ciudadanos
             enfermedad [Enfermedad]: Enfermedad que esta en la comunidad
@@ -83,47 +83,48 @@ class Comunidad():
     def contagiar_contacto_estrecho(self, persona):
         """
         Contagiar un ciudadano posiblemente cercano. Cuando el estado de "S" devuelve el _id
-        
+
         Argumentos:
             persona: Persona que esta enferma
-        
+
         Retorna:
             Un _id
         """
-        for ciudadano in self.__ciudadanos:
-            # Si el ciudadano infectado tiene algun parentesco con alguien lo infecta
-            for palabra in ciudadano.get_nombre():
-                # supongo que si tienen el mismo nombre (cesar == cesar) lo contiagia igual -LONDRO
-                if palabra in persona.get_nombre():
-                    if ciudadano.get_estado() == "S":
-                        return ciudadano.get_id()[3:8]
-                    elif ciudadano.get_estado() in ["E", "I"]:
-                        return None
+        for familia in self.__familias:
+            if persona.get_id()[0:3] == familia:
+                familia_actual = self.__familias[familia]
+                index = random.randint(0, len(familia_actual) - 1)
+                if familia_actual[index] != persona and familia_actual[index].get_estado() == "S":
+                    familia_actual[index].set_estado("E")
+                    familia_actual[index].set_contador(self.__enfermedad.establecer_contador())
+                    return None
+                elif familia_actual[index] != persona and familia_actual[index].get_estado() in ["E", "I"]:
+                    return None
 
 
     def contagiar_random(self):
         """
         Contagiar un ciudadano aleatorio. Cuando el estado de "S" devuelve el _id
-        
+
         Retorna:
             Un _id
         """
         while True:
-            _id = random.randint(0, self.__num_ciudadanos)
-            for ciudadano in self.__ciudadanos:
-                # Infecta aleatoriamente
-                if int(ciudadano.get_id()[3:8]) == _id:
-                    if ciudadano.get_estado() == "S":
-                        return ciudadano.get_id()[3:8]
-                    elif ciudadano.get_estado() in ["E", "I"]:
-                        return None
+            _id = random.randint(0, self.__num_ciudadanos - 1)
+            ciudadano = self.__ciudadanos[_id]
+            if ciudadano.get_estado() == "S":
+                ciudadano.set_estado("E")
+                ciudadano.set_contador(self.__enfermedad.establecer_contador())
+                return None
+            elif ciudadano.get_estado() in ["E", "I"]:
+                return None
 
 
     def is_contacto_estrecho(self):
         """
         Determina si ehay probabilidad de conexion fisica en un contacto estrecho
-        
-        Retorna: 
+
+        Retorna:
             True si el usuario estrecho, False si no lo es
         """
         random_number = random.randint(1, 100)
@@ -135,8 +136,8 @@ class Comunidad():
     def cantidad_conexiones(self):
         """
         Genera la cantidad de conexines que puede tener una persona
-        
-        Retorna: 
+
+        Retorna:
             La cantidad de conexiones
         """
         while True:
@@ -149,12 +150,12 @@ class Comunidad():
     def generar_id(self, i, apellido):
         """
         Genera el identificador de la persona segun su apellido y numero de generacion
-        
+
         Argumentos:
             i: El número de generación
             apellido: El algoritmo de la que se desea generar el identificador
-        
-        Retorna: 
+
+        Retorna:
             Un _id para una persona
         """
         _id = str(i)
