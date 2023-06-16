@@ -59,11 +59,11 @@ class MainWindow(Gtk.ApplicationWindow):
         # int, cantidad de población incial
         num_ciudadanos = 2000
         # int, cantidad de infectados inciales
-        infectados = 1
+        infectados = 10
         # int, indica la media de conecciones físicas que tiene una persona
         prom_conexion_fisica = 10
         # int, indica la probabiliadad que el contacto físico sea un contacto estrecho
-        prob_conexión_fisica = 10
+        prob_conexión_fisica = 100
         #Se le entregan los valores a la clase
         comunidad = Comunidad(num_ciudadanos, enfermedad, infectados,
                             prom_conexion_fisica, prob_conexión_fisica)

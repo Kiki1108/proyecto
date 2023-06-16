@@ -124,10 +124,13 @@ class Simulacion():
                 for _ in range(conexiones):    # _ Representa cada conexion que tiene la persona
                     if self.__comunidad.is_contacto_estrecho():
                         if self.__enfermedad.is_contacto_estrecho_contagiado():
+                            #lista_nuevos_enfermos.append(self.__comunidad.contagiar_random())
                             lista_nuevos_enfermos.append(self.__comunidad.contagiar_contacto_estrecho(ciudadano))
                     else:
                         if self.__enfermedad.is_contagiado():
-                            lista_nuevos_enfermos.append(self.__comunidad.contagiar_random())
+                            #lista_nuevos_enfermos.append(self.__comunidad.contagiar_random())
+                            lista_nuevos_enfermos.append(self.__comunidad.contagiar_contacto_estrecho(ciudadano))
+
         for _id in lista_nuevos_enfermos:
             for ciudadano in self.__comunidad.get_ciudadanos():
                 # Consigue todos los nuevos enfermos y cambia su estado
