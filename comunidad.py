@@ -26,6 +26,7 @@ class Comunidad():
         self.__num_ciudadanos = num_ciudadanos
         self.__infectados = infectados    # Cantidad de infectados (Personas con estados: E, I, M)
         self.__enfermos = infectados    # Cantidad de enfermos (Personas con estado: E)
+        self.__enfermedad = enfermedad
         self.__prom_conexion_fisica = prom
         self.__prob_conexion_fisica = prob
         self.__ciudadanos = []
@@ -115,10 +116,9 @@ class Comunidad():
             if ciudadano.get_estado() == "S":
                 ciudadano.set_estado("E")
                 ciudadano.set_contador(self.__enfermedad.establecer_contador())
-                return None
+                break
             elif ciudadano.get_estado() in ["E", "I"]:
-                return None
-
+                break
 
     def is_contacto_estrecho(self):
         """

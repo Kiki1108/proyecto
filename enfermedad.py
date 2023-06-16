@@ -73,7 +73,7 @@ class Enfermedad():
         Retorna:
             True si puede ser contagiado, False si no
         """
-        a = random.randint(0, 100)
+        a = random.randint(1, 101)
         if a <= self.__infeccion_probable:
             return True
         return False
