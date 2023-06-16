@@ -126,7 +126,7 @@ class Comunidad():
         Retorna: 
             True si el usuario estrecho, False si no lo es
         """
-        random_number = random.randint(0, 100)
+        random_number = random.randint(1, 100)
         if random_number <= self.__prob_conexion_fisica:
             return True
         return False
@@ -170,7 +170,7 @@ class Comunidad():
         return _id
 
 
-    def hacer_poblacion(self, enfermedad):
+    def hacer_poblacion(self):
         """
         Método que hace una población de la comunidad
         """

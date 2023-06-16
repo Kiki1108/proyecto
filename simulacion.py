@@ -22,7 +22,6 @@ class Simulacion():
         self.__enfermedad = enfermedad
         self.__contador = 0
         #
-        self.escritura = ""
 
         # uwu
         self.__infectados_array = [self.__comunidad.get_infectados()]
@@ -175,22 +174,7 @@ class Simulacion():
         print(f"Promedio de días para pasar la enfermedad: {self.__enfermedad.get_prom_pasos()}")
         print(f"Mortalidad: {self.__enfermedad.get_mortalidad()}%")
         print("#"*50,"\n")
-        
-        """
-                    a = f
-        ######################################################
-        Dias que dura la simulacion: {self.__dias}
-        Cantida de población: {self.__comunidad.get_num_ciudadanos()}
-        Infectividad por contacto: {self.__enfermedad.get_infectividad()}%
-        Infectividad por contacto estrecho: {self.__enfermedad.get_infectividad_estrecho()}%
-        Promedio de conexiones por persona por día: {self.__comunidad.get_conexion_fisica()}
-        Probabilidad que la conexion sea contacto estrecho: {self.__comunidad.get_prob_contacto_estrecho()}%
-        Promedio de días para pasar la enfermedad: {self.__enfermedad.get_prom_pasos()}
-        Mortalidad: {self.__enfermedad.get_mortalidad()}%
-        ######################################################
-                
-                print(a)
-        """
+
 
     def imprimir_datos(self):
         """

@@ -45,7 +45,7 @@ class MainWindow(Gtk.ApplicationWindow):
         # Valores para la clase Enfermedad
         infeccion_probable = 5
         # int, porcentaje de infeccion para contactos estrechos
-        infeccion_estrecho = 80
+        infeccion_estrecho = 70
         # int, numero medio de pasos (días) para ser declarado sano o muerto
         promedio_pasos = 10
         # int, porcentaje de mortalidad para el enfermo
