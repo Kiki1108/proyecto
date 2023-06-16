@@ -49,7 +49,7 @@ class MainWindow(Gtk.ApplicationWindow):
         # int, numero medio de pasos (días) para ser declarado sano o muerto
         promedio_pasos = 10
         # int, porcentaje de mortalidad para el enfermo
-        mortalidad = 2                                               
+        mortalidad = 2
         #Se le entregan los valores a la clase
         enfermedad = Enfermedad(infeccion_probable, infeccion_estrecho,
                                 promedio_pasos, mortalidad)
@@ -57,7 +57,7 @@ class MainWindow(Gtk.ApplicationWindow):
         Valores bases para la clase Comunidad
         """
         # int, cantidad de población incial
-        num_ciudadanos = 2000
+        num_ciudadanos = 20000
         # int, cantidad de infectados inciales
         infectados = 1
         # int, indica la media de conecciones físicas que tiene una persona
@@ -77,12 +77,12 @@ class MainWindow(Gtk.ApplicationWindow):
         #Se hace la simulacion
         simulacion.simular()
 
-    
+
     def clicked_menu_button(self, button):
         # Crear el about Dialog
         about_header = Gtk.AboutDialog.new()
         about_header.set_authors(['Cristian Pavez', 'Felipe Mendez', 'Alejandro Ide'])
-        about_header.set_program_name(self.get_title()) 
+        about_header.set_program_name(self.get_title())
         about_header.show()
 
 
@@ -97,7 +97,7 @@ class MyApp(Gtk.Application):
         else:
             self.win = MainWindow(application=self)
             self.win.present()
-        
+
 
 app = MyApp(application_id="com.uwu",flags= Gio.ApplicationFlags.FLAGS_NONE)
 app.run(sys.argv)
