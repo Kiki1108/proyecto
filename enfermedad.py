@@ -1,13 +1,15 @@
 import random
 
-# Esta clase representa la enfermedad que estara en la simulacion
 class Enfermedad():
     def __init__(self, infeccion_probable, infeccion_estrecho, promedio_pasos, mortalidad):
         """
-        infeccion_probable -> int, procentaje de infección para contactos no estrecho
-        infeccion_estrecho -> int, porcentaje de infección para contactos estrechos
-        promedio_pasos -> int, número de pasos para ser declarado sano o muerto
-        mortalidad -> int, procentaje de mortalidad para el enfermo
+        Inicializa los valores de la clase Enfermedad
+        
+        Atributos:
+            infeccion_probable [int]: La probabilidad de la infeccion a un persona
+            infeccion_estrecho [int]: La probabilidad de la infeccion a un contacto estrecho
+            promedio_pasos [int]: Los pasos (días) que debe desarollarse la enfermedad
+            mortalidad [int]: La mortalidad de la enfermedad
         """
         self.__infeccion_probable = infeccion_probable
         self.__infeccion_estrecho = infeccion_estrecho
@@ -32,6 +34,12 @@ class Enfermedad():
 
 
     def establecer_contador(self):
+        """
+        Genera la cantidad de pasos que deberia tener cada persona una vez enfermada
+        
+        Retorna:
+            Número de pasos que tendra la persona
+        """
         while True:
             a = int(random.gauss(self.__promedio_pasos, self.__promedio_pasos/2))
             if a > 0:
@@ -39,6 +47,12 @@ class Enfermedad():
 
 
     def is_muerto(self):
+        """
+        Define si la persona se murio, o no
+        
+        Retorna: 
+            True si se murio, False si no se murio
+        """
         a = random.randint(0, 100)
         if a <= self.__mortalidad:
             return True
@@ -46,6 +60,12 @@ class Enfermedad():
 
 
     def is_contacto_estrecho_contagiado(self):
+        """
+        Determina si es un contacto estrecho
+        
+        Retorna: 
+            True si es contacto estrecho, False si no lo es
+        """
         a = random.randint(0, 100)
         if a <= self.__infeccion_estrecho:
             return True
@@ -53,6 +73,12 @@ class Enfermedad():
 
 
     def is_contagiado(self):
+        """
+        Determina si el contagio es activo para infectar a otra persona
+
+        Retorna:
+            True si puede ser contagiado, False si no
+        """
         a = random.randint(0, 100)
         if a <= self.__infeccion_probable:
             return True

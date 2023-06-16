@@ -1,15 +1,22 @@
 class Persona():
+    # Al parecer no se usa la variable "estado" al momento de generar la clase -LONDRO
     def __init__(self, id, nombre, enfermedad, estado):
-        # int, identificador único de la persona
+        """
+        Inicializa los valores de la clase Persona
+        
+        Atributos:
+            id [int]: Identificador único de la persona
+            nombre [list]: Nombre asignado de una persona (un nombre y dos apellidos)
+            enfermedad [Enfermedad]: Enfermedad que tendra la persona
+            estado [str]: Indica el estado de salud de la persona ("S":suceptible, "E":enfermo, "I":Inmune, "M":Muerto)
+            contador [int]: Contador de días que dura la enfermedad en la persona
+        """
         self.__id = id
-        # [nombre, apellido, apellido]
         self.__nombre = nombre
-        # class enfermedad
-        self.__enfermedad = enfermedad
-        # str ("S":suceptible, "E":enfermo, "I":Inmune, "M":Muerto)
         self.__estado = "S"
-        # int??, contador de días que dura la enfermedad
         self.__contador = None
+        # CREO, que esto no se usa -LONDRO
+        self.__enfermedad = enfermedad
 
 
     def get_id(self):
@@ -23,7 +30,7 @@ class Persona():
     def get_estado(self):
         return self.__estado
 
-    
+
     def get_contador(self):
         return self.__contador
 
@@ -35,6 +42,9 @@ class Persona():
     def set_contador(self, contador):
         self.__contador = contador
 
-    
+
     def restar_contador(self):
+        """
+        Resta la cantidad de dias que deberia durar la enfermedad en la persona
+        """
         self.__contador = self.__contador -1
