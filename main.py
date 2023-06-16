@@ -10,15 +10,6 @@ from enfermedad import Enfermedad
 from comunidad import Comunidad
 
 
-"""
-LONDRO: HELLO EVERYNYAN, pondre algunas cosas aqui en cuenta:
-1.- VENTANA: Son 10 atributos a cambiar en el gtk, los 9 mencionados aqui
-y el nombre de la enfermedad en la wea grafica
-2.- boxplot python 3 lineas
-3.- Alfinal va el archivo con las weas de ventana o no?
-"""
-
-
 class MainWindow(Gtk.ApplicationWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -49,9 +40,9 @@ class MainWindow(Gtk.ApplicationWindow):
 
     def on_start_button_clicked(self, button):
         """
-        Valores bases para la clase Enfermedad
+        Valores bases para la clase Enfermedad, Comunidad y Simulacion
         """
-        # int, porcentaje de infeccion para contactos no estrechos
+        # Valores para la clase Enfermedad
         infeccion_probable = 5
         # int, porcentaje de infeccion para contactos estrechos
         infeccion_estrecho = 80
@@ -66,24 +57,25 @@ class MainWindow(Gtk.ApplicationWindow):
         Valores bases para la clase Comunidad
         """
         # int, cantidad de población incial
-        num_ciudadanos = 5000
+        num_ciudadanos = 2000
         # int, cantidad de infectados inciales
-        infectados = 10
+        infectados = 1
         # int, indica la media de conecciones físicas que tiene una persona
         prom_conexion_fisica = 10
         # int, indica la probabiliadad que el contacto físico sea un contacto estrecho
-        prob_conexión_fisica = 50
+        prob_conexión_fisica = 10
         #Se le entregan los valores a la clase
         comunidad = Comunidad(num_ciudadanos, enfermedad, infectados,
-                              prom_conexion_fisica, prob_conexión_fisica)
+                            prom_conexion_fisica, prob_conexión_fisica)
         """
         Se realiza la simulación
         """
         # int, dias que dura la simulacion
-        dias_simulacion = 90
+        dias_simulacion = 60
         #Se le entregan los valores a la clase, como los objetos ya hechos
-        self.simulacion = Simulacion(dias_simulacion, comunidad, enfermedad)
-        self.simulacion.simular()
+        simulacion = Simulacion(dias_simulacion, comunidad, enfermedad)
+        #Se hace la simulacion
+        simulacion.simular()
 
     
     def clicked_menu_button(self, button):
