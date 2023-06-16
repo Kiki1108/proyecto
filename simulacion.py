@@ -125,11 +125,9 @@ class Simulacion():
                     if self.__comunidad.is_contacto_estrecho():
                         if self.__enfermedad.is_contacto_estrecho_contagiado():
                             lista_nuevos_enfermos.append(self.__comunidad.contagiar_contacto_estrecho(ciudadano))
-                            pass
                     else:
                         if self.__enfermedad.is_contagiado():
                             lista_nuevos_enfermos.append(self.__comunidad.contagiar_random())
-                            pass
         for _id in lista_nuevos_enfermos:
             for ciudadano in self.__comunidad.get_ciudadanos():
                 # Consigue todos los nuevos enfermos y cambia su estado
