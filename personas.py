@@ -1,5 +1,4 @@
 class Persona():
-    # Al parecer no se usa la variable "estado" al momento de generar la clase -LONDRO
     def __init__(self, id, nombre):
         """
         Inicializa los valores de la clase Persona
@@ -15,7 +14,6 @@ class Persona():
         self.__nombre = nombre
         self.__estado = "S"
         self.__contador = None
-        # CREO, que esto no se usa -LONDRO
 
 
     def get_id(self):

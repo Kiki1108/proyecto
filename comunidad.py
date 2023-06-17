@@ -1,10 +1,10 @@
 import json
 import random
-
 from personas import Persona
 
+
 # Abre el archivo con los posibles nombres y apellidos de las personas
-with open("nombres_apellidos.json") as archivo:
+with open("/home/londro/Documentos/git/proyecto/nombres_apellidos.json") as archivo:
     dic = json.load(archivo)
 
 
@@ -12,7 +12,7 @@ class Comunidad():
     def __init__(self, num_ciudadanos, enfermedad, infectados, prom, prob):
         """
         Inicializa los valores de la clase Comunidad
-
+        
         Atributos:
             num_ciudadanos [int]: Número de ciudadanos
             enfermedad [Enfermedad]: Enfermedad que esta en la comunidad
@@ -84,10 +84,10 @@ class Comunidad():
     def contagiar_contacto_estrecho(self, persona):
         """
         Contagiar un ciudadano posiblemente cercano. Cuando el estado de "S" devuelve el _id
-
+        
         Argumentos:
             persona: Persona que esta enferma
-
+        
         Retorna:
             Un _id
         """
@@ -106,7 +106,7 @@ class Comunidad():
     def contagiar_random(self):
         """
         Contagiar un ciudadano aleatorio. Cuando el estado de "S" devuelve el _id
-
+        
         Retorna:
             Un _id
         """
@@ -123,7 +123,7 @@ class Comunidad():
     def is_contacto_estrecho(self):
         """
         Determina si ehay probabilidad de conexion fisica en un contacto estrecho
-
+        
         Retorna:
             True si el usuario estrecho, False si no lo es
         """
@@ -136,7 +136,7 @@ class Comunidad():
     def cantidad_conexiones(self):
         """
         Genera la cantidad de conexines que puede tener una persona
-
+        
         Retorna:
             La cantidad de conexiones
         """
@@ -150,11 +150,11 @@ class Comunidad():
     def generar_id(self, i, apellido):
         """
         Genera el identificador de la persona segun su apellido y numero de generacion
-
+        
         Argumentos:
             i: El número de generación
             apellido: El algoritmo de la que se desea generar el identificador
-
+        
         Retorna:
             Un _id para una persona
         """

@@ -1,28 +1,28 @@
 import random
-# En ningun momento son usados estos imports -LONDRO
 import matplotlib.pyplot as plt
 import numpy as np
 import statsmodels.api as sm
-
 from time import sleep
 
 class Simulacion():
     def __init__(self, dias, comunidad, enfermedad):
         """
         Inicializa los valores de la clase Simulacion
-
+        
         Atributos:
             dias [int]: Número de días que dura la simulación
             comunidad [Comunidad]: Comunidad en la simulación
             enfermedad [Enfermedad]: Número de fermetos a m
             contador [int]: Representa los dias que esta o estan pasando
+            infectados_array [list(int)]: Lista de cantidad deinfectados por dia
+            enfermos_array [list(int)]: Lista de cantidad de enfermos por dia
+            muertos_array [list(int)]: Lista de cantidad de muertos por dia
+            suceptibles_array [list(int)]: Lista de cantidad de suceptibles por dia
         """
         self.__dias = dias
         self.__comunidad = comunidad
         self.__enfermedad = enfermedad
         self.__contador = 0
-        #
-
         # uwu
         self.__infectados_array = [self.__comunidad.get_infectados()]
         self.__enfermos_array = [self.__comunidad.get_infectados()]
@@ -49,8 +49,6 @@ class Simulacion():
         self.generar_caso_0()
         self.imprimir_inicial()
         sleep(1)
-
-
         while self.__dias != self.__contador:
             # Cambia de día en la simulación
             if self.__contador != 0:
@@ -63,7 +61,6 @@ class Simulacion():
         self.mostrar_dis()
 
 
-
     def pasar_el_dia(self):
         """
         Cerra la ventana y sigue a los enfermos.
@@ -73,13 +70,10 @@ class Simulacion():
         self.leer_datos()
 
 
-    def mostrar_dis(self):
-        data_points = np.array(self.__enfermos_array)
-        sm.qqplot(data_points, line='s')
-        plt.show()
-
-
     def mostrar_grafico(self):
+        """
+        Muestra del gráfico de SIR
+        """
         x = []
         for i in range(self.__contador):
             x.append(i+1)
@@ -87,13 +81,23 @@ class Simulacion():
         plt.plot(x,self.__infectados_array)
         plt.plot(x,self.__muertos_array)
         plt.plot(x,self.__suceptibles_array)
-        plt.grid()              # rejilla
+        plt.grid()    # rejilla
         plt.xlabel('Días')
         plt.ylabel('Población')
+        # Método para elegir el título del grafico de la simulación
         if self.__dias == self.__contador:
             plt.title(f"Gráfico Modelo SIR Final de la sumlación ({self.__dias} días)")
         else:
             plt.title(f"Gráfico Modelo SIR día {self.__contador}")
+        plt.show()
+
+
+    def mostrar_dis(self):
+        """
+        Muestra... algo?
+        """
+        data_points = np.array(self.__enfermos_array)
+        sm.qqplot(data_points, line='s')
         plt.show()
 
 
@@ -119,7 +123,7 @@ class Simulacion():
         for ciudadano in self.__comunidad.get_ciudadanos():
             if ciudadano.get_estado() == "E":
                 conexiones = self.__comunidad.cantidad_conexiones()
-                for conexion in range(conexiones):
+                for _ in range(conexiones):    # _ Representa cada conexion
                     if self.__comunidad.is_contacto_estrecho():
                         if self.__enfermedad.is_contacto_estrecho_contagiado():
                             #algo pasa acá que infecta demiasiado mientras que el otro no tanto
@@ -156,6 +160,9 @@ class Simulacion():
 
 
     def imprimir_inicial(self):
+        """
+        Entrega en la terminal los datos de inicio de la simulación
+        """
         print("#"*50)
         print(f"Dias que dura la simulacion: {self.__dias}")
         print(f"Cantida de población: {self.__comunidad.get_num_ciudadanos()}")
@@ -176,7 +183,6 @@ class Simulacion():
         contagiados = self.__comunidad.get_infectados()
         enfermos = self.__comunidad.get_enfermos()
         muertos = self.__comunidad.get_muertos()
-
         print(f"Día: {dia}, contagiados totales: {contagiados}, enfermos: {enfermos}, muertos {muertos}\n")
 
 
@@ -187,12 +193,9 @@ class Simulacion():
         cantidad_casos_0 = self.__comunidad.get_infectados()
         cantidad_poblacion = self.__comunidad.get_num_ciudadanos()
         ciudadanos = self.__comunidad.get_ciudadanos()
-
         for _ in range(cantidad_casos_0): # _ Representa cada caso inicial generado
-            # Poner que hace -LONDRO
             while True:
                 id = random.randint(0, cantidad_poblacion)
-                # Poner que hace -LONDRO
                 if ciudadanos[id].get_estado() == "S":
                     ciudadanos[id].set_estado("E")
                     ciudadanos[id].set_contador(self.__enfermedad.establecer_contador())
