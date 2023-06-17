@@ -19,10 +19,11 @@ class MainWindow(Gtk.ApplicationWindow):
         self.set_titlebar(titlebar=header_bar)
         self.set_title("Simulación")
         # Crear el menu button
+        menu_button_model = Gio.Menu()
+        menu_button_model.append("About", "app.about")
         menu_button = Gtk.MenuButton.new()
         menu_button.set_icon_name(icon_name='open-menu-symbolic')
-        menu_button.set_menu_model(menu_model=Gio.Menu())
-        menu_button.set_create_popup_func(self.clicked_menu_button)
+        menu_button.set_menu_model(menu_model=menu_button_model)
         header_bar.pack_end(child=menu_button)
         # Botón para empezar la simualción
         self.start_button = Gtk.Button.new_with_label("Empezar simulación")
@@ -60,17 +61,21 @@ class MainWindow(Gtk.ApplicationWindow):
         simulacion.simular()
 
 
-    def clicked_menu_button(self, button):
-        # Crear el about Dialog
-        about_header = Gtk.AboutDialog.new()
-        about_header.set_authors(['Cristian Pavez', 'Felipe Mendez', 'Alejandro Ide'])
-        about_header.set_program_name(self.get_title())
-        about_header.set_visible(True)
-
-
 class MyApp(Gtk.Application):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self):
+        super().__init__(application_id='cl.com.Example',
+                        flags=Gio.ApplicationFlags.FLAGS_NONE)
+        self.create_action("about", self.on_about_action)
+
+
+    def on_about_action(self, action, param):
+        about = Gtk.AboutDialog.new()
+        about.set_authors(['Cristian Pavez', 'Felipe Mendez', 'Alejandro Ide'])
+        about.set_comments("Esta en progreso")
+        about.set_program_name("Simulación")
+        about.set_copyright("Ing. Civil en Bioinformática")
+        about.set_visible(True)
+
 
     def do_activate(self):
         active_window = self.props.active_window
@@ -81,5 +86,14 @@ class MyApp(Gtk.Application):
             self.win.present()
 
 
-app = MyApp(application_id="com.uwu",flags= Gio.ApplicationFlags.FLAGS_NONE)
-app.run(sys.argv)
+    def create_action(self, name, callback, shortcuts=None):
+        action = Gio.SimpleAction.new(name, None)
+        action.connect('activate', callback)
+        self.add_action(action)
+        if shortcuts:
+            self.set_accels_for_action(f'app.{name}', shortcuts)
+
+
+if __name__ == '__main__':
+    app = MyApp()
+    app.run(sys.argv)

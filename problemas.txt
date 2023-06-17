@@ -1,13 +1,9 @@
 Cristian says:
     1. Implementar una API
         1.1. Puede ser GTK para el Filechooser y así hacer el apartado 2.
-    1.2. Se puede usar GTK para administrar la visualización de todo
-2. Detectar de forma automática el archivo json
+        1.2. Se puede usar GTK para administrar la visualización de todo
+    2. Detectar de forma automática el archivo json
     3. Decidir si en simulacion.py usar la funcion siguie_enfermo o directamente en la funcion contagiar
 
 Londro says:
-    HELLO EVERYNYAN, pondre algunas cosas aqui en cuenta:
-    1.- VENTANA: Son 10 atributos a cambiar en el gtk, los 9 mencionados aqui y el nombre de la enfermedad en la wea grafica
-    2.- boxplot python 3 lineas
-    3.- Alfinal va el archivo con las weas de ventana o no?
-    4.- Deje cosas escritas en comunidad, personas y simulacion PUNTO PIE, para que las revisen
+    1.- No me funciona la wea de mathplotlib ;-;
