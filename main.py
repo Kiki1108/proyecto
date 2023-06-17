@@ -57,7 +57,7 @@ class MainWindow(Gtk.ApplicationWindow):
         Valores bases para la clase Comunidad
         """
         # int, cantidad de población incial
-        num_ciudadanos = 5000
+        num_ciudadanos = 1000000
         # int, cantidad de infectados inciales
         infectados = 10
         # int, indica la media de conecciones físicas que tiene una persona
@@ -71,7 +71,7 @@ class MainWindow(Gtk.ApplicationWindow):
         Se realiza la simulación
         """
         # int, dias que dura la simulacion
-        dias_simulacion = 60
+        dias_simulacion = 200
         #Se le entregan los valores a la clase, como los objetos ya hechos
         simulacion = Simulacion(dias_simulacion, comunidad, enfermedad)
         #Se hace la simulacion

@@ -160,9 +160,10 @@ class Comunidad():
         """
         _id = str(i)
         largo = len(_id)
-        while largo != 8:
+        l_deseado = (len(str(self.__num_ciudadanos)) - 1) + 3
+        while largo != l_deseado:
             # si tiene menos de 5 digitos los rellena y luego adjunta al inicio el codigo correspondiente al apellido
-            if largo == 5:
+            if largo == l_deseado - 3:
                 _id = f"{apellido}{_id}"
                 largo = len(_id)
             else:
@@ -192,20 +193,8 @@ class Comunidad():
         """
         Método que hace las familias de la comunidad
         """
-        agregar = True
         for persona in self.__ciudadanos:
-            aux = []
-            for i in self.__familias:
-                if persona in self.__familias[i]:
-                    agregar = False
-                    break
-                else:
-                    agregar = True
-            if agregar:
-                for compara in self.__ciudadanos:
-                    apellidos = persona.get_nombre()[1:3]
-                    comparacion = compara.get_nombre()[1:3]
-                    for i in range(0,1):
-                        if comparacion[i] in apellidos:
-                            aux.append(compara)
-                self.__familias[persona.get_id()[0:3]] = aux
+            if persona.get_id()[0:3] in self.__familias:
+                self.__familias[persona.get_id()[0:3]].append(persona)
+            else:
+                self.__familias[persona.get_id()[0:3]] = [persona]
