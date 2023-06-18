@@ -25,13 +25,9 @@ class MainWindow(Gtk.ApplicationWindow):
         menu_button.set_icon_name(icon_name='open-menu-symbolic')
         menu_button.set_menu_model(menu_model=menu_button_model)
         header_bar.pack_end(child=menu_button)
-        # Botón para empezar la simualción
-        self.start_button = Gtk.Button.new_with_label("Empezar simulación")
-        self.start_button.connect("clicked",self.on_start_button_clicked)
         # Crear la ventana
         self.main_box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 5)
         self.set_child(self.main_box)
-        self.main_box.append(self.start_button)
         # Crear entrys
         # Entry 1 = Infeccion probable
         self.box_1 = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 20)
@@ -150,37 +146,79 @@ class MainWindow(Gtk.ApplicationWindow):
         self.entry_dias_simulacion.set_text("60")
         self.entry_dias_simulacion.set_margin_end(10)
         self.box_9.append(self.entry_dias_simulacion)
+        # Botón para empezar la simualción
+        self.start_button = Gtk.Button.new_with_label("Empezar simulación")
+        self.start_button.connect("clicked",self.on_start_button_clicked)
+        self.main_box.append(self.start_button)
 
 
     def on_start_button_clicked(self, button):
-        if int(self.entry_infeccion_probable.get_text()) > 100:
-            #ponermesaje de que la wea no fucina
-            pass
+        if not self.entry_infeccion_probable.get_text().isnumeric():
+            print("Se ingreso un valor no valido para 'infeccion probable'")
+        elif not self.entry_infeccion_estrecho.get_text().isnumeric():
+            print("Se ingreso un valor no valido para 'infeccion estrecho'")
+        elif not self.entry_promedio_pasos.get_text().isnumeric():
+            print("Se ingreso un valor no valido para 'promedio de pasos'")
+        elif not self.entry_mortalidad.get_text().isnumeric():
+            print("Se ingreso un valor no valido para 'mortalidad'")
+        elif not self.entry_num_ciudadanos.get_text().isnumeric():
+            print("Se ingreso un valor no valido para 'numero de ciudadanos'")
+        elif not self.entry_infectados.get_text().isnumeric():
+            print("Se ingreso un valor no valido para 'numero de infectados iniciales'")
+        elif not self.entry_prom_conexion_fisica.get_text().isnumeric():
+            print("Se ingreso un valor no valido para 'promedio de conexion fisicas'")
+        elif not self.entry_prob_conexion_fisica.get_text().isnumeric():
+            print("Se ingreso un valor no valido para 'probabilidad de conexion fisica'")
+        elif not self.entry_dias_simulacion.get_text().isnumeric():
+            print("Se ingreso un valor no valido para 'cantidad de dias de la simulacion'")
         else:
-            """
-            Valores bases para la clase Enfermedad, Comunidad y Simulacion
-            """
-            infeccion_probable = int(self.entry_infeccion_probable.get_text())
-            infeccion_estrecho = int(self.entry_infeccion_estrecho.get_text())
-            promedio_pasos = int(self.entry_promedio_pasos.get_text())
-            mortalidad = int(self.entry_mortalidad.get_text())
-            enfermedad = Enfermedad(infeccion_probable, infeccion_estrecho,
-                                    promedio_pasos, mortalidad)
-            """
-            Valores bases para la clase Comunidad
-            """
-            num_ciudadanos = int(self.entry_num_ciudadanos.get_text())
-            infectados = int(self.entry_infectados.get_text())
-            prom_conexion_fisica = int(self.entry_prom_conexion_fisica.get_text())
-            prob_conexión_fisica = int(self.entry_prob_conexion_fisica.get_text())
-            comunidad = Comunidad(num_ciudadanos, enfermedad, infectados,
-                                prom_conexion_fisica, prob_conexión_fisica)
-            """
-            Se realiza la simulación
-            """
-            dias_simulacion = int(self.entry_dias_simulacion.get_text())
-            simulacion = Simulacion(dias_simulacion, comunidad, enfermedad)
-            simulacion.simular()
+            if int(self.entry_infeccion_probable.get_text()) > 100:
+                print("Ese valor es muy alto, elija un numero menor o igual a 100")
+            elif int(self.entry_infeccion_probable.get_text()) < 1:
+                print("Ese valor es muy bajo, elija un numero mayor o igual a 1")
+            elif int(self.entry_infeccion_estrecho.get_text()) > 100:
+                print("Ese valor es muy alto, elija un numero menor o igual a 100")
+            elif int(self.entry_infeccion_estrecho.get_text()) < 1:
+                print("Ese valor es muy bajo, elija un numero mayor o igual a 1")
+            elif int(self.entry_mortalidad.get_text()) > 100:
+                print("Ese valor es muy alto, elija un numero menor o igual a 100")
+            elif int(self.entry_mortalidad.get_text()) < 1:
+                print("Ese valor es muy bajo, elija un numero mayor o igual a 1")
+            elif int(self.entry_prob_conexion_fisica.get_text()) > 100:
+                print("Ese valor es muy alto, elija un numero menor o igual a 100")
+            elif int(self.entry_prob_conexion_fisica.get_text()) < 1:
+                print("Ese valor es muy bajo, elija un numero mayor o igual a 1")
+            elif int(self.entry_infectados.get_text()) > int(self.entry_num_ciudadanos.get_text()):
+                print("No pueden ser mas infetados iniciales que la misma cantidad de poblacion")
+            else:
+                self.iniciar_simulacion()
+
+
+    def iniciar_simulacion(self):
+        """
+        Valores bases para la clase Enfermedad, Comunidad y Simulacion
+        """
+        infeccion_probable = int(self.entry_infeccion_probable.get_text())
+        infeccion_estrecho = int(self.entry_infeccion_estrecho.get_text())
+        promedio_pasos = int(self.entry_promedio_pasos.get_text())
+        mortalidad = int(self.entry_mortalidad.get_text())
+        enfermedad = Enfermedad(infeccion_probable, infeccion_estrecho,
+                                promedio_pasos, mortalidad)
+        """
+        Valores bases para la clase Comunidad
+        """
+        num_ciudadanos = int(self.entry_num_ciudadanos.get_text())
+        infectados = int(self.entry_infectados.get_text())
+        prom_conexion_fisica = int(self.entry_prom_conexion_fisica.get_text())
+        prob_conexión_fisica = int(self.entry_prob_conexion_fisica.get_text())
+        comunidad = Comunidad(num_ciudadanos, enfermedad, infectados,
+                            prom_conexion_fisica, prob_conexión_fisica)
+        """
+        Se realiza la simulación
+        """
+        dias_simulacion = int(self.entry_dias_simulacion.get_text())
+        simulacion = Simulacion(dias_simulacion, comunidad, enfermedad)
+        simulacion.simular()
 
 
 class MyApp(Gtk.Application):
