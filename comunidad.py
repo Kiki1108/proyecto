@@ -14,8 +14,8 @@ class Comunidad():
         Inicializa los valores de la clase Comunidad
         
         Atributos:
-            num_ciudadanos [int]: Número de ciudadanos
             enfermedad [Enfermedad]: Enfermedad que esta en la comunidad
+            num_ciudadanos [int]: Número de ciudadanos
             infectados [int]: Cantidad de infectados que hay en total
             enfermos [int]: Cantidad de enfermos que hay en el momento
             muertos [int]: Indica el número de muertos totales
@@ -24,8 +24,8 @@ class Comunidad():
             ciudadanos [list(Persona)]: Las personas de la comunidad
             familas [dict(Persona)]: Las personas de la comunidad agrupadas en familias
         """
-        self.__num_ciudadanos = num_ciudadanos
         self.__enfermedad = enfermedad
+        self.__num_ciudadanos = num_ciudadanos
         self.__infectados = infectados    # Cantidad de infectados (Personas con estados: E, I, M)
         self.__enfermos = infectados    # Cantidad de enfermos (Personas con estado: E)
         self.__muertos = 0
