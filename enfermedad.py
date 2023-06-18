@@ -47,6 +47,12 @@ class Enfermedad():
 
 
     def is_muerto(self):
+        """
+        Determina la persona se muere o no
+        
+        Retorna: 
+            True si muere, False si no
+        """
         a = random.randint(1, 100)
         if a <= self.__mortalidad:
             return True

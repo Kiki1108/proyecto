@@ -12,6 +12,9 @@ from comunidad import Comunidad
 
 class MainWindow(Gtk.ApplicationWindow):
     def __init__(self, *args, **kwargs):
+        """
+        Genera la venta y todas sus partes
+        """
         super().__init__(*args, **kwargs)
         self.app = self.get_application()
         # Crear Header Bar
@@ -28,7 +31,6 @@ class MainWindow(Gtk.ApplicationWindow):
         # Crear la ventana
         self.main_box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 5)
         self.set_child(self.main_box)
-        # Crear entrys
         # Entry 1 = Infeccion probable
         self.box_1 = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 20)
         self.main_box.append(self.box_1)
@@ -153,6 +155,9 @@ class MainWindow(Gtk.ApplicationWindow):
 
 
     def on_start_button_clicked(self, button):
+        """
+        Tiene la funcion de generar una bandera para que se ingresen bien los datos
+        """
         if not self.entry_infeccion_probable.get_text().isnumeric():
             print("Se ingreso un valor no valido para 'infeccion probable'")
         elif not self.entry_infeccion_estrecho.get_text().isnumeric():
@@ -198,24 +203,21 @@ class MainWindow(Gtk.ApplicationWindow):
         """
         Valores bases para la clase Enfermedad, Comunidad y Simulacion
         """
+        # Datos para la clase Enfermedad
         infeccion_probable = int(self.entry_infeccion_probable.get_text())
         infeccion_estrecho = int(self.entry_infeccion_estrecho.get_text())
         promedio_pasos = int(self.entry_promedio_pasos.get_text())
         mortalidad = int(self.entry_mortalidad.get_text())
         enfermedad = Enfermedad(infeccion_probable, infeccion_estrecho,
                                 promedio_pasos, mortalidad)
-        """
-        Valores bases para la clase Comunidad
-        """
+        # Datos para la clase Comunidad
         num_ciudadanos = int(self.entry_num_ciudadanos.get_text())
         infectados = int(self.entry_infectados.get_text())
         prom_conexion_fisica = int(self.entry_prom_conexion_fisica.get_text())
         prob_conexión_fisica = int(self.entry_prob_conexion_fisica.get_text())
         comunidad = Comunidad(num_ciudadanos, enfermedad, infectados,
                             prom_conexion_fisica, prob_conexión_fisica)
-        """
-        Se realiza la simulación
-        """
+        # Datos para la clase Simulacion
         dias_simulacion = int(self.entry_dias_simulacion.get_text())
         simulacion = Simulacion(dias_simulacion, comunidad, enfermedad)
         simulacion.simular()
