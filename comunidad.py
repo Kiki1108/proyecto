@@ -16,22 +16,23 @@ class Comunidad():
         Atributos:
             num_ciudadanos [int]: Número de ciudadanos
             enfermedad [Enfermedad]: Enfermedad que esta en la comunidad
-            infectados [int]: Cantidad de infectados que hay
-            prom [int]: Media de generar una conexion fisica
-            prob [int]: Probabilidad de generar una conexión fisica
+            infectados [int]: Cantidad de infectados que hay en total
+            enfermos [int]: Cantidad de enfermos que hay en el momento
+            muertos [int]: Indica el número de muertos totales
+            prom_coneccion_fisica [int]: Media de generar una coneccion fisica
+            prob_coneccion_fisica [int]: Probabilidad de generar una conexión fisica
             ciudadanos [list(Persona)]: Las personas de la comunidad
             familas [dict(Persona)]: Las personas de la comunidad agrupadas en familias
-            muertos [int]: Indica el número de muertos totales
         """
         self.__num_ciudadanos = num_ciudadanos
+        self.__enfermedad = enfermedad
         self.__infectados = infectados    # Cantidad de infectados (Personas con estados: E, I, M)
         self.__enfermos = infectados    # Cantidad de enfermos (Personas con estado: E)
-        self.__enfermedad = enfermedad
-        self.__prom_conexion_fisica = prom
-        self.__prob_conexion_fisica = prob
+        self.__muertos = 0
+        self.__prom_coneccion_fisica = prom
+        self.__prob_coneccion_fisica = prob
         self.__ciudadanos = []
         self.__familias = {}
-        self.__muertos = 0
         #Funciones de inicio
         self.hacer_poblacion()
         self.hacer_familias()
@@ -57,12 +58,12 @@ class Comunidad():
         return self.__muertos
 
 
-    def get_conexion_fisica(self):
-        return self.__prom_conexion_fisica
+    def get_coneccion_fisica(self):
+        return self.__prom_coneccion_fisica
 
 
     def get_prob_contacto_estrecho(self):
-        return self.__prob_conexion_fisica
+        return self.__prob_coneccion_fisica
 
 
     def set_ciudadanos(self, ciudadanos):
@@ -122,29 +123,29 @@ class Comunidad():
 
     def is_contacto_estrecho(self):
         """
-        Determina si ehay probabilidad de conexion fisica en un contacto estrecho
+        Determina si ehay probabilidad de coneccion fisica en un contacto estrecho
         
         Retorna:
             True si el usuario estrecho, False si no lo es
         """
         random_number = random.randint(1, 100)
-        if random_number <= self.__prob_conexion_fisica:
+        if random_number <= self.__prob_coneccion_fisica:
             return True
         return False
 
 
-    def cantidad_conexiones(self):
+    def cantidad_conecciones(self):
         """
         Genera la cantidad de conexines que puede tener una persona
         
         Retorna:
-            La cantidad de conexiones
+            La cantidad de conecciones
         """
         while True:
-            conexiones = random.gauss(self.__prom_conexion_fisica, self.__prom_conexion_fisica/2)
-            if conexiones >= 0:
+            conecciones = random.gauss(self.__prom_coneccion_fisica, self.__prom_coneccion_fisica/2)
+            if conecciones >= 0:
                 break
-        return int(conexiones)
+        return int(conecciones)
 
 
     def generar_id(self, i, apellido):

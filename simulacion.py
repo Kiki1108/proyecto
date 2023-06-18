@@ -124,8 +124,8 @@ class Simulacion():
         """
         for ciudadano in self.__comunidad.get_ciudadanos():
             if ciudadano.get_estado() == "E":
-                conexiones = self.__comunidad.cantidad_conexiones()
-                for _ in range(conexiones):    # _ Representa cada conexion
+                conecciones = self.__comunidad.cantidad_conecciones()
+                for _ in range(conecciones):    # _ Representa cada coneccion
                     if self.__comunidad.is_contacto_estrecho():
                         if self.__enfermedad.is_contacto_estrecho_contagiado():
                             #algo pasa acá que infecta demiasiado mientras que el otro no tanto
@@ -170,8 +170,8 @@ class Simulacion():
         print(f"Cantida de población: {self.__comunidad.get_num_ciudadanos()}")
         print(f"Infectividad por contacto: {self.__enfermedad.get_infectividad()}%")
         print(f"Infectividad por contacto estrecho: {self.__enfermedad.get_infectividad_estrecho()}%")
-        print(f"Promedio de conexiones por persona por día: {self.__comunidad.get_conexion_fisica()}")
-        print(f"Probabilidad que la conexion sea contacto estrecho: {self.__comunidad.get_prob_contacto_estrecho()}%")
+        print(f"Promedio de conecciones por persona por día: {self.__comunidad.get_coneccion_fisica()}")
+        print(f"Probabilidad que la coneccion sea contacto estrecho: {self.__comunidad.get_prob_contacto_estrecho()}%")
         print(f"Promedio de días para pasar la enfermedad: {self.__enfermedad.get_prom_pasos()}")
         print(f"Mortalidad: {self.__enfermedad.get_mortalidad()}%")
         print("#"*50,"\n")

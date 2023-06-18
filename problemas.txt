@@ -8,3 +8,4 @@ Cristian says:
 Londro says:
     1.- No me funciona la wea de mathplotlib ;-;
     2.- Hay un problema con la cantidad de infectados iniciales y la poblacion total cuando limitan a ser la misma cantidad
+    3.- En main creo que no se usan todos los import para las ventanas

@@ -109,32 +109,32 @@ class MainWindow(Gtk.ApplicationWindow):
         self.entry_infectados.set_text("10")
         self.entry_infectados.set_margin_end(10)
         self.box_6.append(self.entry_infectados)
-        # Entry 7 = Promedio de conexion fisica
+        # Entry 7 = Promedio de coneccion fisica
         self.box_7 = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 20)
         self.main_box.append(self.box_7)
         self.label_7 = Gtk.Label()
-        self.label_7.set_label("Promedio de conexion fisica:")
+        self.label_7.set_label("Promedio de coneccion fisica:")
         self.label_7.set_margin_start(10)
         self.label_7.set_hexpand(True)
         self.label_7.set_halign(1)
         self.box_7.append(self.label_7)
-        self.entry_prom_conexion_fisica = Gtk.Entry()
-        self.entry_prom_conexion_fisica.set_text("10")
-        self.entry_prom_conexion_fisica.set_margin_end(10)
-        self.box_7.append(self.entry_prom_conexion_fisica)
-        # Entry 8 = Probabilidad de conexion fisica
+        self.entry_prom_coneccion_fisica = Gtk.Entry()
+        self.entry_prom_coneccion_fisica.set_text("10")
+        self.entry_prom_coneccion_fisica.set_margin_end(10)
+        self.box_7.append(self.entry_prom_coneccion_fisica)
+        # Entry 8 = Probabilidad de coneccion fisica
         self.box_8 = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 20)
         self.main_box.append(self.box_8)
         self.label_8 = Gtk.Label()
-        self.label_8.set_label("Probabilidad de conexion fisica:")
+        self.label_8.set_label("Probabilidad de coneccion fisica:")
         self.label_8.set_margin_start(10)
         self.label_8.set_hexpand(True)
         self.label_8.set_halign(1)
         self.box_8.append(self.label_8)
-        self.entry_prob_conexion_fisica = Gtk.Entry()
-        self.entry_prob_conexion_fisica.set_text("40")
-        self.entry_prob_conexion_fisica.set_margin_end(10)
-        self.box_8.append(self.entry_prob_conexion_fisica)
+        self.entry_prob_coneccion_fisica = Gtk.Entry()
+        self.entry_prob_coneccion_fisica.set_text("40")
+        self.entry_prob_coneccion_fisica.set_margin_end(10)
+        self.box_8.append(self.entry_prob_coneccion_fisica)
         # Entry 9 = Cantidad de dias de la simulación
         self.box_9 = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 20)
         self.main_box.append(self.box_9)
@@ -170,10 +170,10 @@ class MainWindow(Gtk.ApplicationWindow):
             print("Se ingreso un valor no valido para 'numero de ciudadanos'")
         elif not self.entry_infectados.get_text().isnumeric():
             print("Se ingreso un valor no valido para 'numero de infectados iniciales'")
-        elif not self.entry_prom_conexion_fisica.get_text().isnumeric():
-            print("Se ingreso un valor no valido para 'promedio de conexion fisicas'")
-        elif not self.entry_prob_conexion_fisica.get_text().isnumeric():
-            print("Se ingreso un valor no valido para 'probabilidad de conexion fisica'")
+        elif not self.entry_prom_coneccion_fisica.get_text().isnumeric():
+            print("Se ingreso un valor no valido para 'promedio de coneccion fisicas'")
+        elif not self.entry_prob_coneccion_fisica.get_text().isnumeric():
+            print("Se ingreso un valor no valido para 'probabilidad de coneccion fisica'")
         elif not self.entry_dias_simulacion.get_text().isnumeric():
             print("Se ingreso un valor no valido para 'cantidad de dias de la simulacion'")
         else:
@@ -189,9 +189,9 @@ class MainWindow(Gtk.ApplicationWindow):
                 print("Ese valor es muy alto, elija un numero menor o igual a 100")
             elif int(self.entry_mortalidad.get_text()) < 1:
                 print("Ese valor es muy bajo, elija un numero mayor o igual a 1")
-            elif int(self.entry_prob_conexion_fisica.get_text()) > 100:
+            elif int(self.entry_prob_coneccion_fisica.get_text()) > 100:
                 print("Ese valor es muy alto, elija un numero menor o igual a 100")
-            elif int(self.entry_prob_conexion_fisica.get_text()) < 1:
+            elif int(self.entry_prob_coneccion_fisica.get_text()) < 1:
                 print("Ese valor es muy bajo, elija un numero mayor o igual a 1")
             elif int(self.entry_infectados.get_text()) > int(self.entry_num_ciudadanos.get_text()):
                 print("No pueden ser mas infetados iniciales que la misma cantidad de poblacion")
@@ -213,10 +213,10 @@ class MainWindow(Gtk.ApplicationWindow):
         # Datos para la clase Comunidad
         num_ciudadanos = int(self.entry_num_ciudadanos.get_text())
         infectados = int(self.entry_infectados.get_text())
-        prom_conexion_fisica = int(self.entry_prom_conexion_fisica.get_text())
-        prob_conexión_fisica = int(self.entry_prob_conexion_fisica.get_text())
+        prom_coneccion_fisica = int(self.entry_prom_coneccion_fisica.get_text())
+        prob_conexión_fisica = int(self.entry_prob_coneccion_fisica.get_text())
         comunidad = Comunidad(num_ciudadanos, enfermedad, infectados,
-                            prom_conexion_fisica, prob_conexión_fisica)
+                            prom_coneccion_fisica, prob_conexión_fisica)
         # Datos para la clase Simulacion
         dias_simulacion = int(self.entry_dias_simulacion.get_text())
         simulacion = Simulacion(dias_simulacion, comunidad, enfermedad)
