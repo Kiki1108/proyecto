@@ -38,6 +38,9 @@ class Simulacion():
 
 
     def avanzar_contador(self):
+        """
+        Avanza el contador, el cual representa los dias
+        """
         self.__contador = self.__contador + 1
 
 
