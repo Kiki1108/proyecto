@@ -23,7 +23,6 @@ class Simulacion():
         self.__comunidad = comunidad
         self.__enfermedad = enfermedad
         self.__contador = 0
-        # uwu
         self.__infectados_array = [self.__comunidad.get_infectados()]
         self.__enfermos_array = [self.__comunidad.get_infectados()]
         self.__muertos_array = [0]
