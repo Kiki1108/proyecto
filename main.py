@@ -29,36 +29,142 @@ class MainWindow(Gtk.ApplicationWindow):
         self.start_button = Gtk.Button.new_with_label("Empezar simulación")
         self.start_button.connect("clicked",self.on_start_button_clicked)
         # Crear la ventana
-        self.main_box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 10)
+        self.main_box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 5)
         self.set_child(self.main_box)
         self.main_box.append(self.start_button)
+        # Crear entrys
+        # Entry 1 = Infeccion probable
+        self.box_1 = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 20)
+        self.main_box.append(self.box_1)
+        self.label_1 = Gtk.Label()
+        self.label_1.set_label("Infeccion probable:")
+        self.label_1.set_hexpand(False)
+        self.label_1.set_margin_start(10)
+        self.box_1.append(self.label_1)
+        self.entry_infeccion_probable = Gtk.Entry()
+        self.entry_infeccion_probable.set_text("5")
+        self.entry_infeccion_probable.set_margin_end(10)        
+        self.box_1.append(self.entry_infeccion_probable)
+        # Entry 2 = Infeccion estrecho
+        self.box_2 = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 20)
+        self.main_box.append(self.box_2)
+        self.label_2 = Gtk.Label()
+        self.label_2.set_label("Infeccion estrecho:")
+        self.label_2.set_margin_start(10)
+        self.box_2.append(self.label_2)
+        self.entry_infeccion_estrecho = Gtk.Entry()
+        self.entry_infeccion_estrecho.set_text("70")
+        self.entry_infeccion_estrecho.set_margin_end(10)
+        self.box_2.append(self.entry_infeccion_estrecho)
+        # Entry 3 = promedio de pasos
+        self.box_3 = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 20)
+        self.main_box.append(self.box_3)
+        self.label_3 = Gtk.Label()
+        self.label_3.set_label("Promedio de pasos:")
+        self.label_3.set_margin_start(10)
+        self.box_3.append(self.label_3)
+        self.entry_promedio_pasos = Gtk.Entry()
+        self.entry_promedio_pasos.set_text("10")
+        self.entry_promedio_pasos.set_margin_end(10)
+        self.box_3.append(self.entry_promedio_pasos)
+        # Entry 4 = Mortalidad
+        self.box_4 = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 20)
+        self.main_box.append(self.box_4)
+        self.label_4 = Gtk.Label()
+        self.label_4.set_label("Mortalidad:")
+        self.label_4.set_margin_start(10)
+        self.box_4.append(self.label_4)
+        self.entry_mortalidad = Gtk.Entry()
+        self.entry_mortalidad.set_text("2")
+        self.entry_mortalidad.set_margin_end(10)        
+        self.box_4.append(self.entry_mortalidad)
+        # Entry 5 = Número de ciudadanos
+        self.box_5 = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 20)
+        self.main_box.append(self.box_5)
+        self.label_5 = Gtk.Label()
+        self.label_5.set_label("Número de ciudadanos:")
+        self.label_5.set_margin_start(10)
+        self.box_5.append(self.label_5)
+        self.entry_num_ciudadanos = Gtk.Entry()
+        self.entry_num_ciudadanos.set_text("20000")
+        self.entry_num_ciudadanos.set_margin_end(10)
+        self.box_5.append(self.entry_num_ciudadanos)
+        # Entry 6 = Número de infectados iniciales
+        self.box_6 = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 20)
+        self.main_box.append(self.box_6)
+        self.label_6 = Gtk.Label()
+        self.label_6.set_label("Número de infectados iniciales:")
+        self.label_6.set_margin_start(10)
+        self.box_6.append(self.label_6)
+        self.entry_infectados = Gtk.Entry()
+        self.entry_infectados.set_text("10")
+        self.entry_infectados.set_margin_end(10)
+        self.box_6.append(self.entry_infectados)
+        # Entry 7 = Promedio de conexion fisica
+        self.box_7 = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 20)
+        self.main_box.append(self.box_7)
+        self.label_7 = Gtk.Label()
+        self.label_7.set_label("Promedio de conexion fisica:")
+        self.label_7.set_margin_start(10)
+        self.box_7.append(self.label_7)
+        self.entry_prom_conexion_fisica = Gtk.Entry()
+        self.entry_prom_conexion_fisica.set_text("10")
+        self.entry_prom_conexion_fisica.set_margin_end(10)
+        self.box_7.append(self.entry_prom_conexion_fisica)
+        # Entry 8 = Probabilidad de conexion fisica
+        self.box_8 = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 20)
+        self.main_box.append(self.box_8)
+        self.label_8 = Gtk.Label()
+        self.label_8.set_label("Probabilidad de conexion fisica:")
+        self.label_8.set_margin_start(10)
+        self.box_8.append(self.label_8)
+        self.entry_prob_conexion_fisica = Gtk.Entry()
+        self.entry_prob_conexion_fisica.set_text("40")
+        self.entry_prob_conexion_fisica.set_margin_end(10)
+        self.box_8.append(self.entry_prob_conexion_fisica)
+        # Entry 9 = Cantidad de dias de la simulación
+        self.box_9 = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 20)
+        self.main_box.append(self.box_9)
+        self.label_9 = Gtk.Label()
+        self.label_9.set_label("Cantidad de dias de la simulación:")
+        self.label_9.set_margin_start(10)
+        self.box_9.append(self.label_9)
+        self.entry_dias_simulacion = Gtk.Entry()
+        self.entry_dias_simulacion.set_text("60")
+        self.entry_dias_simulacion.set_margin_end(10)
+        self.box_9.append(self.entry_dias_simulacion)
+
 
 
     def on_start_button_clicked(self, button):
-        """
-        Valores bases para la clase Enfermedad, Comunidad y Simulacion
-        """
-        infeccion_probable = 5
-        infeccion_estrecho = 70
-        promedio_pasos = 10
-        mortalidad = 2
-        enfermedad = Enfermedad(infeccion_probable, infeccion_estrecho,
-                                promedio_pasos, mortalidad)
-        """
-        Valores bases para la clase Comunidad
-        """
-        num_ciudadanos = 20000
-        infectados = 10
-        prom_conexion_fisica = 10
-        prob_conexión_fisica = 40
-        comunidad = Comunidad(num_ciudadanos, enfermedad, infectados,
-                            prom_conexion_fisica, prob_conexión_fisica)
-        """
-        Se realiza la simulación
-        """
-        dias_simulacion = 60
-        simulacion = Simulacion(dias_simulacion, comunidad, enfermedad)
-        simulacion.simular()
+        if int(self.entry_infeccion_probable.get_text()) > 100:
+            #ponermesaje de que la wea no fucina
+            pass
+        else:
+            """
+            Valores bases para la clase Enfermedad, Comunidad y Simulacion
+            """
+            infeccion_probable = int(self.entry_infeccion_probable.get_text())
+            infeccion_estrecho = int(self.entry_infeccion_estrecho.get_text())
+            promedio_pasos = int(self.entry_promedio_pasos.get_text())
+            mortalidad = int(self.entry_mortalidad.get_text())
+            enfermedad = Enfermedad(infeccion_probable, infeccion_estrecho,
+                                    promedio_pasos, mortalidad)
+            """
+            Valores bases para la clase Comunidad
+            """
+            num_ciudadanos = int(self.entry_num_ciudadanos.get_text())
+            infectados = int(self.entry_infectados.get_text())
+            prom_conexion_fisica = int(self.entry_prom_conexion_fisica.get_text())
+            prob_conexión_fisica = int(self.entry_prob_conexion_fisica.get_text())
+            comunidad = Comunidad(num_ciudadanos, enfermedad, infectados,
+                                prom_conexion_fisica, prob_conexión_fisica)
+            """
+            Se realiza la simulación
+            """
+            dias_simulacion = int(self.entry_dias_simulacion.get_text())
+            simulacion = Simulacion(dias_simulacion, comunidad, enfermedad)
+            simulacion.simular()
 
 
 class MyApp(Gtk.Application):
