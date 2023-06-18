@@ -193,6 +193,10 @@ class MainWindow(Gtk.ApplicationWindow):
                 print("Ese valor es muy alto, elija un numero menor o igual a 100")
             elif int(self.entry_prob_coneccion_fisica.get_text()) < 1:
                 print("Ese valor es muy bajo, elija un numero mayor o igual a 1")
+            elif int(self.entry_num_ciudadanos.get_text()) < 1:
+                print("Se necesita de almenos 1 persona en la poblacion, elija un numero mayor")
+            elif int(self.entry_infectados.get_text()) < 1:
+                print("Se necesita de almenos 1 infectados, elija un numero mayor")
             elif int(self.entry_infectados.get_text()) > int(self.entry_num_ciudadanos.get_text()):
                 print("No pueden ser mas infetados iniciales que la misma cantidad de poblacion")
             else:

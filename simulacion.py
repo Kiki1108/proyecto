@@ -10,18 +10,18 @@ class Simulacion():
         Inicializa los valores de la clase Simulacion
         
         Atributos:
-            dias [int]: Número de días que dura la simulación
             comunidad [Comunidad]: Comunidad en la simulación
             enfermedad [Enfermedad]: Número de fermetos a m
+            dias [int]: Número de días que dura la simulación
             contador [int]: Representa los dias que esta o estan pasando
             infectados_array [list(int)]: Lista de cantidad deinfectados por dia
             enfermos_array [list(int)]: Lista de cantidad de enfermos por dia
             muertos_array [list(int)]: Lista de cantidad de muertos por dia
             suceptibles_array [list(int)]: Lista de cantidad de suceptibles por dia
         """
-        self.__dias = dias
         self.__comunidad = comunidad
         self.__enfermedad = enfermedad
+        self.__dias = dias
         self.__contador = 0
         self.__infectados_array = [self.__comunidad.get_infectados()]
         self.__enfermos_array = [self.__comunidad.get_infectados()]
