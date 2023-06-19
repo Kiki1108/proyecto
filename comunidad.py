@@ -12,7 +12,7 @@ class Comunidad():
     def __init__(self, num_ciudadanos, enfermedad, infectados, prom, prob):
         """
         Inicializa los valores de la clase Comunidad
-        
+
         Atributos:
             enfermedad [Enfermedad]: Enfermedad que esta en la comunidad
             num_ciudadanos [int]: Número de ciudadanos
@@ -35,7 +35,6 @@ class Comunidad():
         self.__familias = {}
         #Funciones de inicio
         self.hacer_poblacion()
-        self.hacer_familias()
 
 
     def get_num_ciudadanos(self):
@@ -85,10 +84,10 @@ class Comunidad():
     def contagiar_contacto_estrecho(self, persona):
         """
         Contagiar un ciudadano posiblemente cercano. Cuando el estado de "S" devuelve el _id
-        
+
         Argumentos:
             persona: Persona que esta enferma
-        
+
         Retorna:
             Un _id
         """
@@ -107,7 +106,7 @@ class Comunidad():
     def contagiar_random(self):
         """
         Contagiar un ciudadano aleatorio. Cuando el estado de "S" devuelve el _id
-        
+
         Retorna:
             Un _id
         """
@@ -125,7 +124,7 @@ class Comunidad():
     def is_contacto_estrecho(self):
         """
         Determina si ehay probabilidad de coneccion fisica en un contacto estrecho
-        
+
         Retorna:
             True si el usuario estrecho, False si no lo es
         """
@@ -138,7 +137,7 @@ class Comunidad():
     def cantidad_conecciones(self):
         """
         Genera la cantidad de conexines que puede tener una persona
-        
+
         Retorna:
             La cantidad de conecciones
         """
@@ -149,24 +148,27 @@ class Comunidad():
         return int(conecciones)
 
 
-    def generar_id(self, i, apellido):
+    def generar_id(self, posicion, apellido, repeticion):
         """
         Genera el identificador de la persona segun su apellido y numero de generacion
-        
+
         Argumentos:
             i: El número de generación
             apellido: El algoritmo de la que se desea generar el identificador
-        
+
         Retorna:
             Un _id para una persona
         """
-        _id = str(i)
+        _id = str(posicion)
         largo = len(_id)
-        l_deseado = (len(str(self.__num_ciudadanos)) - 1) + 3
+        l_deseado = (len(str(self.__num_ciudadanos))) + 4
         while largo != l_deseado:
             # si tiene menos de 5 digitos los rellena y luego adjunta al inicio el codigo correspondiente al apellido
-            if largo == l_deseado - 3:
+            if largo == l_deseado - 4:
                 _id = f"{apellido}{_id}"
+                largo = len(_id)
+            elif largo == l_deseado - 1:
+                _id = f"{repeticion}{_id}"
                 largo = len(_id)
             else:
                 _id = f"0{_id}"
@@ -179,24 +181,22 @@ class Comunidad():
         Método que hace una población de la comunidad
         """
         lista = []
+        i_apellido = 0
+        rep = 0
         for i in range(self.__num_ciudadanos):
             # Genera una persona por iteracion
             nombre = dic["nombres"][random.randint(0, len(dic["nombres"])-1)]
-            indice_apellido = random.randint(0, len(dic["apellidos"]) - 1)
-            apellido1 = dic["apellidos"][indice_apellido]
-            apellido2 = dic["apellidos"][random.randint(0, len(dic["apellidos"])-1)]
-            _id = self.generar_id(i, indice_apellido)
-            persona = Persona(_id, [nombre, apellido1, apellido2])
+            apellido = dic["apellidos"][i_apellido]
+            _id = self.generar_id(i, i_apellido, rep)
+            persona = Persona(_id, [nombre, apellido])
             lista.append(persona)
-        self.__ciudadanos = lista
+            self.__ciudadanos.append(persona)
 
+            if len(lista) == 50:
+                self.__familias[lista[0].get_id()[0:4]] = lista
+                lista = []
+                i_apellido += 1
 
-    def hacer_familias(self):
-        """
-        Método que hace las familias de la comunidad
-        """
-        for persona in self.__ciudadanos:
-            if persona.get_id()[0:3] in self.__familias:
-                self.__familias[persona.get_id()[0:3]].append(persona)
-            else:
-                self.__familias[persona.get_id()[0:3]] = [persona]
+            if i_apellido == len(dic["apellidos"]) - 1:
+                rep += 1
+                i_apellido = 0

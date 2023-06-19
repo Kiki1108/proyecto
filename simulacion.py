@@ -1,15 +1,18 @@
+import io
 import random
 import matplotlib.pyplot as plt
 import numpy as np
 import statsmodels.api as sm
 from time import sleep
+from PIL import Image
 plt.switch_backend('tkagg')
+from gi.repository import GLib, GdkPixbuf
 
 class Simulacion():
     def __init__(self, dias, comunidad, enfermedad):
         """
         Inicializa los valores de la clase Simulacion
-        
+
         Atributos:
             comunidad [Comunidad]: Comunidad en la simulación
             enfermedad [Enfermedad]: Número de fermetos a m
@@ -92,7 +95,20 @@ class Simulacion():
             plt.title(f"Gráfico Modelo SIR Final de la sumlación ({self.__dias} días)")
         else:
             plt.title(f"Gráfico Modelo SIR día {self.__contador}")
-        plt.show()
+
+        buf = io.BytesIO()
+        plt.savefig(buf, format='png')
+
+        im = Image.open(buf)
+        buffer = GLib.Bytes.new(im.tobytes())
+        gdata = GdkPixbuf.Pixbuf.new_from_bytes(buffer,
+                                                GdkPixbuf.Colorspace.RGB,
+                                                True, 8, im.width, im.height,
+                                                len(im.getbands())*im.width)
+        return gdata
+
+
+
 
 
     def mostrar_dis(self):
@@ -101,7 +117,8 @@ class Simulacion():
         """
         data_points = np.array(self.__enfermos_array)
         sm.qqplot(data_points, line='s')
-        plt.show()
+
+
 
 
     def siguen_enfermos(self):
@@ -135,7 +152,7 @@ class Simulacion():
                             pass
                     else:
                         if self.__enfermedad.is_contagiado():
-                            #self.__comunidad.contagiar_random()
+                            self.__comunidad.contagiar_random()
                             pass
 
 

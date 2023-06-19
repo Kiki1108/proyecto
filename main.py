@@ -84,6 +84,11 @@ class MainWindow(Gtk.ApplicationWindow):
         self.start_button.connect("clicked",self.on_start_button_clicked)
         self.main_box.append(self.start_button)
 
+        self.image = Gtk.Image.new()
+        self.image.set_pixel_size(600)
+        self.main_box.append(self.image)
+
+
 
     def make_entry(self, entry, texto):
         box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 20)
@@ -173,6 +178,7 @@ class MainWindow(Gtk.ApplicationWindow):
         dias_simulacion = int(self.entry_dias_simulacion.get_text())
         simulacion = Simulacion(dias_simulacion, comunidad, enfermedad)
         simulacion.simular()
+        self.image.set_from_pixbuf(simulacion.mostrar_grafico())
 
 
 class MyApp(Gtk.Application):
