@@ -8,6 +8,7 @@ from PIL import Image
 plt.switch_backend('tkagg')
 from gi.repository import GLib, GdkPixbuf
 
+
 class Simulacion():
     def __init__(self, dias, comunidad, enfermedad):
         """
@@ -108,17 +109,12 @@ class Simulacion():
         return gdata
 
 
-
-
-
     def mostrar_dis(self):
         """
         Muestra... algo?
         """
         data_points = np.array(self.__enfermos_array)
         sm.qqplot(data_points, line='s')
-
-
 
 
     def siguen_enfermos(self):
@@ -146,8 +142,6 @@ class Simulacion():
                 for _ in range(conecciones):    # _ Representa cada coneccion
                     if self.__comunidad.is_contacto_estrecho():
                         if self.__enfermedad.is_contacto_estrecho_contagiado():
-                            # algo pasa acá que infecta demiasiado mientras que el otro no tanto
-                            #self.__comunidad.contagiar_random()
                             self.__comunidad.contagiar_contacto_estrecho(ciudadano)
                             pass
                     else:

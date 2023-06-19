@@ -19,6 +19,7 @@ class MainWindow(Gtk.ApplicationWindow):
         """
         super().__init__(*args, **kwargs)
         self.app = self.get_application()
+        self.set_default_size(1920, 1080)
         # Crear Header Bar
         header_bar = Gtk.HeaderBar.new()
         self.set_titlebar(titlebar=header_bar)
@@ -37,7 +38,7 @@ class MainWindow(Gtk.ApplicationWindow):
         # Entry 1 = Infeccion probable
         self.entry_infeccion_probable = Gtk.Entry()
         self.make_entry(self.entry_infeccion_probable, "Probabilidad de infectar:")
-        self.valor_base(self.entry_infeccion_probable, 5)
+        self.valor_base(self.entry_infeccion_probable, 10)
 
         # Entry 2 = Infeccion estrecho
         self.entry_infeccion_estrecho = Gtk.Entry()
@@ -57,7 +58,7 @@ class MainWindow(Gtk.ApplicationWindow):
         # Entry 5 = Número de ciudadanos
         self.entry_num_ciudadanos = Gtk.Entry()
         self.make_entry(self.entry_num_ciudadanos, "Cantidad de ciudadanos en la comunidad:")
-        self.valor_base(self.entry_num_ciudadanos, 200000)
+        self.valor_base(self.entry_num_ciudadanos, 20000)
 
         # Entry 6 = Número de infectados iniciales
         self.entry_infectados = Gtk.Entry()
@@ -77,7 +78,7 @@ class MainWindow(Gtk.ApplicationWindow):
         # Entry 9 = Cantidad de dias de la simulación
         self.entry_dias_simulacion = Gtk.Entry()
         self.make_entry(self.entry_dias_simulacion, "Dias de la simualción:")
-        self.valor_base(self.entry_dias_simulacion, 120)
+        self.valor_base(self.entry_dias_simulacion, 60)
 
         # Botón para empezar la simualción
         self.start_button = Gtk.Button.new_with_label("Empezar simulación")
@@ -85,7 +86,7 @@ class MainWindow(Gtk.ApplicationWindow):
         self.main_box.append(self.start_button)
 
         self.image = Gtk.Image.new()
-        self.image.set_pixel_size(600)
+        self.image.set_pixel_size(700)
         self.main_box.append(self.image)
 
 

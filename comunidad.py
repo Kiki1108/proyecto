@@ -4,7 +4,7 @@ from personas import Persona
 
 
 # Abre el archivo con los posibles nombres y apellidos de las personas
-with open("/home/londro/Documentos/git/proyecto/nombres_apellidos.json") as archivo:
+with open("nombres_apellidos.json") as archivo:
     dic = json.load(archivo)
 
 
@@ -183,22 +183,23 @@ class Comunidad():
         lista = []
         i_apellido = 0
         rep = 0
+        aumento = len(str((self.__num_ciudadanos // len(dic["apellidos"]) // 50))) + len(str(len(dic["apellidos"])))
+        cant = random.randint(20, 50)
         for i in range(self.__num_ciudadanos):
             # Genera una persona por iteracion
-            nombre = dic["nombres"][random.randint(0, len(dic["nombres"])-1)]
+            nombre = dic["nombres"][random.randint(0, len(dic["nombres"]) - 1)]
             apellido = dic["apellidos"][i_apellido]
-            aumento = len(str((self.__num_ciudadanos // len(dic["apellidos"]) // 50))) + len(str(len(dic["apellidos"]))) + 1
             _id = self.generar_id(i, i_apellido, rep, aumento)
             persona = Persona(_id, [nombre, apellido])
             lista.append(persona)
             self.__ciudadanos.append(persona)
-            if len(lista) == 50:
-                self.__familias[lista[0].get_id()[0:aumento]] = lista
+            if len(lista) == cant:
+                self.__familias[lista[0].get_id()[0:aumento]] = lista[0:len(lista)]
                 lista = []
+                cant = random.randint(20, 50)
                 i_apellido += 1
 
             if i_apellido == len(dic["apellidos"]) - 1:
                 rep = rep + 1
                 i_apellido = 0
-                
-        print(self.__familias["000000"][0].get_nombre())
+
