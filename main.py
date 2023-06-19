@@ -3,13 +3,13 @@ import gi
 import matplotlib
 
 gi.require_version('Gtk', '4.0')
+matplotlib.use('TkAgg')
 
 from gi.repository import Gio, Gtk
 from time import sleep
 from simulacion import Simulacion
 from enfermedad import Enfermedad
 from comunidad import Comunidad
-matplotlib.use('TkAgg')
 
 
 class MainWindow(Gtk.ApplicationWindow):
