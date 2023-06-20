@@ -14,6 +14,7 @@ Cristian:
 Londro:
     Ya arregle el tema de la generacion de los entrys, son como 80 lineas menos aprox
     me salio un error nuevo con para la wea de grafico, pero lo solucione
+    saque los nombres y apellidos duplicados
 
 
 Felipe:

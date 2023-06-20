@@ -4,7 +4,7 @@ from personas import Persona
 
 
 # Abre el archivo con los posibles nombres y apellidos de las personas
-with open("/home/londro/Documentos/git/proyecto/nombres_apellidos.json") as archivo:
+with open("nombres_apellidos.json") as archivo:
     dic = json.load(archivo)
 
 
