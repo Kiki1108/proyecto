@@ -33,6 +33,7 @@ class Comunidad():
         self.__prob_coneccion_fisica = prob
         self.__ciudadanos = []
         self.__familias = {}
+        self.__largo_id_familias = None
         #Funciones de inicio
         self.hacer_poblacion()
 
@@ -91,16 +92,16 @@ class Comunidad():
         Retorna:
             Un _id
         """
-        for familia in self.__familias:
-            if persona.get_id()[0:3] == familia:
-                familia_actual = self.__familias[familia]
-                index = random.randint(0, len(familia_actual) - 1)
-                if familia_actual[index] != persona and familia_actual[index].get_estado() == "S":
-                    familia_actual[index].set_estado("E")
-                    familia_actual[index].set_contador(self.__enfermedad.establecer_contador())
-                    return None
-                elif familia_actual[index] != persona and familia_actual[index].get_estado() in ["E", "I"]:
-                    return None
+        _id = persona.get_id()[0:self.__largo_id_familias]
+        familia_actual = self.__familias[_id]
+        while True:
+            index = random.randint(0, len(familia_actual) - 1)
+            if familia_actual[index] != persona and familia_actual[index].get_estado() == "S":
+                familia_actual[index].set_estado("E")
+                familia_actual[index].set_contador(self.__enfermedad.establecer_contador())
+                return None
+            elif familia_actual[index] != persona and familia_actual[index].get_estado() in ["E", "I"]:
+                return None
 
 
     def contagiar_random(self):
@@ -183,8 +184,8 @@ class Comunidad():
         lista = []
         i_apellido = 0
         rep = 0
-        aumento = len(str((self.__num_ciudadanos // len(dic["apellidos"]) // 50))) + len(str(len(dic["apellidos"])))
-        cant = random.randint(20, 50)
+        aumento = len(str((self.__num_ciudadanos // len(dic["apellidos"])))) + len(str(len(dic["apellidos"])))
+        cant = random.randint(15, 50)
         for i in range(self.__num_ciudadanos):
             # Genera una persona por iteracion
             nombre = dic["nombres"][random.randint(0, len(dic["nombres"]) - 1)]
@@ -193,7 +194,7 @@ class Comunidad():
             persona = Persona(_id, [nombre, apellido])
             lista.append(persona)
             self.__ciudadanos.append(persona)
-            if len(lista) == cant:
+            if len(lista) == cant or i == self.__num_ciudadanos - 1:
                 self.__familias[lista[0].get_id()[0:aumento]] = lista[0:len(lista)]
                 lista = []
                 cant = random.randint(20, 50)
@@ -202,4 +203,6 @@ class Comunidad():
             if i_apellido == len(dic["apellidos"]) - 1:
                 rep = rep + 1
                 i_apellido = 0
+
+        self.__largo_id_familias = aumento
 

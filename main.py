@@ -38,7 +38,7 @@ class MainWindow(Gtk.ApplicationWindow):
         # Entry 1 = Infeccion probable
         self.entry_infeccion_probable = Gtk.Entry()
         self.make_entry(self.entry_infeccion_probable, "Probabilidad de infectar:")
-        self.valor_base(self.entry_infeccion_probable, 10)
+        self.valor_base(self.entry_infeccion_probable, 5)
 
         # Entry 2 = Infeccion estrecho
         self.entry_infeccion_estrecho = Gtk.Entry()
