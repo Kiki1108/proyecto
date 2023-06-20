@@ -1,5 +1,6 @@
 import random
 
+
 class Enfermedad():
     def __init__(self, infeccion_probable, infeccion_estrecho, promedio_pasos, mortalidad):
         """
@@ -75,7 +76,7 @@ class Enfermedad():
     def is_contagiado(self):
         """
         Determina si el contagio es activo para infectar a otra persona
-
+        
         Retorna:
             True si puede ser contagiado, False si no
         """

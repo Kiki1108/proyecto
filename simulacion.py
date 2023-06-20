@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import statsmodels.api as sm
 from time import sleep
-import pylab as py
+plt.switch_backend('tkagg')
 
 class Simulacion():
     def __init__(self, dias, comunidad, enfermedad):

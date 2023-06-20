@@ -35,7 +35,8 @@ class Persona():
     def set_estado(self, estado):
         if estado in ["S", "E", "I", "M"]:
             self.__estado = estado
-    
+
+
     def set_contador(self, contador):
         self.__contador = contador
 

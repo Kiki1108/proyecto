@@ -4,7 +4,7 @@ from personas import Persona
 
 
 # Abre el archivo con los posibles nombres y apellidos de las personas
-with open("nombres_apellidos.json") as archivo:
+with open("/home/londro/Documentos/git/proyecto/nombres_apellidos.json") as archivo:
     dic = json.load(archivo)
 
 
@@ -20,7 +20,7 @@ class Comunidad():
             enfermos [int]: Cantidad de enfermos que hay en el momento
             muertos [int]: Indica el número de muertos totales
             prom_coneccion_fisica [int]: Media de generar una coneccion fisica
-            prob_coneccion_fisica [int]: Probabilidad de generar una conexión fisica
+            prob_coneccion_fisica [int]: Probabilidad de generar una coneccion fisica
             ciudadanos [list(Persona)]: Las personas de la comunidad
             familas [dict(Persona)]: Las personas de la comunidad agrupadas en familias
         """
@@ -120,6 +120,7 @@ class Comunidad():
                 break
             elif ciudadano.get_estado() in ["E", "I"]:
                 break
+
 
     def is_contacto_estrecho(self):
         """
