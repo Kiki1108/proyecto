@@ -4,7 +4,7 @@ from personas import Persona
 
 
 # Abre el archivo con los posibles nombres y apellidos de las personas
-with open("nombres_apellidos.json") as archivo:
+with open("/home/londro/Documentos/git/proyecto/nombres_apellidos.json") as archivo:
     dic = json.load(archivo)
 
 
@@ -148,7 +148,7 @@ class Comunidad():
         return int(conecciones)
 
 
-    def generar_id(self, posicion, apellido, repeticion):
+    def generar_id(self, posicion, apellido, repeticion, aumento):
         """
         Genera el identificador de la persona segun su apellido y numero de generacion
 
@@ -161,13 +161,13 @@ class Comunidad():
         """
         _id = str(posicion)
         largo = len(_id)
-        l_deseado = (len(str(self.__num_ciudadanos))) + 4
+        l_deseado = (len(str(self.__num_ciudadanos))) + aumento
         while largo != l_deseado:
             # si tiene menos de 5 digitos los rellena y luego adjunta al inicio el codigo correspondiente al apellido
-            if largo == l_deseado - 4:
+            if largo == l_deseado - aumento:
                 _id = f"{apellido}{_id}"
                 largo = len(_id)
-            elif largo == l_deseado - 1:
+            elif largo == (l_deseado - aumento) + len(str(len(dic["apellidos"]))):
                 _id = f"{repeticion}{_id}"
                 largo = len(_id)
             else:
@@ -187,16 +187,18 @@ class Comunidad():
             # Genera una persona por iteracion
             nombre = dic["nombres"][random.randint(0, len(dic["nombres"])-1)]
             apellido = dic["apellidos"][i_apellido]
-            _id = self.generar_id(i, i_apellido, rep)
+            aumento = len(str((self.__num_ciudadanos // len(dic["apellidos"]) // 50))) + len(str(len(dic["apellidos"]))) + 1
+            _id = self.generar_id(i, i_apellido, rep, aumento)
             persona = Persona(_id, [nombre, apellido])
             lista.append(persona)
             self.__ciudadanos.append(persona)
-
             if len(lista) == 50:
-                self.__familias[lista[0].get_id()[0:4]] = lista
+                self.__familias[lista[0].get_id()[0:aumento]] = lista
                 lista = []
                 i_apellido += 1
 
             if i_apellido == len(dic["apellidos"]) - 1:
-                rep += 1
+                rep = rep + 1
                 i_apellido = 0
+                
+        print(self.__familias["000000"][0].get_nombre())

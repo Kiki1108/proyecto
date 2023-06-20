@@ -57,7 +57,7 @@ class MainWindow(Gtk.ApplicationWindow):
         # Entry 5 = Número de ciudadanos
         self.entry_num_ciudadanos = Gtk.Entry()
         self.make_entry(self.entry_num_ciudadanos, "Cantidad de ciudadanos en la comunidad:")
-        self.valor_base(self.entry_num_ciudadanos, 20000)
+        self.valor_base(self.entry_num_ciudadanos, 200000)
 
         # Entry 6 = Número de infectados iniciales
         self.entry_infectados = Gtk.Entry()
@@ -77,7 +77,7 @@ class MainWindow(Gtk.ApplicationWindow):
         # Entry 9 = Cantidad de dias de la simulación
         self.entry_dias_simulacion = Gtk.Entry()
         self.make_entry(self.entry_dias_simulacion, "Dias de la simualción:")
-        self.valor_base(self.entry_dias_simulacion, 60)
+        self.valor_base(self.entry_dias_simulacion, 120)
 
         # Botón para empezar la simualción
         self.start_button = Gtk.Button.new_with_label("Empezar simulación")
