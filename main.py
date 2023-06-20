@@ -17,6 +17,7 @@ class MainWindow(Gtk.ApplicationWindow):
         """
         super().__init__(*args, **kwargs)
         self.app = self.get_application()
+
         # Crear Header Bar
         header_bar = Gtk.HeaderBar.new()
         self.set_titlebar(titlebar=header_bar)
@@ -31,6 +32,7 @@ class MainWindow(Gtk.ApplicationWindow):
         # Crear la ventana
         self.main_box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 5)
         self.set_child(self.main_box)
+
         # Entry 1 = Infeccion probable
         self.box_1 = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 20)
         self.main_box.append(self.box_1)
@@ -44,6 +46,7 @@ class MainWindow(Gtk.ApplicationWindow):
         self.entry_infeccion_probable.set_text("5")
         self.entry_infeccion_probable.set_margin_end(10)        
         self.box_1.append(self.entry_infeccion_probable)
+
         # Entry 2 = Infeccion estrecho
         self.box_2 = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 20)
         self.main_box.append(self.box_2)
@@ -57,6 +60,7 @@ class MainWindow(Gtk.ApplicationWindow):
         self.entry_infeccion_estrecho.set_text("70")
         self.entry_infeccion_estrecho.set_margin_end(10)
         self.box_2.append(self.entry_infeccion_estrecho)
+
         # Entry 3 = promedio de pasos
         self.box_3 = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 20)
         self.main_box.append(self.box_3)
@@ -70,6 +74,7 @@ class MainWindow(Gtk.ApplicationWindow):
         self.entry_promedio_pasos.set_text("10")
         self.entry_promedio_pasos.set_margin_end(10)
         self.box_3.append(self.entry_promedio_pasos)
+
         # Entry 4 = Mortalidad
         self.box_4 = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 20)
         self.main_box.append(self.box_4)
@@ -83,6 +88,7 @@ class MainWindow(Gtk.ApplicationWindow):
         self.entry_mortalidad.set_text("2")
         self.entry_mortalidad.set_margin_end(10)        
         self.box_4.append(self.entry_mortalidad)
+
         # Entry 5 = Número de ciudadanos
         self.box_5 = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 20)
         self.main_box.append(self.box_5)
@@ -96,6 +102,7 @@ class MainWindow(Gtk.ApplicationWindow):
         self.entry_num_ciudadanos.set_text("20000")
         self.entry_num_ciudadanos.set_margin_end(10)
         self.box_5.append(self.entry_num_ciudadanos)
+
         # Entry 6 = Número de infectados iniciales
         self.box_6 = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 20)
         self.main_box.append(self.box_6)
@@ -109,6 +116,7 @@ class MainWindow(Gtk.ApplicationWindow):
         self.entry_infectados.set_text("10")
         self.entry_infectados.set_margin_end(10)
         self.box_6.append(self.entry_infectados)
+
         # Entry 7 = Promedio de coneccion fisica
         self.box_7 = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 20)
         self.main_box.append(self.box_7)
@@ -119,9 +127,10 @@ class MainWindow(Gtk.ApplicationWindow):
         self.label_7.set_halign(1)
         self.box_7.append(self.label_7)
         self.entry_prom_coneccion_fisica = Gtk.Entry()
-        self.entry_prom_coneccion_fisica.set_text("10")
+        self.entry_prom_coneccion_fisica.set_text("7")
         self.entry_prom_coneccion_fisica.set_margin_end(10)
         self.box_7.append(self.entry_prom_coneccion_fisica)
+
         # Entry 8 = Probabilidad de coneccion fisica
         self.box_8 = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 20)
         self.main_box.append(self.box_8)
@@ -135,6 +144,7 @@ class MainWindow(Gtk.ApplicationWindow):
         self.entry_prob_coneccion_fisica.set_text("40")
         self.entry_prob_coneccion_fisica.set_margin_end(10)
         self.box_8.append(self.entry_prob_coneccion_fisica)
+
         # Entry 9 = Cantidad de dias de la simulación
         self.box_9 = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 20)
         self.main_box.append(self.box_9)
@@ -145,9 +155,10 @@ class MainWindow(Gtk.ApplicationWindow):
         self.label_9.set_halign(1)
         self.box_9.append(self.label_9)
         self.entry_dias_simulacion = Gtk.Entry()
-        self.entry_dias_simulacion.set_text("60")
+        self.entry_dias_simulacion.set_text("90")
         self.entry_dias_simulacion.set_margin_end(10)
         self.box_9.append(self.entry_dias_simulacion)
+
         # Botón para empezar la simualción
         self.start_button = Gtk.Button.new_with_label("Empezar simulación")
         self.start_button.connect("clicked",self.on_start_button_clicked)
@@ -158,6 +169,7 @@ class MainWindow(Gtk.ApplicationWindow):
         """
         Tiene la funcion de generar una bandera para que se ingresen bien los datos
         """
+        # REALIZAR BIEN ESTA BANDERA
         if not self.entry_infeccion_probable.get_text().isnumeric():
             print("Se ingreso un valor no valido para 'infeccion probable'")
         elif not self.entry_infeccion_estrecho.get_text().isnumeric():

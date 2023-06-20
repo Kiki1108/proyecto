@@ -4,7 +4,7 @@ from personas import Persona
 
 
 # Abre el archivo con los posibles nombres y apellidos de las personas
-with open("/home/londro/Documentos/git/proyecto/nombres_apellidos.json") as archivo:
+with open("nombres_apellidos.json") as archivo:
     dic = json.load(archivo)
 
 
@@ -143,7 +143,7 @@ class Comunidad():
         """
         while True:
             conecciones = random.gauss(self.__prom_coneccion_fisica, self.__prom_coneccion_fisica/2)
-            if conecciones >= 0:
+            if conecciones >= 0 and conecciones < self.__prom_coneccion_fisica*2:
                 break
         return int(conecciones)
 

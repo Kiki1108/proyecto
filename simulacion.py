@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import statsmodels.api as sm
 from time import sleep
+import pylab as py
 
 class Simulacion():
     def __init__(self, dias, comunidad, enfermedad):
@@ -50,7 +51,7 @@ class Simulacion():
         """
         self.generar_caso_0()
         self.imprimir_inicial()
-        sleep(1)
+        sleep(2)
         while self.__dias != self.__contador:
             # Cambia de día en la simulación
             if self.__contador != 0:
@@ -128,13 +129,14 @@ class Simulacion():
                 for _ in range(conecciones):    # _ Representa cada coneccion
                     if self.__comunidad.is_contacto_estrecho():
                         if self.__enfermedad.is_contacto_estrecho_contagiado():
-                            #algo pasa acá que infecta demiasiado mientras que el otro no tanto
+                            # algo pasa acá que infecta demiasiado mientras que el otro no tanto
                             #self.__comunidad.contagiar_random()
-                            #self.__comunidad.contagiar_contacto_estrecho(ciudadano)
+                            self.__comunidad.contagiar_contacto_estrecho(ciudadano)
                             pass
                     else:
                         if self.__enfermedad.is_contagiado():
-                            self.__comunidad.contagiar_random()
+                            #self.__comunidad.contagiar_random()
+                            pass
 
 
     def leer_datos(self):
