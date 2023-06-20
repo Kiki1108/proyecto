@@ -43,7 +43,7 @@ class MainWindow(Gtk.ApplicationWindow):
         # Entry 2 = Infeccion estrecho
         self.entry_infeccion_estrecho = Gtk.Entry()
         self.make_entry(self.entry_infeccion_estrecho, "Probabilidad de infectar a un contacto estrecho:")
-        self.valor_base(self.entry_infeccion_estrecho, 70)
+        self.valor_base(self.entry_infeccion_estrecho, 20)
 
         # Entry 3 = promedio de pasos
         self.entry_promedio_pasos = Gtk.Entry()
