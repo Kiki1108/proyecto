@@ -32,8 +32,12 @@ class MainWindow(Gtk.ApplicationWindow):
         menu_button.set_menu_model(menu_model=menu_button_model)
         header_bar.pack_end(child=menu_button)
         # Crear la ventana
-        self.main_box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 5)
-        self.set_child(self.main_box)
+        self.scroll = Gtk.ScrolledWindow()
+        self.main_box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 5)
+        self.data_box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 5)
+        self.set_child(self.scroll)
+        self.scroll.set_child(self.main_box)
+        self.main_box.append(self.data_box)
         # self.valor = self.make_entry("valor", 10)
         # Entry 1 = Infeccion probable
         self.entry_infeccion_probable = Gtk.Entry()
@@ -80,20 +84,22 @@ class MainWindow(Gtk.ApplicationWindow):
         self.make_entry(self.entry_dias_simulacion, "Dias de la simualción:")
         self.valor_base(self.entry_dias_simulacion, 60)
 
+        for i in range(123):
+            self.cajas_vacias(self.data_box)
+
         # Botón para empezar la simualción
         self.start_button = Gtk.Button.new_with_label("Empezar simulación")
         self.start_button.connect("clicked",self.on_start_button_clicked)
-        self.main_box.append(self.start_button)
+        self.data_box.append(self.start_button)
 
         self.image = Gtk.Image.new()
-        self.image.set_pixel_size(700)
+        self.image.set_pixel_size(1000)
         self.main_box.append(self.image)
 
 
-
     def make_entry(self, entry, texto):
-        box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 20)
-        self.main_box.append(box)
+        box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 100)
+        self.data_box.append(box)
         label = Gtk.Label.new(texto)
         label.set_margin_start(10)
         label.set_hexpand(True)
@@ -101,6 +107,13 @@ class MainWindow(Gtk.ApplicationWindow):
         box.append(label)
         entry.set_margin_end(10)
         box.append(entry)
+
+
+
+    def cajas_vacias(self, box):
+        box2 = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 10)
+        box.append(box2)
+        pass
 
 
     def valor_base(self, entry, numero):
