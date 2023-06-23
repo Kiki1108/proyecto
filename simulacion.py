@@ -53,19 +53,18 @@ class Simulacion():
         """
         Genera la simulación de inicial y puede pasar el
         """
-        self.generar_caso_0()
-        self.imprimir_inicial()
-        sleep(2)
-        while self.__dias != self.__contador:
+        if self.__contador == 0:
+            self.generar_caso_0()
+            self.imprimir_inicial()
+            sleep(2)
             # Cambia de día en la simulación
-            if self.__contador != 0:
-                self.pasar_el_dia()
-            self.__contador = self.__contador + 1
-            self.imprimir_datos()
+        elif self.__contador != 0:
+            self.pasar_el_dia()
+        self.__contador = self.__contador + 1
+        self.imprimir_datos()
             #if not self.__contador % 10 and self.__contador != self.__dias:
             #    self.mostrar_grafico()
-        self.mostrar_grafico()
-        self.mostrar_dis()
+
 
 
     def pasar_el_dia(self):
@@ -81,6 +80,7 @@ class Simulacion():
         """
         Muestra del gráfico de SIR
         """
+        plt.clf()
         x = []
         for i in range(self.__contador):
             x.append(i+1)
@@ -107,14 +107,6 @@ class Simulacion():
                                                 True, 8, im.width, im.height,
                                                 len(im.getbands())*im.width)
         return gdata
-
-
-    def mostrar_dis(self):
-        """
-        Muestra... algo?
-        """
-        data_points = np.array(self.__enfermos_array)
-        sm.qqplot(data_points, line='s')
 
 
     def siguen_enfermos(self):

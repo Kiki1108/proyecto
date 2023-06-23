@@ -84,8 +84,9 @@ class MainWindow(Gtk.ApplicationWindow):
         self.make_entry(self.entry_dias_simulacion, "Dias de la simualción:")
         self.valor_base(self.entry_dias_simulacion, 60)
 
-        for i in range(123):
-            self.cajas_vacias(self.data_box)
+        self.box_espacio = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 10)
+        self.box_espacio.set_vexpand(True)
+        self.data_box.append(self.box_espacio)
 
         # Botón para empezar la simualción
         self.start_button = Gtk.Button.new_with_label("Empezar simulación")
@@ -95,10 +96,12 @@ class MainWindow(Gtk.ApplicationWindow):
         self.image = Gtk.Image.new()
         self.image.set_pixel_size(1000)
         self.main_box.append(self.image)
+        self.image.set_hexpand(True)
+
 
 
     def make_entry(self, entry, texto):
-        box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 100)
+        box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 10)
         self.data_box.append(box)
         label = Gtk.Label.new(texto)
         label.set_margin_start(10)
@@ -107,6 +110,7 @@ class MainWindow(Gtk.ApplicationWindow):
         box.append(label)
         entry.set_margin_end(10)
         box.append(entry)
+
 
 
 
@@ -191,8 +195,9 @@ class MainWindow(Gtk.ApplicationWindow):
         # Datos para la clase Simulacion
         dias_simulacion = int(self.entry_dias_simulacion.get_text())
         simulacion = Simulacion(dias_simulacion, comunidad, enfermedad)
-        simulacion.simular()
-        self.image.set_from_pixbuf(simulacion.mostrar_grafico())
+        while simulacion.get_dias() != simulacion.get_contador():
+            simulacion.simular()
+            self.image.set_from_pixbuf(simulacion.mostrar_grafico())
 
 
 class MyApp(Gtk.Application):
