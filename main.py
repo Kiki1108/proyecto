@@ -92,6 +92,7 @@ class MainWindow(Gtk.ApplicationWindow):
 
         self.progreso = None
 
+
     def make_entry(self, texto, inicial):
         entry = Gtk.Entry()
         entry.set_text(inicial)
@@ -213,7 +214,6 @@ class MainWindow(Gtk.ApplicationWindow):
     def show_mensaje_inicio(self):
         self.progreso = MensajeInicio(parent=self.get_root())
         self.progreso.set_visible(True)
-
 
 
 
