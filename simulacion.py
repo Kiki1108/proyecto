@@ -9,6 +9,7 @@ plt.switch_backend('tkagg')
 from gi.repository import GLib, GdkPixbuf
 from personas import Persona
 
+
 class Simulacion():
     def __init__(self, dias, comunidad, enfermedad):
         """

@@ -90,6 +90,7 @@ class MainWindow(Gtk.ApplicationWindow):
         self.main_box.append(self.image)
         self.image.set_hexpand(True)
 
+        self.progreso = None
 
     def make_entry(self, texto, inicial):
         entry = Gtk.Entry()
@@ -169,6 +170,7 @@ class MainWindow(Gtk.ApplicationWindow):
             else:
                 self.show_mensaje_inicio()
                 self.iniciar_simulacion()
+                self.progreso.close()
 
 
     def iniciar_simulacion(self):
@@ -194,7 +196,6 @@ class MainWindow(Gtk.ApplicationWindow):
         simulacion = Simulacion(dias_simulacion, comunidad, enfermedad)
         simulacion.simular()
         self.image.set_from_pixbuf(simulacion.mostrar_grafico())
-        self.progreso.close()
 
 
     def show_mensaje_error(self, texto):
