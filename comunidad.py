@@ -97,9 +97,8 @@ class Comunidad():
         while True:
             index = random.randint(0, len(familia_actual) - 1)
             if familia_actual[index] != persona and familia_actual[index].get_estado() == "S":
-                familia_actual[index].set_estado("E")
                 familia_actual[index].set_contador(self.__enfermedad.establecer_contador())
-                return None
+                return familia_actual[index]
             elif familia_actual[index] != persona and familia_actual[index].get_estado() in ["E", "I"]:
                 return None
 
@@ -115,11 +114,10 @@ class Comunidad():
             _id = random.randint(0, self.__num_ciudadanos - 1)
             ciudadano = self.__ciudadanos[_id]
             if ciudadano.get_estado() == "S":
-                ciudadano.set_estado("E")
                 ciudadano.set_contador(self.__enfermedad.establecer_contador())
-                break
+                return ciudadano
             elif ciudadano.get_estado() in ["E", "I"]:
-                break
+                return None
 
 
     def is_contacto_estrecho(self):

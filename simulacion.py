@@ -7,7 +7,7 @@ from time import sleep
 from PIL import Image
 plt.switch_backend('tkagg')
 from gi.repository import GLib, GdkPixbuf
-
+from personas import Persona
 
 class Simulacion():
     def __init__(self, dias, comunidad, enfermedad):
@@ -53,18 +53,15 @@ class Simulacion():
         """
         Genera la simulación de inicial y puede pasar el
         """
-        if self.__contador == 0:
-            self.generar_caso_0()
-            self.imprimir_inicial()
-            sleep(2)
-            # Cambia de día en la simulación
-        elif self.__contador != 0:
-            self.pasar_el_dia()
-        self.__contador = self.__contador + 1
-        self.imprimir_datos()
-            #if not self.__contador % 10 and self.__contador != self.__dias:
-            #    self.mostrar_grafico()
-
+        for _ in range(self.__dias):
+            if self.__contador == 0:
+                self.generar_caso_0()
+                sleep(2)
+                # Cambia de día en la simulación
+            elif self.__contador != 0:
+                self.pasar_el_dia()
+            self.__contador = self.__contador + 1
+            self.imprimir_datos()
 
 
     def pasar_el_dia(self):
@@ -128,19 +125,23 @@ class Simulacion():
         """
         Método de contagio en la comunidad
         """
+        nuevos_enfermos = []
         for ciudadano in self.__comunidad.get_ciudadanos():
             if ciudadano.get_estado() == "E":
                 conecciones = self.__comunidad.cantidad_conecciones()
                 for _ in range(conecciones):    # _ Representa cada coneccion
                     if self.__comunidad.is_contacto_estrecho():
                         if self.__enfermedad.is_contacto_estrecho_contagiado():
-                            self.__comunidad.contagiar_contacto_estrecho(ciudadano)
-                            pass
+                            nuevo_enfermo = self.__comunidad.contagiar_contacto_estrecho(ciudadano)
+                            if isinstance(nuevo_enfermo,Persona):
+                                nuevos_enfermos.append(nuevo_enfermo)
                     else:
                         if self.__enfermedad.is_contagiado():
-                            self.__comunidad.contagiar_random()
-                            pass
-
+                            nuevo_enfermo = self.__comunidad.contagiar_random()
+                            if isinstance(nuevo_enfermo, Persona):
+                                nuevos_enfermos.append(nuevo_enfermo)
+        for i in range(len(nuevos_enfermos)):
+            nuevos_enfermos[i].set_estado('E')
 
     def leer_datos(self):
         """
@@ -209,4 +210,5 @@ class Simulacion():
                     break
                 else:
                     id = None
+
         self.__comunidad.set_ciudadanos(ciudadanos)
