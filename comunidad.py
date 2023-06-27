@@ -183,7 +183,7 @@ class Comunidad():
         i_apellido = 0
         rep = 0
         aumento = len(str((self.__num_ciudadanos // len(dic["apellidos"])))) + len(str(len(dic["apellidos"])))
-        cant = random.randint(15, 50)
+        cant = random.randint(5, 20)
         for i in range(self.__num_ciudadanos):
             # Genera una persona por iteracion
             nombre = dic["nombres"][random.randint(0, len(dic["nombres"]) - 1)]
@@ -195,7 +195,7 @@ class Comunidad():
             if len(lista) == cant or i == self.__num_ciudadanos - 1:
                 self.__familias[lista[0].get_id()[0:aumento]] = lista[0:len(lista)]
                 lista = []
-                cant = random.randint(20, 50)
+                cant = random.randint(5, 20)
                 i_apellido += 1
 
             if i_apellido == len(dic["apellidos"]) - 1:

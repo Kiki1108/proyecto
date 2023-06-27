@@ -32,7 +32,7 @@ class Simulacion():
         self.__infectados_array = [self.__comunidad.get_infectados()]
         self.__enfermos_array = [self.__comunidad.get_infectados()]
         self.__muertos_array = [0]
-        self.__suceptibles_array = [self.__comunidad.get_num_ciudadanos()]
+        self.__suceptibles_array = [self.__comunidad.get_num_ciudadanos() - self.__comunidad.get_infectados()]
 
 
     def get_dias(self):
@@ -61,7 +61,7 @@ class Simulacion():
                 # Cambia de día en la simulación
             elif self.__contador != 0:
                 self.pasar_el_dia()
-            self.__contador = self.__contador + 1
+            self.__contador += 1
             self.imprimir_datos()
 
 
@@ -143,6 +143,7 @@ class Simulacion():
                                 nuevos_enfermos.append(nuevo_enfermo)
         for i in range(len(nuevos_enfermos)):
             nuevos_enfermos[i].set_estado('E')
+
 
     def leer_datos(self):
         """
