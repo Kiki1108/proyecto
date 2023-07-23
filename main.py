@@ -41,7 +41,8 @@ class MainWindow(Gtk.ApplicationWindow):
         self.set_child(self.scroll)
         self.scroll.set_child(self.main_box)
         self.main_box.append(self.data_box)
-        # self.valor = self.make_entry("valor", 10)
+        # Label 1
+        self.make_label("Valores de la Enfermedad")
         # Entry 1 = Infeccion probable
         self.entry_infeccion_probable = self.make_entry("Probabilidad de infectar:",
                                                         '5')
@@ -54,6 +55,8 @@ class MainWindow(Gtk.ApplicationWindow):
         # Entry 4 = Mortalidad
         self.entry_mortalidad = self.make_entry("Mortalidad de la infección:",
                                                 '2')
+        # Label 2
+        self.make_label("Valores de la Comunidad")
         # Entry 5 = Número de ciudadanos
         self.entry_num_ciudadanos = self.make_entry("Cantidad de ciudadanos en la comunidad:",
                                                     '20000')
@@ -66,9 +69,13 @@ class MainWindow(Gtk.ApplicationWindow):
         # Entry 8 = Probabilidad de coneccion fisica
         self.entry_prob_coneccion_fisica = self.make_entry("Probabilidad de que la coneccion sea estrecha:",
                                                             '40')
+        # Label 3
+        self.make_label("Valores de la Simulación")
         # Entry 9 = Cantidad de dias de la simulación
         self.entry_dias_simulacion = self.make_entry("Dias de la simualción:",
                                                     '60')
+        # Label 4
+        self.make_label("Valores de la Vacuna")
         # Entry 10 = Cantidad de vacunas (%)
         self.entry_porc_vacunas = self.make_entry("Porcentaje de población a vacunar:",
                                                     '40')
@@ -101,13 +108,21 @@ class MainWindow(Gtk.ApplicationWindow):
         self.progreso = None
 
 
+    def make_label(self, texto):
+        label = Gtk.Label.new(texto)
+        label.set_margin_start(15)
+        label.set_halign(1)
+        label.set_hexpand(True)
+        self.data_box.append(label)
+
+
     def make_entry(self, texto, inicial):
         entry = Gtk.Entry()
         entry.set_text(inicial)
         entry.set_margin_end(10)
         box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 10)
         label = Gtk.Label.new(texto)
-        label.set_margin_start(15)
+        label.set_margin_start(30)
         label.set_halign(1)
         label.set_hexpand(True)
         box.append(label)
