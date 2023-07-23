@@ -201,7 +201,6 @@ class Simulacion():
                 case "V": vacunados_inmune += 1
             if ciudadano.get_vacunado():
                 vacunados += 1
-
         self.__comunidad.set_muertos(muertos)
         self.__muertos_array.append(muertos)
         self.__comunidad.set_enfermos(enfermos)
