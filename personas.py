@@ -33,7 +33,7 @@ class Persona():
 
 
     def set_estado(self, estado):
-        if estado in ["S", "E", "I", "M"]:
+        if estado in ["S", "E", "I", "M", "V"]:
             self.__estado = estado
 
 
