@@ -9,15 +9,15 @@ class Vacunas():
 
     def get_inicio(self):
         return self.__inicio
-    
+
 
     def get_total(self):
         return self.__total
-    
+
 
     def get_tasa(self):
         return self.__tasa
-    
+
 
     def get_vacunas_restantes(self):
         return self.__vacunas_restantes
