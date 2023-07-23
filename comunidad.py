@@ -35,6 +35,7 @@ class Comunidad():
         self.__ciudadanos = []
         self.__familias = {}
         self.__largo_id_familias = None
+        self.__vacunados_inmune = 0
         #Funciones de inicio
         self.hacer_poblacion()
 
@@ -65,6 +66,10 @@ class Comunidad():
 
     def get_prob_contacto_estrecho(self):
         return self.__prob_coneccion_fisica
+    
+
+    def get_vacunados_inmune(self):
+        return self.__vacunados_inmune
 
 
     def set_ciudadanos(self, ciudadanos):
@@ -81,6 +86,10 @@ class Comunidad():
 
     def set_infectados(self, infectados):
         self.__infectados = infectados
+
+
+    def set_vacunados_inmune(self, vacunados_inmune):
+        self.__vacunados_inmune = vacunados_inmune
 
 
     def contagiar_contacto_estrecho(self, persona):

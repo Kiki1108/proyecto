@@ -36,6 +36,7 @@ class Simulacion():
         self.__enfermos_array = [self.__comunidad.get_infectados()]
         self.__muertos_array = [0]
         self.__suceptibles_array = [self.__comunidad.get_num_ciudadanos() - self.__comunidad.get_infectados()]
+        self.__inmunes_vacunados_array = []
 
 
     def get_dias(self):
@@ -90,6 +91,7 @@ class Simulacion():
         plt.plot(x,self.__infectados_array)
         plt.plot(x,self.__muertos_array)
         plt.plot(x,self.__suceptibles_array)
+        plt.plot(x,self.__inmunes_vacunados_array)
         plt.grid()    # rejilla
         plt.xlabel('Días')
         plt.ylabel('Población')
@@ -179,6 +181,8 @@ class Simulacion():
         enfermos = 0
         inmunes = 0
         suceptibles = 0
+        vacunados = 0
+        vacunados_inmune = 0
         # Lee los datos de la poblacion (o los actualiza), guardandolos en la comunidad
         for ciudadano in self.__comunidad.get_ciudadanos():
             match ciudadano.get_estado():
@@ -186,6 +190,7 @@ class Simulacion():
                 case "E": enfermos += 1
                 case "I": inmunes += 1
                 case "S": suceptibles += 1
+                case "V": vacunados_inmune += 1
         self.__comunidad.set_muertos(muertos)
         self.__muertos_array.append(muertos)
         self.__comunidad.set_enfermos(enfermos)
@@ -193,6 +198,8 @@ class Simulacion():
         self.__comunidad.set_infectados(muertos+enfermos+inmunes)
         self.__infectados_array.append(muertos+enfermos+inmunes)
         self.__suceptibles_array.append(suceptibles)
+        self.__comunidad.set_vacunados_inmune(vacunados_inmune)
+        self.__inmunes_vacunados_array.append(vacunados_inmune)
 
 
     def imprimir_inicial(self):
