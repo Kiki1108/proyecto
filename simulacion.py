@@ -149,10 +149,16 @@ class Simulacion():
         
     def vacunar(self):
         if self.__contador + 1 < self.__vacunas.get_inicio():
-            print("no se puede vacunar")
             return
         
-        print("SE puede vacunar")
+        vacunas = 0
+        tasa = self.__vacunas.get_tasa()
+
+        while vacunas <= 0 or vacunas > (tasa * 2 * self.__vacunas.get_total()): 
+            vacunas = int(random.gauss(tasa, tasa / 10) * self.__vacunas.get_total())
+            print(vacunas)
+        print(vacunas)
+
         
 
 
