@@ -1,3 +1,5 @@
+import random
+
 class Vacunas():
     def __init__(self, inicio, total, tasa, inmunidades):
         """
@@ -31,8 +33,13 @@ class Vacunas():
 
     def get_vacunas_restantes(self):
         return self.__vacunas_restantes
+    
+
+    def is_inmune(self, i):
+        if random.randint(0, 100) <= self.__inmunidades[i]:
+            return True
+        return False
 
 
     def gastar_vacunas(self, a, b, c):
-        print(a, b, c)
         self.__vacunas_restantes = [self.__vacunas_restantes[0] - a, self.__vacunas_restantes[1] - b, self.__vacunas_restantes[2] -c]

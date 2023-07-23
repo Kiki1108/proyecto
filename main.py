@@ -214,7 +214,7 @@ class MainWindow(Gtk.ApplicationWindow):
         # Datos para la clase Vacunas
         inicio_vacunacion = int(self.entry_inicio_vacunacion.get_text())
         total_vacunas = num_ciudadanos * int(self.entry_porc_vacunas.get_text()) / 100
-        tasa = int(self.entry_tasa_vacunacion.get_text())
+        tasa = float(self.entry_tasa_vacunacion.get_text())
         inmunidades = [int(self.entry_porc_inmu_1.get_text()), int(self.entry_porc_inmu_2.get_text()), int(self.entry_porc_inmu_3.get_text())]
         vacunas = Vacunas(inicio_vacunacion, total_vacunas, tasa, inmunidades)
         # Datos para la clase Simulacion

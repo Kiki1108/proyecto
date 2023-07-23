@@ -14,6 +14,7 @@ class Persona():
         self.__nombre = nombre
         self.__estado = "S"
         self.__contador = None
+        self.__vacunado = False
 
 
     def get_id(self):
@@ -30,6 +31,10 @@ class Persona():
 
     def get_contador(self):
         return self.__contador
+    
+
+    def get_vacunado(self):
+        return self.__vacunado
 
 
     def set_estado(self, estado):
@@ -39,6 +44,10 @@ class Persona():
 
     def set_contador(self, contador):
         self.__contador = contador
+
+
+    def set_vacunado(self):
+        self.__vacunado = True
 
 
     def restar_contador(self):

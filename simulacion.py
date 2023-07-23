@@ -38,7 +38,8 @@ class Simulacion():
         self.__enfermos_array = [self.__comunidad.get_infectados()]
         self.__muertos_array = [0]
         self.__suceptibles_array = [self.__comunidad.get_num_ciudadanos() - self.__comunidad.get_infectados()]
-        self.__inmunes_vacunados_array = []
+        self.__inmunes_vacunados_array = [0]
+        self.__vacunados_array = [0]
 
 
     def get_dias(self):
@@ -94,6 +95,7 @@ class Simulacion():
         plt.plot(x,self.__muertos_array)
         plt.plot(x,self.__suceptibles_array)
         plt.plot(x,self.__inmunes_vacunados_array)
+        plt.plot(x,self.__vacunados_array)
         plt.grid()    # rejilla
         plt.xlabel('Días')
         plt.ylabel('Población')
@@ -152,7 +154,8 @@ class Simulacion():
 
 
     def vacunar(self):
-        if self.__contador + 1 < self.__vacuna.get_inicio():
+        print("AA")
+        if self.__contador + 1 < self.__vacunas.get_inicio():
             return
         if self.__vacuna.get_vacunas_restantes()[0] <= 0:
             return
@@ -161,10 +164,22 @@ class Simulacion():
         while vacunas <= 0 or vacunas > (tasa*2*self.__comunidad.get_num_ciudadanos()): 
             vacunas = int(random.gauss(tasa/100, tasa/1000)*self.__comunidad.get_num_ciudadanos())
         vacunas = [int(vacunas*0.25), int(vacunas*0.5), int(vacunas*0.25)]
-        self.__vacuna.gastar_vacunas(vacunas[0], vacunas[1], vacunas[2])
-        print(vacunas)
-        print(self.__vacuna.get_vacunas_restantes())
+        self.__vacunas.gastar_vacunas(vacunas[0], vacunas[1], vacunas[2])
 
+        for i in range(3):
+            for _ in range(vacunas[i]):
+                for ciudadano in self.__comunidad.get_ciudadanos():
+                    if ciudadano.get_vacunado() or ciudadano.get_estado() == "M":
+                        pass
+                    elif ciudadano.get_estado() == "S":
+                        ciudadano.set_vacunado()
+                        if self.__vacunas.is_inmune(i):
+                            ciudadano.set_estado("V")
+                        break
+                    else:
+                        ciudadano.set_vacunado()
+                        break
+                    
 
     def leer_datos(self):
         """
@@ -184,6 +199,9 @@ class Simulacion():
                 case "I": inmunes += 1
                 case "S": suceptibles += 1
                 case "V": vacunados_inmune += 1
+            if ciudadano.get_vacunado():
+                vacunados += 1
+
         self.__comunidad.set_muertos(muertos)
         self.__muertos_array.append(muertos)
         self.__comunidad.set_enfermos(enfermos)
@@ -193,6 +211,8 @@ class Simulacion():
         self.__suceptibles_array.append(suceptibles)
         self.__comunidad.set_vacunados_inmune(vacunados_inmune)
         self.__inmunes_vacunados_array.append(vacunados_inmune)
+        self.__comunidad.set_vacunados(vacunados)
+        self.__vacunados_array.append(vacunados)
 
 
     def imprimir_inicial(self):
