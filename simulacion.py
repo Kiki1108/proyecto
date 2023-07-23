@@ -179,7 +179,7 @@ class Simulacion():
                     else:
                         ciudadano.set_vacunado()
                         break
-                    
+
 
     def leer_datos(self):
         """
