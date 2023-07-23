@@ -10,6 +10,7 @@ from time import sleep
 from simulacion import Simulacion
 from enfermedad import Enfermedad
 from comunidad import Comunidad
+from vacunas import Vacunas
 from mensaje import MensajeError
 from mensaje2 import MensajeInicio
 
@@ -42,6 +43,7 @@ class MainWindow(Gtk.ApplicationWindow):
         self.set_child(self.scroll)
         self.scroll.set_child(self.main_box)
         self.main_box.append(self.data_box)
+
         # self.valor = self.make_entry("valor", 10)
         # Entry 1 = Infeccion probable
         self.entry_infeccion_probable = self.make_entry("Probabilidad de infectar:",
@@ -71,7 +73,7 @@ class MainWindow(Gtk.ApplicationWindow):
                                                            '7')
 
         # Entry 8 = Probabilidad de coneccion fisica
-        self.entry_prob_coneccion_fisica = self.make_entry("Probabilidad de que la coneecion sea estrecha:",
+        self.entry_prob_coneccion_fisica = self.make_entry("Probabilidad de que la coneccion sea estrecha:",
                                                            '40')
 
         # Entry 9 = Cantidad de dias de la simulación
@@ -79,14 +81,29 @@ class MainWindow(Gtk.ApplicationWindow):
                                                      '60')
         
         # Entry 10 = Cantidad de vacunas (%)
-        self.entry_porc_vacunas = self.make_entry("Porcentaje de vacunas:",
+        self.entry_porc_vacunas = self.make_entry("Porcentaje de población a vacunar:",
                                                      '40')
         
         # Entry 11 = Inicio vacunación
         self.entry_inicio_vacunacion = self.make_entry("Día de incio de vacunación:",
                                                      '4')
         
+        # Entry 12 = Tasa de vacunación (Personas por día)
+        self.entry_tasa_vacunacion = self.make_entry("Tasa de vacunación (porcentaje de la población por día):",
+                                                     '1')
 
+        # Entry 13 = porcentaje de inmunidad 1
+        self.entry_porc_inmu_1 = self.make_entry("Porcentaje de inmunidad de la vacuna 1 (25%):",
+                                                     '100')
+        
+        # Entry 14 = porcentaje de inmunidad 2
+        self.entry_porc_inmu_2 = self.make_entry("Porcentaje de inmunidad de la vacuna 2 (50%):",
+                                                     '50')
+        
+        # Entry 15 = porcentaje de inmunidad 3
+        self.entry_porc_inmu_3 = self.make_entry("Porcentaje de inmunidad de la vacuna 3 (25%):",
+                                                     '20')
+        
         self.box_espacio = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 10)
         self.box_espacio.set_vexpand(True)
         self.data_box.append(self.box_espacio)
@@ -196,6 +213,7 @@ class MainWindow(Gtk.ApplicationWindow):
         mortalidad = int(self.entry_mortalidad.get_text())
         enfermedad = Enfermedad(infeccion_probable, infeccion_estrecho,
                                 promedio_pasos, mortalidad)
+        
         # Datos para la clase Comunidad
         num_ciudadanos = int(self.entry_num_ciudadanos.get_text())
         infectados = int(self.entry_infectados.get_text())
@@ -203,9 +221,17 @@ class MainWindow(Gtk.ApplicationWindow):
         prob_coneccion_fisica = int(self.entry_prob_coneccion_fisica.get_text())
         comunidad = Comunidad(num_ciudadanos, enfermedad, infectados,
                             prom_coneccion_fisica, prob_coneccion_fisica)
+        
+        # Datos para la clase Vacunas
+        inicio_vacunacion = int(self.entry_inicio_vacunacion.get_text())
+        total_vacunas = num_ciudadanos * int(self.entry_porc_vacunas.get_text()) / 100
+        tasa = int(self.entry_tasa_vacunacion.get_text())
+        inmunidades = [int(self.entry_porc_inmu_1.get_text()), int(self.entry_porc_inmu_2.get_text()), int(self.entry_porc_inmu_3.get_text())]
+        vacunas = Vacunas(inicio_vacunacion, total_vacunas, tasa, inmunidades)
+        
         # Datos para la clase Simulacion
         dias_simulacion = int(self.entry_dias_simulacion.get_text())
-        simulacion = Simulacion(dias_simulacion, comunidad, enfermedad)
+        simulacion = Simulacion(dias_simulacion, comunidad, enfermedad, vacunas)
         simulacion.simular()
         self.image.set_from_pixbuf(simulacion.mostrar_grafico())
 

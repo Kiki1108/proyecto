@@ -11,7 +11,7 @@ from personas import Persona
 
 
 class Simulacion():
-    def __init__(self, dias, comunidad, enfermedad):
+    def __init__(self, dias, comunidad, enfermedad, vacunas):
         """
         Inicializa los valores de la clase Simulacion
 
@@ -28,6 +28,7 @@ class Simulacion():
         self.__comunidad = comunidad
         self.__enfermedad = enfermedad
         self.__dias = dias
+        self.__vacunas = vacunas
         self.__contador = 0
         self.__infectados_array = [self.__comunidad.get_infectados()]
         self.__enfermos_array = [self.__comunidad.get_infectados()]
@@ -71,6 +72,7 @@ class Simulacion():
         """
         self.siguen_enfermos()
         self.contagiar()
+        self.vacunar()
         self.leer_datos()
 
 
@@ -143,6 +145,15 @@ class Simulacion():
                                 nuevos_enfermos.append(nuevo_enfermo)
         for i in range(len(nuevos_enfermos)):
             nuevos_enfermos[i].set_estado('E')
+
+        
+    def vacunar(self):
+        if self.__contador + 1 < self.__vacunas.get_inicio():
+            print("no se puede vacunar")
+            return
+        
+        print("SE puede vacunar")
+        
 
 
     def leer_datos(self):
