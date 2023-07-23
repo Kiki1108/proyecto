@@ -35,6 +35,7 @@ class Comunidad():
         self.__familias = {}
         self.__largo_id_familias = None
         self.__vacunados_inmune = 0
+        self.__vacunados = 0
         #Funciones de inicio
         self.hacer_poblacion()
 
@@ -69,6 +70,10 @@ class Comunidad():
 
     def get_vacunados_inmune(self):
         return self.__vacunados_inmune
+    
+
+    def get_vacunados(self):
+        return self.__vacunados
 
 
     def set_ciudadanos(self, ciudadanos):
@@ -90,6 +95,10 @@ class Comunidad():
     def set_vacunados_inmune(self, vacunados_inmune):
         self.__vacunados_inmune = vacunados_inmune
 
+    
+    def set_vacunados(self, vacunados):
+        self.__vacunados = vacunados
+
 
     def contagiar_contacto_estrecho(self, persona):
         """
@@ -108,7 +117,7 @@ class Comunidad():
             if familia_actual[index] != persona and familia_actual[index].get_estado() == "S":
                 familia_actual[index].set_contador(self.__enfermedad.establecer_contador())
                 return familia_actual[index]
-            elif familia_actual[index] != persona and familia_actual[index].get_estado() in ["E", "I"]:
+            elif familia_actual[index] != persona and familia_actual[index].get_estado() in ["E", "I", "V"]:
                 return None
 
 
@@ -125,7 +134,7 @@ class Comunidad():
             if ciudadano.get_estado() == "S":
                 ciudadano.set_contador(self.__enfermedad.establecer_contador())
                 return ciudadano
-            elif ciudadano.get_estado() in ["E", "I"]:
+            elif ciudadano.get_estado() in ["E", "I", "V"]:
                 return None
 
 
