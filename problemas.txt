@@ -1,20 +1,11 @@
 TAREAS:
-    1. Implementar una API
-        1.1. Puede ser GTK para el Filechooser y así hacer el apartado 2.
-        1.2. Detectar de forma automática el archivo json
-    2. REALIZAR MEJORA A LA BANDERA DE LA MAIN SOBRE LOS DATOS DE LA FUNCIÓN "on_start_button_clicked"
-    3. PROBLEMAS CON mathplotlib en Felipe
-    4. Hay un problema con la cantidad de infectados iniciales y la poblacion total cuando limitan a ser la misma cantidad
-    5. Limitar el tamaño de las familias
+    1. Hacer bien lo de las vavcunas
 
 
 Cristian:
 
 
 Londro:
-    Ya arregle el tema de la generacion de los entrys, son como 80 lineas menos aprox
-    me salio un error nuevo con para la wea de grafico, pero lo solucione
-    saque los nombres y apellidos duplicados
 
 
 Felipe:

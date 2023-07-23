@@ -1,12 +1,14 @@
 import io
 import random
+from time import sleep
+
 import matplotlib.pyplot as plt
 import numpy as np
 import statsmodels.api as sm
-from time import sleep
 from PIL import Image
 plt.switch_backend('tkagg')
 from gi.repository import GLib, GdkPixbuf
+
 from personas import Persona
 
 
@@ -100,10 +102,8 @@ class Simulacion():
             plt.title(f"Gráfico Modelo SIR Final de la sumlación ({self.__dias} días)")
         else:
             plt.title(f"Gráfico Modelo SIR día {self.__contador}")
-
         buf = io.BytesIO()
         plt.savefig(buf, format='png')
-
         im = Image.open(buf)
         buffer = GLib.Bytes.new(im.tobytes())
         gdata = GdkPixbuf.Pixbuf.new_from_bytes(buffer,
@@ -150,19 +150,17 @@ class Simulacion():
         for i in range(len(nuevos_enfermos)):
             nuevos_enfermos[i].set_estado('E')
 
-        
+
     def vacunar(self):
         print("AA")
         if self.__contador + 1 < self.__vacunas.get_inicio():
             return
         if self.__vacunas.get_vacunas_restantes()[0] <= 0:
             return
-
         vacunas = 0
         tasa = self.__vacunas.get_tasa()
         while vacunas <= 0 or vacunas > (tasa * 2 * self.__comunidad.get_num_ciudadanos()): 
             vacunas = int(random.gauss(tasa/100, tasa / 1000) * self.__comunidad.get_num_ciudadanos())
-
         vacunas = [int(vacunas*0.25), int(vacunas*0.5), int(vacunas*0.25)]
         self.__vacunas.gastar_vacunas(vacunas[0], vacunas[1], vacunas[2])
 
@@ -258,5 +256,4 @@ class Simulacion():
                     break
                 else:
                     id = None
-
         self.__comunidad.set_ciudadanos(ciudadanos)
