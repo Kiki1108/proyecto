@@ -150,14 +150,21 @@ class Simulacion():
     def vacunar(self):
         if self.__contador + 1 < self.__vacunas.get_inicio():
             return
+        if self.__vacunas.get_vacunas_restantes()[0] <= 0:
+            return
+
         
         vacunas = 0
         tasa = self.__vacunas.get_tasa()
 
-        while vacunas <= 0 or vacunas > (tasa * 2 * self.__vacunas.get_total()): 
-            vacunas = int(random.gauss(tasa, tasa / 10) * self.__vacunas.get_total())
-            print(vacunas)
+        while vacunas <= 0 or vacunas > (tasa * 2 * self.__comunidad.get_num_ciudadanos()): 
+            vacunas = int(random.gauss(tasa/100, tasa / 1000) * self.__comunidad.get_num_ciudadanos())
+
+        vacunas = [int(vacunas*0.25), int(vacunas*0.5), int(vacunas*0.25)]
+
+        self.__vacunas.gastar_vacunas(vacunas[0], vacunas[1], vacunas[2])
         print(vacunas)
+        print(self.__vacunas.get_vacunas_restantes())
 
         
 

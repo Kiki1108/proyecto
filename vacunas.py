@@ -24,8 +24,5 @@ class Vacunas():
 
 
     def gastar_vacunas(self, a, b, c):
-        for i in self.__vacunas_restantes:
-            match i:
-                case 0: self.__vacunas_restantes[i] = self.__vacunas_restantes[i] - a
-                case 1: self.__vacunas_restantes[i] = self.__vacunas_restantes[i] - b
-                case 2: self.__vacunas_restantes[i] = self.__vacunas_restantes[i] - c
+        print(a, b, c)
+        self.__vacunas_restantes = [self.__vacunas_restantes[0] - a, self.__vacunas_restantes[1] - b, self.__vacunas_restantes[2] -c]
