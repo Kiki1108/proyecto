@@ -251,8 +251,8 @@ class MyApp(Gtk.Application):
     def on_about_action(self, action, param):
         about = Gtk.AboutDialog.new()
         about.set_authors(['Cristian Pavez', 'Felipe Mendez', 'Alejandro Ide'])
-        about.set_comments("Esta en progreso")
-        about.set_program_name("Simulación")
+        about.set_comments("Este programa intenta emular una ola de infecciones de un virus en una población")
+        about.set_program_name("Simulación de un Virus")
         about.set_copyright("Ing. Civil en Bioinformática")
         about.set_visible(True)
 
