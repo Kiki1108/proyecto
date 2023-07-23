@@ -13,24 +13,26 @@ from personas import Persona
 
 
 class Simulacion():
-    def __init__(self, dias, comunidad, enfermedad, vacunas):
+    def __init__(self, dias, comunidad, enfermedad, vacuna):
         """
         Inicializa los valores de la clase Simulacion
 
         Atributos:
             comunidad [Comunidad]: Comunidad en la simulación
-            enfermedad [Enfermedad]: Número de fermetos a m
+            enfermedad [Enfermedad]: Enfermedad en la simulacion
+            vacuna [Vacuna]: Vacuna en la simulacion
             dias [int]: Número de días que dura la simulación
             contador [int]: Representa los dias que esta o estan pasando
             infectados_array [list(int)]: Lista de cantidad deinfectados por dia
             enfermos_array [list(int)]: Lista de cantidad de enfermos por dia
             muertos_array [list(int)]: Lista de cantidad de muertos por dia
             suceptibles_array [list(int)]: Lista de cantidad de suceptibles por dia
+            inmunes_vacunados_array [list(int)]: Lista de cantidad de gente inmune por la vacuna por dia
         """
         self.__comunidad = comunidad
         self.__enfermedad = enfermedad
+        self.__vacuna = vacuna
         self.__dias = dias
-        self.__vacunas = vacunas
         self.__contador = 0
         self.__infectados_array = [self.__comunidad.get_infectados()]
         self.__enfermos_array = [self.__comunidad.get_infectados()]
@@ -150,18 +152,18 @@ class Simulacion():
 
 
     def vacunar(self):
-        if self.__contador + 1 < self.__vacunas.get_inicio():
+        if self.__contador + 1 < self.__vacuna.get_inicio():
             return
-        if self.__vacunas.get_vacunas_restantes()[0] <= 0:
+        if self.__vacuna.get_vacunas_restantes()[0] <= 0:
             return
         vacunas = 0
-        tasa = self.__vacunas.get_tasa()
-        while vacunas <= 0 or vacunas > (tasa * 2 * self.__comunidad.get_num_ciudadanos()): 
-            vacunas = int(random.gauss(tasa/100, tasa / 1000) * self.__comunidad.get_num_ciudadanos())
+        tasa = self.__vacuna.get_tasa()
+        while vacunas <= 0 or vacunas > (tasa*2*self.__comunidad.get_num_ciudadanos()): 
+            vacunas = int(random.gauss(tasa/100, tasa/1000)*self.__comunidad.get_num_ciudadanos())
         vacunas = [int(vacunas*0.25), int(vacunas*0.5), int(vacunas*0.25)]
-        self.__vacunas.gastar_vacunas(vacunas[0], vacunas[1], vacunas[2])
+        self.__vacuna.gastar_vacunas(vacunas[0], vacunas[1], vacunas[2])
         print(vacunas)
-        print(self.__vacunas.get_vacunas_restantes())
+        print(self.__vacuna.get_vacunas_restantes())
 
 
     def leer_datos(self):

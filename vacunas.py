@@ -1,10 +1,20 @@
 class Vacunas():
     def __init__(self, inicio, total, tasa, inmunidades):
+        """
+        Inicializa los valores de la clase Vacuna
+        
+        Atributos:
+            inicio[int]: Día en que se empieza a entregar la vacuna
+            total [int]: Total de personas
+            tasa [int]: porcentaje de personas que pueden recivir la vacuna
+            inmunidades [ALGO?]: Algo???
+            vacunas_restantes [list]: Cantidad de vacunas que hay por tipo
+        """
         self.__inicio = inicio
         self.__total = total
         self.__tasa = tasa
         self.__inmunidades = inmunidades
-        self.__vacunas_restantes = [total * 25 / 100, total * 50 / 100, total * 25 / 100]
+        self.__vacunas_restantes = [int(total* 25/ 100), int(total*50/100), int(total*25/100)]
 
 
     def get_inicio(self):

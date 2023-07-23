@@ -24,6 +24,8 @@ class Comunidad():
             prob_coneccion_fisica [int]: Probabilidad de generar una coneccion fisica
             ciudadanos [list(Persona)]: Las personas de la comunidad
             familas [dict(Persona)]: Las personas de la comunidad agrupadas en familias
+            largo_id_familias [???]: @Felipe que es esta wea
+            vacunados_inmunes [int]: Cantidad de gente que es inmune por la vacuna
         """
         self.__enfermedad = enfermedad
         self.__num_ciudadanos = num_ciudadanos
