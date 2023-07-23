@@ -94,6 +94,7 @@ class MainWindow(Gtk.ApplicationWindow):
         # Entry 15 = porcentaje de inmunidad 3
         self.entry_porc_inmu_3 = self.make_entry("Porcentaje de inmunidad de la vacuna 3 (25%):",
                                                     '20')
+        # box de espacio
         self.box_espacio = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 10)
         self.box_espacio.set_vexpand(True)
         self.data_box.append(self.box_espacio)
@@ -109,6 +110,9 @@ class MainWindow(Gtk.ApplicationWindow):
 
 
     def make_label(self, texto):
+        """
+        Esta funcion crea un label con tan solo una frase
+        """
         label = Gtk.Label.new(texto)
         label.set_margin_start(15)
         label.set_halign(1)
@@ -117,6 +121,9 @@ class MainWindow(Gtk.ApplicationWindow):
 
 
     def make_entry(self, texto, inicial):
+        """
+        Esta funcion crea un bloque de espacio con un texto y un entry para valores
+        """
         entry = Gtk.Entry()
         entry.set_text(inicial)
         entry.set_margin_end(10)
@@ -135,7 +142,6 @@ class MainWindow(Gtk.ApplicationWindow):
         """
         Tiene la funcion de generar una bandera para que se ingresen bien los datos
         """
-        # REALIZAR BIEN ESTA BANDERA
         if not self.entry_infeccion_probable.get_text().isnumeric():
             self.show_mensaje_error("Se ingreso un valor no valido para 'infeccion probable'")
         elif not self.entry_infeccion_estrecho.get_text().isnumeric():
@@ -154,6 +160,18 @@ class MainWindow(Gtk.ApplicationWindow):
             self.show_mensaje_error("Se ingreso un valor no valido para 'probabilidad de coneccion fisica'")
         elif not self.entry_dias_simulacion.get_text().isnumeric():
             self.show_mensaje_error("Se ingreso un valor no valido para 'cantidad de dias de la simulacion'")
+        elif not self.entry_porc_vacunas.get_text().isnumeric():
+            self.show_mensaje_error("Se ingreso un valor no valido para 'Porcentaje de población a vacunar'")
+        elif not self.entry_inicio_vacunacion.get_text().isnumeric():
+            self.show_mensaje_error("Se ingreso un valor no valido para 'Día de incio de vacunación'")
+        elif not self.entry_tasa_vacunacion.get_text().isnumeric():
+            self.show_mensaje_error("Se ingreso un valor no valido para 'Tasa de vacunación'")
+        elif not self.entry_porc_inmu_1.get_text().isnumeric():
+            self.show_mensaje_error("Se ingreso un valor no valido para 'Porcentaje de inmunidad de la vacuna 1'")
+        elif not self.entry_porc_inmu_2.get_text().isnumeric():
+            self.show_mensaje_error("Se ingreso un valor no valido para 'Porcentaje de inmunidad de la vacuna 2'")
+        elif not self.entry_porc_inmu_3.get_text().isnumeric():
+            self.show_mensaje_error("Se ingreso un valor no valido para 'Porcentaje de inmunidad de la vacuna 3'")
         else:
             if int(self.entry_infeccion_probable.get_text()) > 100:
                 self.show_mensaje_error("Ese valor es muy alto, elija un numero menor o igual a 100")
@@ -187,6 +205,28 @@ class MainWindow(Gtk.ApplicationWindow):
                 self.show_mensaje_error("No pueden ser mas infetados iniciales que la misma cantidad de poblacion")
             elif int(self.entry_dias_simulacion.get_text()) < 1:
                 self.show_mensaje_error("Se necesita al menos 1 día para realizar la simulación")
+            elif int(self.entry_porc_vacunas.get_text()) > 100:
+                self.show_mensaje_error("Ese valor es muy alto, elija un numero menor o igual a 100")
+            elif int(self.entry_porc_vacunas.get_text()) < 1:
+                self.show_mensaje_error("Ese valor es muy bajo, elija un numero mayor o igual a 1")
+            elif int(self.entry_inicio_vacunacion.get_text()) < 4:
+                self.show_mensaje_error("Ese valor es muy bajo, elija un numero mayor o igual a 4")
+            elif int(self.entry_tasa_vacunacion.get_text()) > 100:
+                self.show_mensaje_error("Ese valor es muy alto, elija un numero menor o igual a 100")
+            elif int(self.entry_tasa_vacunacion.get_text()) < 1:
+                self.show_mensaje_error("Ese valor es muy bajo, elija un numero mayor o igual a 1")
+            elif int(self.entry_porc_inmu_1.get_text()) > 100:
+                self.show_mensaje_error("Ese valor es muy alto, elija un numero menor o igual a 100")
+            elif int(self.entry_porc_inmu_1.get_text()) < 1:
+                self.show_mensaje_error("Ese valor es muy bajo, elija un numero mayor o igual a 1")
+            elif int(self.entry_porc_inmu_2.get_text()) > 100:
+                self.show_mensaje_error("Ese valor es muy alto, elija un numero menor o igual a 100")
+            elif int(self.entry_porc_inmu_2.get_text()) < 1:
+                self.show_mensaje_error("Ese valor es muy bajo, elija un numero mayor o igual a 1")
+            elif int(self.entry_porc_inmu_3.get_text()) > 100:
+                self.show_mensaje_error("Ese valor es muy alto, elija un numero menor o igual a 100")
+            elif int(self.entry_porc_inmu_3.get_text()) < 1:
+                self.show_mensaje_error("Ese valor es muy bajo, elija un numero mayor o igual a 1")
             else:
                 self.show_mensaje_inicio()
                 self.iniciar_simulacion()
@@ -213,7 +253,7 @@ class MainWindow(Gtk.ApplicationWindow):
                             prom_coneccion_fisica, prob_coneccion_fisica)
         # Datos para la clase Vacunas
         inicio_vacunacion = int(self.entry_inicio_vacunacion.get_text())
-        total_vacunas = num_ciudadanos * int(self.entry_porc_vacunas.get_text()) / 100
+        total_vacunas = num_ciudadanos*int(self.entry_porc_vacunas.get_text())/100
         tasa = float(self.entry_tasa_vacunacion.get_text())
         inmunidades = [int(self.entry_porc_inmu_1.get_text()), int(self.entry_porc_inmu_2.get_text()), int(self.entry_porc_inmu_3.get_text())]
         vacunas = Vacunas(inicio_vacunacion, total_vacunas, tasa, inmunidades)
