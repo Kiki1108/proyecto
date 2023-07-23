@@ -20,6 +20,7 @@ class MainWindow(Gtk.ApplicationWindow):
         Genera la venta y todas sus partes
         """
         super().__init__(*args, **kwargs)
+
         self.app = self.get_application()
         self.set_default_size(1920, 1080)
         # Crear Header Bar
@@ -33,6 +34,7 @@ class MainWindow(Gtk.ApplicationWindow):
         menu_button.set_icon_name(icon_name='open-menu-symbolic')
         menu_button.set_menu_model(menu_model=menu_button_model)
         header_bar.pack_end(child=menu_button)
+
         # Crear la ventana
         self.scroll = Gtk.ScrolledWindow()
         self.main_box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 5)
@@ -75,6 +77,15 @@ class MainWindow(Gtk.ApplicationWindow):
         # Entry 9 = Cantidad de dias de la simulación
         self.entry_dias_simulacion = self.make_entry("Dias de la simualción:",
                                                      '60')
+        
+        # Entry 10 = Cantidad de vacunas (%)
+        self.entry_porc_vacunas = self.make_entry("Porcentaje de vacunas:",
+                                                     '40')
+        
+        # Entry 11 = Inicio vacunación
+        self.entry_inicio_vacunacion = self.make_entry("Día de incio de vacunación:",
+                                                     '4')
+        
 
         self.box_espacio = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 10)
         self.box_espacio.set_vexpand(True)
