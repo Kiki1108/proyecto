@@ -150,7 +150,7 @@ class Simulacion():
         for i in range(len(nuevos_enfermos)):
             nuevos_enfermos[i].set_estado('E')
 
-        
+
     def vacunar(self):
         if self.__contador + 1 < self.__vacunas.get_inicio():
             return
