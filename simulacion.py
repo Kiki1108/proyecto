@@ -155,7 +155,7 @@ class Simulacion():
 
     def vacunar(self):
         print("AA")
-        if self.__contador + 1 < self.__vacunas.get_inicio():
+        if self.__contador + 1 < self.__vacuna.get_inicio():
             return
         if self.__vacuna.get_vacunas_restantes()[0] <= 0:
             return
@@ -164,8 +164,8 @@ class Simulacion():
         while vacunas <= 0 or vacunas > (tasa*2*self.__comunidad.get_num_ciudadanos()): 
             vacunas = int(random.gauss(tasa/100, tasa/1000)*self.__comunidad.get_num_ciudadanos())
         vacunas = [int(vacunas*0.25), int(vacunas*0.5), int(vacunas*0.25)]
-        self.__vacunas.gastar_vacunas(vacunas[0], vacunas[1], vacunas[2])
-
+        self.__vacuna.gastar_vacunas(vacunas[0], vacunas[1], vacunas[2])
+        # No entendi el ciclo
         for i in range(3):
             for _ in range(vacunas[i]):
                 for ciudadano in self.__comunidad.get_ciudadanos():
@@ -173,7 +173,7 @@ class Simulacion():
                         pass
                     elif ciudadano.get_estado() == "S":
                         ciudadano.set_vacunado()
-                        if self.__vacunas.is_inmune(i):
+                        if self.__vacuna.is_inmune(i):
                             ciudadano.set_estado("V")
                         break
                     else:
