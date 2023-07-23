@@ -1,12 +1,14 @@
 import io
 import random
+from time import sleep
+
 import matplotlib.pyplot as plt
 import numpy as np
 import statsmodels.api as sm
-from time import sleep
 from PIL import Image
 plt.switch_backend('tkagg')
 from gi.repository import GLib, GdkPixbuf
+
 from personas import Persona
 
 

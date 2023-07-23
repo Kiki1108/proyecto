@@ -1,12 +1,12 @@
 import sys
+from time import sleep
+
 import gi
 import matplotlib
-
 gi.require_version('Gtk', '4.0')
 matplotlib.use('TkAgg')
-
 from gi.repository import Gio, Gtk
-from time import sleep
+
 from simulacion import Simulacion
 from enfermedad import Enfermedad
 from comunidad import Comunidad
@@ -21,7 +21,6 @@ class MainWindow(Gtk.ApplicationWindow):
         Genera la venta y todas sus partes
         """
         super().__init__(*args, **kwargs)
-
         self.app = self.get_application()
         self.set_default_size(1920, 1080)
         # Crear Header Bar
@@ -35,7 +34,6 @@ class MainWindow(Gtk.ApplicationWindow):
         menu_button.set_icon_name(icon_name='open-menu-symbolic')
         menu_button.set_menu_model(menu_model=menu_button_model)
         header_bar.pack_end(child=menu_button)
-
         # Crear la ventana
         self.scroll = Gtk.ScrolledWindow()
         self.main_box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 5)
@@ -43,7 +41,6 @@ class MainWindow(Gtk.ApplicationWindow):
         self.set_child(self.scroll)
         self.scroll.set_child(self.main_box)
         self.main_box.append(self.data_box)
-
         # self.valor = self.make_entry("valor", 10)
         # Entry 1 = Infeccion probable
         self.entry_infeccion_probable = self.make_entry("Probabilidad de infectar:",
@@ -51,73 +48,56 @@ class MainWindow(Gtk.ApplicationWindow):
         # Entry 2 = Infeccion estrecho
         self.entry_infeccion_estrecho = self.make_entry("Probabilidad de infectar a un contacto estrecho:",
                                                         '20')
-
         # Entry 3 = promedio de pasos
         self.entry_promedio_pasos = self.make_entry("Promedio de pasos (días con la infección):",
-                                                     '10')
-
+                                                    '10')
         # Entry 4 = Mortalidad
         self.entry_mortalidad = self.make_entry("Mortalidad de la infección:",
                                                 '2')
-
         # Entry 5 = Número de ciudadanos
         self.entry_num_ciudadanos = self.make_entry("Cantidad de ciudadanos en la comunidad:",
                                                     '20000')
-
         # Entry 6 = Número de infectados iniciales
         self.entry_infectados = self.make_entry("Cantidad de infectados iniciales:",
                                                 '10')
-
         # Entry 7 = Promedio de coneccion fisica
         self.entry_prom_coneccion_fisica = self.make_entry("Promedio de conecciones por persona:",
-                                                           '7')
-
+                                                            '7')
         # Entry 8 = Probabilidad de coneccion fisica
         self.entry_prob_coneccion_fisica = self.make_entry("Probabilidad de que la coneccion sea estrecha:",
-                                                           '40')
-
+                                                            '40')
         # Entry 9 = Cantidad de dias de la simulación
         self.entry_dias_simulacion = self.make_entry("Dias de la simualción:",
-                                                     '60')
-        
+                                                    '60')
         # Entry 10 = Cantidad de vacunas (%)
         self.entry_porc_vacunas = self.make_entry("Porcentaje de población a vacunar:",
-                                                     '40')
-        
+                                                    '40')
         # Entry 11 = Inicio vacunación
         self.entry_inicio_vacunacion = self.make_entry("Día de incio de vacunación:",
-                                                     '4')
-        
+                                                    '4')
         # Entry 12 = Tasa de vacunación (Personas por día)
         self.entry_tasa_vacunacion = self.make_entry("Tasa de vacunación (porcentaje de la población por día):",
-                                                     '1')
-
+                                                    '1')
         # Entry 13 = porcentaje de inmunidad 1
         self.entry_porc_inmu_1 = self.make_entry("Porcentaje de inmunidad de la vacuna 1 (25%):",
-                                                     '100')
-        
+                                                    '100')
         # Entry 14 = porcentaje de inmunidad 2
         self.entry_porc_inmu_2 = self.make_entry("Porcentaje de inmunidad de la vacuna 2 (50%):",
-                                                     '50')
-        
+                                                    '50')
         # Entry 15 = porcentaje de inmunidad 3
         self.entry_porc_inmu_3 = self.make_entry("Porcentaje de inmunidad de la vacuna 3 (25%):",
-                                                     '20')
-        
+                                                    '20')
         self.box_espacio = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 10)
         self.box_espacio.set_vexpand(True)
         self.data_box.append(self.box_espacio)
-
         # Botón para empezar la simualción
         self.start_button = Gtk.Button.new_with_label("Empezar simulación")
         self.start_button.connect("clicked",self.on_start_button_clicked)
         self.data_box.append(self.start_button)
-
         self.image = Gtk.Image.new()
         self.image.set_pixel_size(1000)
         self.main_box.append(self.image)
         self.image.set_hexpand(True)
-
         self.progreso = None
 
 
@@ -125,18 +105,14 @@ class MainWindow(Gtk.ApplicationWindow):
         entry = Gtk.Entry()
         entry.set_text(inicial)
         entry.set_margin_end(10)
-
         box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 10)
-
         label = Gtk.Label.new(texto)
         label.set_margin_start(15)
         label.set_halign(1)
         label.set_hexpand(True)
-
         box.append(label)
         box.append(entry)
         self.data_box.append(box)
-
         return entry
 
 
@@ -213,7 +189,6 @@ class MainWindow(Gtk.ApplicationWindow):
         mortalidad = int(self.entry_mortalidad.get_text())
         enfermedad = Enfermedad(infeccion_probable, infeccion_estrecho,
                                 promedio_pasos, mortalidad)
-        
         # Datos para la clase Comunidad
         num_ciudadanos = int(self.entry_num_ciudadanos.get_text())
         infectados = int(self.entry_infectados.get_text())
@@ -221,14 +196,12 @@ class MainWindow(Gtk.ApplicationWindow):
         prob_coneccion_fisica = int(self.entry_prob_coneccion_fisica.get_text())
         comunidad = Comunidad(num_ciudadanos, enfermedad, infectados,
                             prom_coneccion_fisica, prob_coneccion_fisica)
-        
         # Datos para la clase Vacunas
         inicio_vacunacion = int(self.entry_inicio_vacunacion.get_text())
         total_vacunas = num_ciudadanos * int(self.entry_porc_vacunas.get_text()) / 100
         tasa = int(self.entry_tasa_vacunacion.get_text())
         inmunidades = [int(self.entry_porc_inmu_1.get_text()), int(self.entry_porc_inmu_2.get_text()), int(self.entry_porc_inmu_3.get_text())]
         vacunas = Vacunas(inicio_vacunacion, total_vacunas, tasa, inmunidades)
-        
         # Datos para la clase Simulacion
         dias_simulacion = int(self.entry_dias_simulacion.get_text())
         simulacion = Simulacion(dias_simulacion, comunidad, enfermedad, vacunas)
@@ -251,7 +224,6 @@ class MainWindow(Gtk.ApplicationWindow):
     def show_mensaje_inicio(self):
         self.progreso = MensajeInicio(parent=self.get_root())
         self.progreso.set_visible(True)
-
 
 
 class MyApp(Gtk.Application):
