@@ -83,11 +83,6 @@ class Comunidad():
     def set_enfermos(self, enfermos):
         self.__enfermos = enfermos
 
-    def set_vacunados_inmune(self, vacunados_inmune):
-        self.__vacunados_inmune = vacunados_inmune
-
-
-
 
     def set_infectados(self, infectados):
         self.__infectados = infectados
