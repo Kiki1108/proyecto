@@ -101,7 +101,7 @@ class MainWindow(Gtk.ApplicationWindow):
         self.make_label("Poblacion enferma nueva<span foreground='blue'><big> ◉ </big></span>Azul")
         self.make_label("Poblacion muerta total<span foreground='green'><big> ◉ </big></span>Verde")
         self.make_label("Poblacion vacunada total<span foreground='purple'><big> ◉ </big></span>Morado")
-        self.make_label("Poblacion inmune por la vacuna<span foreground='brown'><big> ◉ </big></span>Cafe")
+        self.make_label("Poblacion inmune por la vacuna<span foreground='brown'><big> ◉ </big></span>Café")
         # box de espacio
         self.box_espacio = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 10)
         self.box_espacio.set_vexpand(True)
@@ -408,7 +408,7 @@ class MyApp(Gtk.Application):
     def on_about_action(self, action, param):
         about = Gtk.AboutDialog.new()
         about.set_authors(['Cristian Pavez', 'Felipe Mendez', 'Alejandro Ide'])
-        about.set_comments("Este programa intenta emular una ola de infecciones de un virus en una población")
+        about.set_comments("Este programa simula una ola de infecciones de un virus en una población")
         about.set_program_name("Simulación de un Virus")
         about.set_copyright("Ing. Civil en Bioinformática")
         about.set_visible(True)
