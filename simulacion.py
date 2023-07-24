@@ -1,6 +1,5 @@
 import io
 import random
-from time import sleep
 
 import matplotlib.pyplot as plt
 import numpy as np
