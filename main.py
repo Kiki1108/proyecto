@@ -387,7 +387,7 @@ class MainWindow(Gtk.ApplicationWindow):
     def on_mensaje_response(self, dialog, response):
         """Confirma que el usuario haya presionado el bótón para cerrar la ventana"""
         if response == Gtk.ResponseType.OK:
-            dialog.close()
+            dialog.close()y
 
 
 class MyApp(Gtk.Application):
