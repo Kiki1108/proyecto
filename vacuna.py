@@ -6,10 +6,7 @@ class Vacuna():
         Inicializa los valores de la clase Vacuna
 
         Atributos:
-            inicio[int]: Día en que se empieza a entregar la vacuna
-            total [int]: Total de personas
-            tasa [int]: porcentaje de personas que pueden recivir la vacuna
-            inmunidades [ALGO?]: Algo???
+            inmunidad [int]: Porcentaje de inmunidad de la vacuna
             vacunas_restantes [list]: Cantidad de vacunas que hay por tipo
         """
         self.__inmunidad = inmunidad

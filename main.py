@@ -377,7 +377,7 @@ class MainWindow(Gtk.ApplicationWindow):
         dias_simulacion = int(self.entry_dias_simulacion.get_text())
         simulacion = Simulacion(dias_simulacion, comunidad, enfermedad,
                                 inicio_vacunacion, total_vacunas, tasa, vacunas)
-        with concurrent.futures.ThreadPoolExecutor() as executor:
+        with concurrent.futures.ProcessPoolExecutor() as executor:
             executor.map(simulacion.simular())
         self.image.set_from_pixbuf(simulacion.mostrar_grafico())
 
