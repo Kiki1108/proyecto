@@ -113,7 +113,8 @@ class MainWindow(Gtk.ApplicationWindow):
         """
         Esta funcion crea un label con tan solo una frase
         """
-        label = Gtk.Label.new(texto)
+        label = Gtk.Label()
+        label.set_markup(f"<span foreground='blue'><big><i><b>{texto}</b></i></big></span>")
         label.set_margin_start(15)
         label.set_halign(1)
         label.set_hexpand(True)
