@@ -115,6 +115,7 @@ class Comunidad():
         """
         _id = persona.get_id()[0:self.__largo_id_familias]
         familia_actual = self.__familias[_id]
+        muertos = []
         while True:
             index = random.randint(0, len(familia_actual) - 1)
             if familia_actual[index] != persona and familia_actual[index].get_estado() == "S":
@@ -122,6 +123,11 @@ class Comunidad():
                 return familia_actual[index]
             elif familia_actual[index] != persona and familia_actual[index].get_estado() in ["E", "I", "V"]:
                 return None
+            else:
+                if len(muertos) == len(familia_actual) - 1:
+                    return None
+                elif not familia_actual[index] in muertos:
+                    muertos.append(familia_actual[index])
 
 
     def contagiar_random(self):
