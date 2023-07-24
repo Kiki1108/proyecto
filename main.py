@@ -41,8 +41,8 @@ class MainWindow(Gtk.ApplicationWindow):
         self.set_child(self.scroll)
         self.scroll.set_child(self.main_box)
         self.main_box.append(self.data_box)
-        # Label 1
-        self.make_label("Valores de la Enfermedad")
+        # Label titulo 1
+        self.make_label_title("Valores de la Enfermedad")
         # Entry 1 = Infeccion probable
         self.entry_infeccion_probable = self.make_entry("Probabilidad de infectar:",
                                                         '5')
@@ -55,8 +55,8 @@ class MainWindow(Gtk.ApplicationWindow):
         # Entry 4 = Mortalidad
         self.entry_mortalidad = self.make_entry("Mortalidad de la infección:",
                                                 '2')
-        # Label 2
-        self.make_label("Valores de la Comunidad")
+        # Label titulo 2
+        self.make_label_title("Valores de la Comunidad")
         # Entry 5 = Número de ciudadanos
         self.entry_num_ciudadanos = self.make_entry("Cantidad de ciudadanos en la comunidad:",
                                                     '20000')
@@ -69,13 +69,13 @@ class MainWindow(Gtk.ApplicationWindow):
         # Entry 8 = Probabilidad de coneccion fisica
         self.entry_prob_coneccion_fisica = self.make_entry("Probabilidad de que la coneccion sea estrecha:",
                                                             '40')
-        # Label 3
-        self.make_label("Valores de la Simulación")
+        # Label titulo 3
+        self.make_label_title("Valores de la Simulación")
         # Entry 9 = Cantidad de dias de la simulación
         self.entry_dias_simulacion = self.make_entry("Dias de la simualción:",
                                                     '60')
-        # Label 4
-        self.make_label("Valores de la Vacuna")
+        # Label titulo 4
+        self.make_label_title("Valores de la Vacuna")
         # Entry 10 = Cantidad de vacunas (%)
         self.entry_porc_vacunas = self.make_entry("Porcentaje de población a vacunar:",
                                                     '40')
@@ -94,7 +94,16 @@ class MainWindow(Gtk.ApplicationWindow):
         # Entry 15 = porcentaje de inmunidad 3
         self.entry_porc_inmu_3 = self.make_entry("Porcentaje de inmunidad de la vacuna 3 (25%):",
                                                     '20')
-        # box de espacio
+        # Label titulo 5
+        self.make_label_title("Leyenda")
+        # Labels de la leyenda
+        self.make_label("Poblacion sana total<span foreground='red'><big> ◉ </big></span>Rojo")
+        self.make_label("Poblacion enferma total<span foreground='yellow'><big> ◉ </big></span>Amarillo")
+        self.make_label("Poblacion enferma nueva<span foreground='blue'><big> ◉ </big></span>Azul")
+        self.make_label("Poblacion muerta total<span foreground='green'><big> ◉ </big></span>Verde")
+        self.make_label("Poblacion vacunada total<span foreground='purple'><big> ◉ </big></span>Cafe")
+        self.make_label("Poblacion inmune por la vacuna<span foreground='brown'><big> ◉ </big></span>Cafe")
+        # box de espacio    
         self.box_espacio = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 10)
         self.box_espacio.set_vexpand(True)
         self.data_box.append(self.box_espacio)
@@ -109,13 +118,25 @@ class MainWindow(Gtk.ApplicationWindow):
         self.progreso = None
 
 
+    def make_label_title(self, texto):
+        """
+        Esta funcion crea un label con tan solo una frase para uso como titulo
+        """
+        label = Gtk.Label()
+        label.set_markup(f"<span foreground='blue'><big><i><b>{texto}</b></i></big></span>")
+        label.set_margin_start(15)
+        label.set_halign(1)
+        label.set_hexpand(True)
+        self.data_box.append(label)
+
+
     def make_label(self, texto):
         """
         Esta funcion crea un label con tan solo una frase
         """
         label = Gtk.Label()
-        label.set_markup(f"<span foreground='blue'><big><i><b>{texto}</b></i></big></span>")
-        label.set_margin_start(15)
+        label.set_markup(f"<i><b>{texto}</b></i>")
+        label.set_margin_start(30)
         label.set_halign(1)
         label.set_hexpand(True)
         self.data_box.append(label)

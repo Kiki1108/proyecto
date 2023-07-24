@@ -94,14 +94,14 @@ class Simulacion():
         plt.plot(x,self.__infectados_array)
         plt.plot(x,self.__muertos_array)
         plt.plot(x,self.__suceptibles_array)
-        plt.plot(x,self.__inmunes_vacunados_array)
         plt.plot(x,self.__vacunados_array)
+        plt.plot(x,self.__inmunes_vacunados_array)
         plt.grid()    # rejilla
         plt.xlabel('Días')
         plt.ylabel('Población')
         # Método para elegir el título del grafico de la simulación
         if self.__dias == self.__contador:
-            plt.title(f"Gráfico Modelo SIR Final de la sumlación ({self.__dias} días)")
+            plt.title(f"Gráfico Modelo SIR Final de la simulación ({self.__dias} días)")
         else:
             plt.title(f"Gráfico Modelo SIR día {self.__contador}")
         buf = io.BytesIO()
