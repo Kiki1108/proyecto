@@ -13,14 +13,18 @@ from personas import Persona
 
 
 class Simulacion():
-    def __init__(self, dias, comunidad, enfermedad, vacuna):
+    def __init__(self, dias, comunidad, enfermedad, inicio_vacunacion,
+                 total_vacunas, tasa, vacunas):
         """
         Inicializa los valores de la clase Simulacion
 
         Atributos:
             comunidad [Comunidad]: Comunidad en la simulación
             enfermedad [Enfermedad]: Enfermedad en la simulacion
-            vacuna [Vacuna]: Vacuna en la simulacion
+            inicio_vacunacion[int]: Día en que se empieza a entregar la vacuna
+            total_vacunas [int]: Total de vacunas
+            tasa [int]: porcentaje de personas que pueden recibir la vacuna
+            vacunas [list(Vacuna)]: Vacunas en la simulacion
             dias [int]: Número de días que dura la simulación
             contador [int]: Representa los dias que esta o estan pasando
             infectados_array [list(int)]: Lista de cantidad deinfectados por dia
@@ -31,7 +35,10 @@ class Simulacion():
         """
         self.__comunidad = comunidad
         self.__enfermedad = enfermedad
-        self.__vacuna = vacuna
+        self.__inicio_vacunacion = inicio_vacunacion
+        self.__total_vacunas = total_vacunas
+        self.__tasa = tasa
+        self.__vacunas = vacunas
         self.__dias = dias
         self.__contador = 0
         self.__infectados_array = [self.__comunidad.get_infectados()]
@@ -64,11 +71,10 @@ class Simulacion():
         for _ in range(self.__dias):
             if self.__contador == 0:
                 self.generar_caso_0()
-                sleep(2)
                 # Cambia de día en la simulación
             elif self.__contador != 0:
                 self.pasar_el_dia()
-            self.__contador += 1
+            self.avanzar_contador()
             self.imprimir_datos()
 
 
@@ -154,31 +160,34 @@ class Simulacion():
 
 
     def vacunar(self):
-        print("AA")
-        if self.__contador + 1 < self.__vacuna.get_inicio():
+        if self.__contador + 1 < self.__inicio_vacunacion:
             return
-        if self.__vacuna.get_vacunas_restantes()[0] <= 0:
+        if self.__vacunas[0].get_vacunas_restantes() <= 0:
             return
         vacunas = 0
-        tasa = self.__vacuna.get_tasa()
-        while vacunas <= 0 or vacunas > (tasa*2*self.__comunidad.get_num_ciudadanos()): 
+        tasa = self.__tasa
+        while vacunas <= 0 or vacunas > (tasa*2*self.__comunidad.get_num_ciudadanos()):
             vacunas = int(random.gauss(tasa/100, tasa/1000)*self.__comunidad.get_num_ciudadanos())
         vacunas = [int(vacunas*0.25), int(vacunas*0.5), int(vacunas*0.25)]
-        self.__vacuna.gastar_vacunas(vacunas[0], vacunas[1], vacunas[2])
+        for i in range(3):
+            self.__vacunas[i].gastar_vacunas(vacunas[i])
         # No entendi el ciclo
+        num_ciudadanos = self.__comunidad.get_num_ciudadanos() - 1
         for i in range(3):
             for _ in range(vacunas[i]):
-                for ciudadano in self.__comunidad.get_ciudadanos():
-                    if ciudadano.get_vacunado() or ciudadano.get_estado() == "M":
-                        pass
-                    elif ciudadano.get_estado() == "S":
-                        ciudadano.set_vacunado()
-                        if self.__vacuna.is_inmune(i):
-                            ciudadano.set_estado("V")
+                ciudadano = None
+                while True:
+                    index = random.randint(0, num_ciudadanos)
+                    ciudadano = self.__comunidad.get_ciudadanos()[index]
+                    if not (ciudadano.get_vacunado() or ciudadano.get_estado() == "M"):
                         break
-                    else:
-                        ciudadano.set_vacunado()
-                        break
+                if ciudadano.get_estado() == "S":
+                    ciudadano.set_vacunado()
+                    if self.__vacunas[i].is_inmune():
+                        ciudadano.set_estado("V")
+                else:
+                    ciudadano.set_vacunado()
+
 
 
     def leer_datos(self):

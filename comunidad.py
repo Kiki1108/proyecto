@@ -13,7 +13,7 @@ class Comunidad():
     def __init__(self, num_ciudadanos, enfermedad, infectados, prom, prob):
         """
         Inicializa los valores de la clase Comunidad
-        
+
         Atributos:
             enfermedad [Enfermedad]: Enfermedad que esta en la comunidad
             num_ciudadanos [int]: Número de ciudadanos
@@ -24,7 +24,7 @@ class Comunidad():
             prob_coneccion_fisica [int]: Probabilidad de generar una coneccion fisica
             ciudadanos [list(Persona)]: Las personas de la comunidad
             familas [dict(Persona)]: Las personas de la comunidad agrupadas en familias
-            largo_id_familias [???]: @Felipe que es esta wea
+            largo_id_familias [int]: Cantidad de caracteres que tiene cada id de familia
             vacunados_inmunes [int]: Cantidad de gente que es inmune por la vacuna
         """
         self.__enfermedad = enfermedad
@@ -69,11 +69,11 @@ class Comunidad():
 
     def get_prob_contacto_estrecho(self):
         return self.__prob_coneccion_fisica
-    
+
 
     def get_vacunados_inmune(self):
         return self.__vacunados_inmune
-    
+
 
     def get_vacunados(self):
         return self.__vacunados
@@ -98,7 +98,7 @@ class Comunidad():
     def set_vacunados_inmune(self, vacunados_inmune):
         self.__vacunados_inmune = vacunados_inmune
 
-    
+
     def set_vacunados(self, vacunados):
         self.__vacunados = vacunados
 
@@ -106,10 +106,10 @@ class Comunidad():
     def contagiar_contacto_estrecho(self, persona):
         """
         Contagiar un ciudadano posiblemente cercano. Cuando el estado de "S" devuelve el _id
-        
+
         Argumentos:
             persona: Persona que esta enferma
-        
+
         Retorna:
             Un _id
         """
@@ -144,7 +144,7 @@ class Comunidad():
     def is_contacto_estrecho(self):
         """
         Determina si ehay probabilidad de coneccion fisica en un contacto estrecho
-        
+
         Retorna:
             True si el usuario estrecho, False si no lo es
         """
@@ -157,7 +157,7 @@ class Comunidad():
     def cantidad_conecciones(self):
         """
         Genera la cantidad de conexines que puede tener una persona
-        
+
         Retorna:
             La cantidad de conecciones
         """
@@ -171,11 +171,11 @@ class Comunidad():
     def generar_id(self, posicion, apellido, repeticion, aumento):
         """
         Genera el identificador de la persona segun su apellido y numero de generacion
-        
+
         Argumentos:
             i: El número de generación
             apellido: El algoritmo de la que se desea generar el identificador
-        
+
         Retorna:
             Un _id para una persona
         """

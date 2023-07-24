@@ -1,6 +1,6 @@
 import sys
 from time import sleep
-
+import concurrent.futures
 import gi
 import matplotlib
 gi.require_version('Gtk', '4.0')
@@ -10,7 +10,7 @@ from gi.repository import Gio, Gtk
 from simulacion import Simulacion
 from enfermedad import Enfermedad
 from comunidad import Comunidad
-from vacunas import Vacunas
+from vacuna import Vacuna
 from mensaje import Mensaje
 
 
@@ -100,7 +100,7 @@ class MainWindow(Gtk.ApplicationWindow):
         self.make_label("Poblacion enferma total<span foreground='yellow'><big> ◉ </big></span>Amarillo")
         self.make_label("Poblacion enferma nueva<span foreground='blue'><big> ◉ </big></span>Azul")
         self.make_label("Poblacion muerta total<span foreground='green'><big> ◉ </big></span>Verde")
-        self.make_label("Poblacion vacunada total<span foreground='purple'><big> ◉ </big></span>Cafe")
+        self.make_label("Poblacion vacunada total<span foreground='purple'><big> ◉ </big></span>Morado")
         self.make_label("Poblacion inmune por la vacuna<span foreground='brown'><big> ◉ </big></span>Cafe")
         # box de espacio
         self.box_espacio = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 10)
@@ -366,11 +366,19 @@ class MainWindow(Gtk.ApplicationWindow):
         total_vacunas = num_ciudadanos*int(self.entry_porc_vacunas.get_text())/100
         tasa = float(self.entry_tasa_vacunacion.get_text())
         inmunidades = [int(self.entry_porc_inmu_1.get_text()), int(self.entry_porc_inmu_2.get_text()), int(self.entry_porc_inmu_3.get_text())]
-        vacunas = Vacunas(inicio_vacunacion, total_vacunas, tasa, inmunidades)
+        distribucion_vacunas = [total_vacunas * 25 / 100, total_vacunas * 50 / 100,
+                                total_vacunas * 25 / 100]
+        vacunas = []
+        for i in range(3):
+            vacuna = Vacuna(distribucion_vacunas[i], inmunidades[i])
+            vacunas.append(vacuna)
+
         # Datos para la clase Simulacion
         dias_simulacion = int(self.entry_dias_simulacion.get_text())
-        simulacion = Simulacion(dias_simulacion, comunidad, enfermedad, vacunas)
-        simulacion.simular()
+        simulacion = Simulacion(dias_simulacion, comunidad, enfermedad,
+                                inicio_vacunacion, total_vacunas, tasa, vacunas)
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            executor.map(simulacion.simular())
         self.image.set_from_pixbuf(simulacion.mostrar_grafico())
 
 
