@@ -305,11 +305,11 @@ class MainWindow(Gtk.ApplicationWindow):
                 self.show_mensaje("Error",
                                   "'Día de inicio de vacunación' no puede ser mayor que 'Días de la simulación'.",
                                   True)
-            elif int(self.entry_tasa_vacunacion.get_text()) < 0:
+            elif float(self.entry_tasa_vacunacion.get_text()) < 0:
                 self.show_mensaje("Error",
                                   "'Tasa de vacunación' no puede ser menor que 0.",
                                   True)
-            elif int(self.entry_tasa_vacunacion.get_text()) > 100:
+            elif float(self.entry_tasa_vacunacion.get_text()) > 100:
                 self.show_mensaje("Error",
                                   "'Tasa de vacunación' no puede ser mayor que 100.",
                                   True)
