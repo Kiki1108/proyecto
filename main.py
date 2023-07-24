@@ -11,8 +11,7 @@ from simulacion import Simulacion
 from enfermedad import Enfermedad
 from comunidad import Comunidad
 from vacunas import Vacunas
-from mensaje import MensajeError
-from mensaje2 import MensajeInicio
+from mensaje import Mensaje
 
 
 class MainWindow(Gtk.ApplicationWindow):
@@ -103,7 +102,7 @@ class MainWindow(Gtk.ApplicationWindow):
         self.make_label("Poblacion muerta total<span foreground='green'><big> ◉ </big></span>Verde")
         self.make_label("Poblacion vacunada total<span foreground='purple'><big> ◉ </big></span>Cafe")
         self.make_label("Poblacion inmune por la vacuna<span foreground='brown'><big> ◉ </big></span>Cafe")
-        # box de espacio    
+        # box de espacio
         self.box_espacio = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 10)
         self.box_espacio.set_vexpand(True)
         self.data_box.append(self.box_espacio)
@@ -164,96 +163,185 @@ class MainWindow(Gtk.ApplicationWindow):
         """
         Tiene la funcion de generar una bandera para que se ingresen bien los datos
         """
+        # REALIZAR BIEN ESTA BANDERA
         if not self.entry_infeccion_probable.get_text().isnumeric():
-            self.show_mensaje_error("Se ingreso un valor no valido para 'infeccion probable'")
+            self.show_mensaje("Error",
+                            "Se ingreso un valor no numérico en: 'Probabilidad de infectar'.",
+                            True)
         elif not self.entry_infeccion_estrecho.get_text().isnumeric():
-            self.show_mensaje_error("Se ingreso un valor no valido para 'infeccion estrecho'")
+            self.show_mensaje("Error",
+                              "Se ingreso un valor no numérico en: 'Probabilidad de infectar a un contacto estrecho'.",
+                              True)
         elif not self.entry_promedio_pasos.get_text().isnumeric():
-            self.show_mensaje_error("Se ingreso un valor no valido para 'promedio de pasos'")
+            self.show_mensaje("Error",
+                              "Se ingreso un valor no numérico en: 'Promedio de pasos'.",
+                              True)
         elif not self.entry_mortalidad.get_text().isnumeric():
-            self.show_mensaje_error("Se ingreso un valor no valido para 'mortalidad'")
+            self.show_mensaje("Error",
+                              "Se ingreso un valor no numérico en: 'Mortalidad de la infección'.",
+                              True)
         elif not self.entry_num_ciudadanos.get_text().isnumeric():
-            self.show_mensaje_error("Se ingreso un valor no valido para 'numero de ciudadanos'")
+            self.show_mensaje("Error",
+                              "Se ingreso un valor no numérico en: 'Cantidad de ciudadanos en la comunidad'.",
+                              True)
         elif not self.entry_infectados.get_text().isnumeric():
-            self.show_mensaje_error("Se ingreso un valor no valido para 'numero de infectados iniciales'")
+            self.show_mensaje("Error",
+                              "Se ingreso un valor no numérico en: 'Cantidad de infectados iniciales'.",
+                              True)
         elif not self.entry_prom_coneccion_fisica.get_text().isnumeric():
-            self.show_mensaje_error("Se ingreso un valor no valido para 'promedio de coneccion fisicas'")
+            self.show_mensaje("Error",
+                              "Se ingreso un valor no numérico en: 'promedio de conexiones por persona'.",
+                              True)
         elif not self.entry_prob_coneccion_fisica.get_text().isnumeric():
-            self.show_mensaje_error("Se ingreso un valor no valido para 'probabilidad de coneccion fisica'")
+            self.show_mensaje("Error",
+                              "Se ingreso un valor no numérico en: 'Probabilidad de que la conexión sea estrecha'.",
+                              True)
         elif not self.entry_dias_simulacion.get_text().isnumeric():
-            self.show_mensaje_error("Se ingreso un valor no valido para 'cantidad de dias de la simulacion'")
+            self.show_mensaje("Error",
+                              "Se ingreso un valor no numérico en: 'Días de la simulacion'.",
+                              True)
         elif not self.entry_porc_vacunas.get_text().isnumeric():
-            self.show_mensaje_error("Se ingreso un valor no valido para 'Porcentaje de población a vacunar'")
+            self.show_mensaje("Error",
+                              "Se ingreso un valor no numérico en: 'Porcentaje de la población a vacunar'.",
+                              True)
         elif not self.entry_inicio_vacunacion.get_text().isnumeric():
-            self.show_mensaje_error("Se ingreso un valor no valido para 'Día de incio de vacunación'")
+            self.show_mensaje("Error",
+                              "Se ingreso un valor no numérico en: 'Día de inicio de la vacunación'.",
+                              True)
         elif not self.entry_tasa_vacunacion.get_text().isnumeric():
-            self.show_mensaje_error("Se ingreso un valor no valido para 'Tasa de vacunación'")
+            self.show_mensaje("Error",
+                              "Se ingreso un valor no numérico en: 'Tasa de vacunación'.",
+                              True)
         elif not self.entry_porc_inmu_1.get_text().isnumeric():
-            self.show_mensaje_error("Se ingreso un valor no valido para 'Porcentaje de inmunidad de la vacuna 1'")
+            self.show_mensaje("Error",
+                              "Se ingreso un valor no numérico en: 'Porcentaje de inmunidad de la vacuna 1'.",
+                              True)
         elif not self.entry_porc_inmu_2.get_text().isnumeric():
-            self.show_mensaje_error("Se ingreso un valor no valido para 'Porcentaje de inmunidad de la vacuna 2'")
+            self.show_mensaje("Error",
+                              "Se ingreso un valor no numérico en: 'Porcentaje de inmunidad de la vacuna 2'.",
+                              True)
         elif not self.entry_porc_inmu_3.get_text().isnumeric():
-            self.show_mensaje_error("Se ingreso un valor no valido para 'Porcentaje de inmunidad de la vacuna 3'")
+            self.show_mensaje("Error",
+                              "Se ingreso un valor no numérico en: 'Porcentaje de inmunidad de la vacuna 3'.",
+                              True)
         else:
             if int(self.entry_infeccion_probable.get_text()) > 100:
-                self.show_mensaje_error("Ese valor es muy alto, elija un numero menor o igual a 100")
-            elif int(self.entry_infeccion_probable.get_text()) < 1:
-                self.show_mensaje_error("Ese valor es muy bajo, elija un numero mayor o igual a 1")
+                self.show_mensaje("Error",
+                                  "'Probabilidad de infectar' no puede ser mayor que 100.",
+                                  True)
+            elif int(self.entry_infeccion_probable.get_text()) < 0:
+                self.show_mensaje("Error",
+                                  "'Probabilidad de infectar' no puede ser menor que 0.",
+                                  True)
             elif int(self.entry_infeccion_estrecho.get_text()) > 100:
-                self.show_mensaje_error("Ese valor es muy alto, elija un numero menor o igual a 100")
-            elif int(self.entry_infeccion_estrecho.get_text()) < 1:
-                self.show_mensaje_error("Ese valor es muy bajo, elija un numero mayor o igual a 1")
+                self.show_mensaje("Error",
+                                  "'Probabilidad de infectar a un contacto estrecho' no puede ser mayor que 100.",
+                                  True)
+            elif int(self.entry_infeccion_estrecho.get_text()) < 0:
+                self.show_mensaje("Error",
+                                  "'Probabilidad de infectar a un contacto estrecho' no puede ser menor que 0",
+                                  True)
             elif int(self.entry_promedio_pasos.get_text()) > 100:
-                self.show_mensaje_error("Ese valor es muy alto, elija un numero menor o igual a 100")
-            elif int(self.entry_promedio_pasos.get_text()) < 1:
-                self.show_mensaje_error("Ese valor es muy bajo, elija un numero mayor o igual a 1")
+                self.show_mensaje("Error",
+                                  "'Promedio de pasos' no puede ser mayor que 100.",
+                                  True)
+            elif int(self.entry_promedio_pasos.get_text()) < 0:
+                self.show_mensaje("Error",
+                                  "'Promedio de pasos' no puede ser menor que 0.",
+                                  True)
             elif int(self.entry_mortalidad.get_text()) > 100:
-                self.show_mensaje_error("Ese valor es muy alto, elija un numero menor o igual a 100")
-            elif int(self.entry_mortalidad.get_text()) < 1:
-                self.show_mensaje_error("Ese valor es muy bajo, elija un numero mayor o igual a 1")
+                self.show_mensaje("Error",
+                                  "'Mortalidad de la infección' no puede ser mayor que 100",
+                                  True)
+            elif int(self.entry_mortalidad.get_text()) < 0:
+                self.show_mensaje("Error",
+                                  "'Mortalidad de la infección' no puede ser menor que 0.",
+                                  True)
             elif int(self.entry_prom_coneccion_fisica.get_text()) > 100:
-                self.show_mensaje_error("Ese valor es muy alto, elija un numero menor o igual a 100")
-            elif int(self.entry_prom_coneccion_fisica.get_text()) < 1:
-                self.show_mensaje_error("Ese valor es muy bajo, elija un numero mayor o igual a 1")
+                self.show_mensaje("Error",
+                                  "'Promedio de conexiones por persona' no puede ser mayor que 100.",
+                                  True)
+            elif int(self.entry_prom_coneccion_fisica.get_text()) < 0:
+                self.show_mensaje("Error",
+                                  "'Promedio de conexiones por persona' no puede ser menor que 0.",
+                                  True)
             elif int(self.entry_prob_coneccion_fisica.get_text()) > 100:
-                self.show_mensaje_error("Ese valor es muy alto, elija un numero menor o igual a 100")
-            elif int(self.entry_prob_coneccion_fisica.get_text()) < 1:
-                self.show_mensaje_error("Ese valor es muy bajo, elija un numero mayor o igual a 1")
+                self.show_mensaje("Error",
+                                  "'Probabilidad de que la conexión sea estrecha' no puede ser mayor que 100.",
+                                  True)
+            elif int(self.entry_prob_coneccion_fisica.get_text()) < 0:
+                self.show_mensaje("Error",
+                                  "'Probabilidad de que la conexión sea estrecha' no puede ser menor que 0.",
+                                  True)
             elif int(self.entry_num_ciudadanos.get_text()) < 1:
-                self.show_mensaje_error("Se necesita de almenos 1 persona en la poblacion, elija un numero mayor")
+                self.show_mensaje("Error",
+                                  "'Cantidad de ciudadanos en la comunidad' no puede ser menor que 1.",
+                                  True)
             elif int(self.entry_infectados.get_text()) < 1:
-                self.show_mensaje_error("Se necesita de almenos 1 infectados, elija un numero mayor")
+                self.show_mensaje("Error",
+                                  "'Cantidad de infectados iniciales' no puede ser menor que 1.",
+                                  True)
             elif int(self.entry_infectados.get_text()) > int(self.entry_num_ciudadanos.get_text()):
-                self.show_mensaje_error("No pueden ser mas infetados iniciales que la misma cantidad de poblacion")
+                self.show_mensaje("Error",
+                                  "'Cantidad de infectados iniciales' no puede ser mayor que 'Cantidad de ciudadanos en la comunidad'.",
+                                  True)
             elif int(self.entry_dias_simulacion.get_text()) < 1:
-                self.show_mensaje_error("Se necesita al menos 1 día para realizar la simulación")
+                self.show_mensaje("Error",
+                                  "'Días de la simulación' no puede ser menor que 1.",
+                                  True)
+            elif int(self.entry_porc_vacunas.get_text()) < 0:
+                self.show_mensaje("Error",
+                                  "'Porcentaje de población a vacunar' no puede ser menor que 0.",
+                                  True)
             elif int(self.entry_porc_vacunas.get_text()) > 100:
-                self.show_mensaje_error("Ese valor es muy alto, elija un numero menor o igual a 100")
-            elif int(self.entry_porc_vacunas.get_text()) < 1:
-                self.show_mensaje_error("Ese valor es muy bajo, elija un numero mayor o igual a 1")
-            elif int(self.entry_inicio_vacunacion.get_text()) < 4:
-                self.show_mensaje_error("Ese valor es muy bajo, elija un numero mayor o igual a 4")
+                self.show_mensaje("Error",
+                                  "'Porcentaje de población a vacunar' no puede ser mayor que 100.",
+                                  True)
+            elif int(self.entry_inicio_vacunacion.get_text()) < 1:
+                self.show_mensaje("Error",
+                                  "'Día de inicio de vacunación' no puede ser menor que 1.",
+                                  True)
+            elif int(self.entry_inicio_vacunacion.get_text()) > int(self.entry_dias_simulacion.get_text()):
+                self.show_mensaje("Error",
+                                  "'Día de inicio de vacunación' no puede ser mayor que 'Días de la simulación'.",
+                                  True)
+            elif int(self.entry_tasa_vacunacion.get_text()) < 0:
+                self.show_mensaje("Error",
+                                  "'Tasa de vacunación' no puede ser menor que 0.",
+                                  True)
             elif int(self.entry_tasa_vacunacion.get_text()) > 100:
-                self.show_mensaje_error("Ese valor es muy alto, elija un numero menor o igual a 100")
-            elif int(self.entry_tasa_vacunacion.get_text()) < 1:
-                self.show_mensaje_error("Ese valor es muy bajo, elija un numero mayor o igual a 1")
+                self.show_mensaje("Error",
+                                  "'Tasa de vacunación' no puede ser mayor que 100.",
+                                  True)
+            elif int(self.entry_porc_inmu_1.get_text()) < 0:
+                self.show_mensaje("Error",
+                                  "'Porcentaje de inmunidad de la vacuna 1' no puede ser menor que 0.",
+                                  True)
             elif int(self.entry_porc_inmu_1.get_text()) > 100:
-                self.show_mensaje_error("Ese valor es muy alto, elija un numero menor o igual a 100")
-            elif int(self.entry_porc_inmu_1.get_text()) < 1:
-                self.show_mensaje_error("Ese valor es muy bajo, elija un numero mayor o igual a 1")
+                self.show_mensaje("Error",
+                                  "'Porcenje de inmunidad de la vacuna 1' no puede ser mayor que 100.",
+                                  True)
+            elif int(self.entry_porc_inmu_2.get_text()) < 0:
+                self.show_mensaje("Error",
+                                  "'Porcenje de inmunidad de la vacuna 2' no puede ser menor que 0.",
+                                  True)
             elif int(self.entry_porc_inmu_2.get_text()) > 100:
-                self.show_mensaje_error("Ese valor es muy alto, elija un numero menor o igual a 100")
-            elif int(self.entry_porc_inmu_2.get_text()) < 1:
-                self.show_mensaje_error("Ese valor es muy bajo, elija un numero mayor o igual a 1")
+                self.show_mensaje("Error",
+                                  "Porcenaje de inmunidad de la vacuna 2' no puede ser mayor que 100.",
+                                  True)
+            elif int(self.entry_porc_inmu_3.get_text()) < 0:
+                self.show_mensaje("Error",
+                                  "'Porcentaje de inmunidad de la vacuna 3' no puede ser menor que 0.",
+                                  True)
             elif int(self.entry_porc_inmu_3.get_text()) > 100:
-                self.show_mensaje_error("Ese valor es muy alto, elija un numero menor o igual a 100")
-            elif int(self.entry_porc_inmu_3.get_text()) < 1:
-                self.show_mensaje_error("Ese valor es muy bajo, elija un numero mayor o igual a 1")
+                self.show_mensaje("Error",
+                                  "'Porcentaje de inmunidad de la vacuna 3' no puede ser mayor que 100.",
+                                  True)
             else:
-                self.show_mensaje_inicio()
+                self.show_mensaje("Realizando simulación",
+                                  "Espere un momento por favor...", False)
                 self.iniciar_simulacion()
                 self.progreso.close()
-
 
     def iniciar_simulacion(self):
         """
@@ -286,9 +374,13 @@ class MainWindow(Gtk.ApplicationWindow):
         self.image.set_from_pixbuf(simulacion.mostrar_grafico())
 
 
-    def show_mensaje_error(self, texto):
-        mensaje = MensajeError(parent=self.get_root(), texto=texto)
-        mensaje.connect("response", self.on_mensaje_response)
+    def show_mensaje(self, title, texto, button):
+        mensaje = Mensaje(parent=self.get_root(), title=title, texto=texto,
+                          button=button)
+        if button:
+            mensaje.connect("response", self.on_mensaje_response)
+        else:
+            self.progreso = mensaje
         mensaje.set_visible(True)
 
 
@@ -296,11 +388,6 @@ class MainWindow(Gtk.ApplicationWindow):
         """Confirma que el usuario haya presionado el bótón para cerrar la ventana"""
         if response == Gtk.ResponseType.OK:
             dialog.close()
-
-
-    def show_mensaje_inicio(self):
-        self.progreso = MensajeInicio(parent=self.get_root())
-        self.progreso.set_visible(True)
 
 
 class MyApp(Gtk.Application):
