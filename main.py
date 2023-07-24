@@ -67,7 +67,7 @@ class MainWindow(Gtk.ApplicationWindow):
                                                             '7')
         # Entry 8 = Probabilidad de coneccion fisica
         self.entry_prob_coneccion_fisica = self.make_entry("Probabilidad de que la coneccion sea estrecha:",
-                                                            '40')
+                                                            '20')
         # Label titulo 3
         self.make_label_title("Valores de la Simulación")
         # Entry 9 = Cantidad de dias de la simulación
