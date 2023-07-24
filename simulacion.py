@@ -259,7 +259,7 @@ class Simulacion():
         ciudadanos = self.__comunidad.get_ciudadanos()
         for _ in range(cantidad_casos_0): # _ Representa cada caso inicial generado
             while True:
-                id = random.randint(0, cantidad_poblacion)
+                id = random.randint(0, cantidad_poblacion -1)
                 if ciudadanos[id].get_estado() == "S":
                     ciudadanos[id].set_estado("E")
                     ciudadanos[id].set_contador(self.__enfermedad.establecer_contador())
